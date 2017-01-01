@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Meta from 'vue-meta'
+import store from './../store'
 
 Vue.use(Router)
 Vue.use(Meta)
@@ -13,7 +14,17 @@ export default new Router({
   mode: 'history',
   scrollBehavior: () => ({ y: 0 }),
   routes: [
-    { path: '/top/:page(\\d+)?', component: createListView('top') },
+    {
+      path: '/top/:page(\\d+)?',
+      component: createListView('top'),
+      beforeEnter: (to, from, next) => {
+        if (store.getters.isUserLogin) {
+          next()
+        } else {
+          next({ path : '/new' })
+        }
+      }
+    },
     { path: '/new/:page(\\d+)?', component: createListView('new') },
     { path: '/show/:page(\\d+)?', component: createListView('show') },
     { path: '/ask/:page(\\d+)?', component: createListView('ask') },

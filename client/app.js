@@ -5,6 +5,10 @@ import router from './router'
 import { sync } from 'vuex-router-sync'
 import * as filters from './filters'
 
+if (typeof window !== 'undefined') {
+  store.replaceState(window.__INITIAL_STATE__)
+}
+
 // sync the router with the vuex store.
 // this registers `store.state.route`
 sync(store, router)

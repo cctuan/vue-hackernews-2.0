@@ -12,6 +12,9 @@ const isDev = process.env.NODE_ENV !== 'production'
 export default context => {
   const s = isDev && Date.now()
 
+  if (context.user) {
+    store.dispatch('LOGIN', context.user)
+  }
   // set router's location
   router.push(context.url)
   context.meta = meta
@@ -28,7 +31,7 @@ export default context => {
   // updated.
   return Promise.all(matchedComponents.map(component => {
     if (component.preFetch) {
-      return component.preFetch(store)
+      return component.preFetch(store, context, router)
     }
   })).then(() => {
     isDev && console.log(`data pre-fetch: ${Date.now() - s}ms`)

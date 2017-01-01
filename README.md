@@ -24,9 +24,12 @@ HackerNews clone built with Vue 2.0 + vue-router + vuex, with server-side render
 - Real-time List Updates with FLIP Animation
 
 ## GEORGE ADDED
-
 - add meta control
   - Integrate with vue-meta
+- add user auth
+  - Integrate with passport-facebook
+- able to do routeGuard
+  - able to use beforeEnter in vue-router
 
 ## Architecture Overview
 

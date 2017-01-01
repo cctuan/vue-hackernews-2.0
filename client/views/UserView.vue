@@ -33,7 +33,9 @@ export default {
       return this.$store.state.users[this.$route.params.id]
     }
   },
-  preFetch: fetchUser,
+  preFetch(store, context, router) {
+    return fetchUser(store)
+  },
   beforeMount () {
     fetchUser(this.$store)
   }

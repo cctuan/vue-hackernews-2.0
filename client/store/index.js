@@ -6,6 +6,8 @@ Vue.use(Vuex)
 
 const store = new Vuex.Store({
   state: {
+    isLogin: false,
+    user: null,
     activeType: null,
     itemsPerPage: 20,
     items: {/* [id: number]: Item */},
@@ -20,6 +22,14 @@ const store = new Vuex.Store({
   },
 
   actions: {
+    LOGIN: ({ commit }, user) => {
+      commit('USER_LOGIN', { user })
+    },
+
+    LOGOUT: ({ commit }) => {
+      commit('USER_LOGOUT')
+    },
+
     // ensure data for rendering given list type
     FETCH_LIST_DATA: ({ commit, dispatch, state }, { type }) => {
       commit('SET_ACTIVE_TYPE', { type })
@@ -64,6 +74,16 @@ const store = new Vuex.Store({
   },
 
   mutations: {
+    USER_LOGIN: (state, { user }) => {
+      state.user = user
+      state.isLogin = true
+    },
+
+    USER_LOGOUT: (state) => {
+      state.user = null
+      state.isLogin = false
+    },
+
     SET_ACTIVE_TYPE: (state, { type }) => {
       state.activeType = type
     },
@@ -104,6 +124,10 @@ const store = new Vuex.Store({
     // this Array may not be fully fetched.
     activeItems (state, getters) {
       return getters.activeIds.map(id => state.items[id]).filter(_ => _)
+    },
+
+    isUserLogin (state) {
+      return state.isLogin
     }
   }
 })
