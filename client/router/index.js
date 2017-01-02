@@ -53,7 +53,6 @@ export default new Router({
       path: '/login',
       component: LoginView,
       beforeEnter (to, from, next) {
-        console.log('login')
         if (store.getters.isUserLogin) {
           next({ path: '/' })
         } else {

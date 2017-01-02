@@ -14,7 +14,7 @@ const compression = require('compression')
 const serialize = require('serialize-javascript')
 const passport = require('passport')
 const pkg = require('./../package.json')
-
+const router = require('./routes')
 const {
   PORT,
   MONGO_URL
@@ -114,6 +114,8 @@ app.get('/auth/logout', (req, res) => {
   req.logout()
   res.json({})
 })
+
+app.use('/api', router)
 
 app.get('*', (req, res) => {
   if (!renderer) {
