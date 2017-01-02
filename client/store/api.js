@@ -1,5 +1,6 @@
 // this is aliased in webpack config based on server/client build
 import api from 'create-api'
+import axios from 'axios'
 
 // warm the front page cache every 15 min
 // make sure to do this only once across all requests
@@ -62,4 +63,8 @@ export function watchList (type, cb) {
   return () => {
     ref.off('value', handler)
   }
+}
+
+export function userLogout() {
+  return axios.get('/auth/logout')
 }

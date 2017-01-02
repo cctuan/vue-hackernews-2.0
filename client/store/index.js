@@ -1,11 +1,17 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import { fetchItems, fetchIdsByType, fetchUser } from './api'
+import {
+  fetchItems,
+  fetchIdsByType,
+  fetchUser,
+  userLogout
+} from './api'
 
 Vue.use(Vuex)
 
 const store = new Vuex.Store({
   state: {
+    hasVisited: false,
     isLogin: false,
     user: null,
     activeType: null,
@@ -22,12 +28,19 @@ const store = new Vuex.Store({
   },
 
   actions: {
+    VISIT: ({ commit }) => {
+      commit('HAS_VISITED')
+    },
     LOGIN: ({ commit }, user) => {
       commit('USER_LOGIN', { user })
     },
 
     LOGOUT: ({ commit }) => {
-      commit('USER_LOGOUT')
+      return userLogout()
+        .then(() => {
+          commit('USER_LOGOUT')
+          return Promise.resolve()
+        })
     },
 
     // ensure data for rendering given list type
@@ -74,6 +87,9 @@ const store = new Vuex.Store({
   },
 
   mutations: {
+    HAS_VISITED: (state) => {
+      state.hasVisited = true
+    },
     USER_LOGIN: (state, { user }) => {
       state.user = user
       state.isLogin = true
@@ -124,6 +140,10 @@ const store = new Vuex.Store({
     // this Array may not be fully fetched.
     activeItems (state, getters) {
       return getters.activeIds.map(id => state.items[id]).filter(_ => _)
+    },
+
+    isUserVisited (state) {
+      return state.hasVisited
     },
 
     isUserLogin (state) {

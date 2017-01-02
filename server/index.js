@@ -110,6 +110,11 @@ app.get('/auth/facebook/callback', passport.authenticate('facebook', {
   res.redirect('/')
 })
 
+app.get('/auth/logout', (req, res) => {
+  req.logout()
+  res.json({})
+})
+
 app.get('*', (req, res) => {
   if (!renderer) {
     return res.end('waiting for compilation... refresh in a moment.')
@@ -122,6 +127,9 @@ app.get('*', (req, res) => {
   let context = { url: req.url }
   if (req.user) {
     context.user = req.user
+  }
+  if (req.cookies.visited || req.user) {
+    context.visited = true
   }
   const renderStream = renderer.renderToStream(context)
 

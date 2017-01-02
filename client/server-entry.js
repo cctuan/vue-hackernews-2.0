@@ -15,6 +15,9 @@ export default context => {
   if (context.user) {
     store.dispatch('LOGIN', context.user)
   }
+  if (context.visited) {
+    store.dispatch('VISIT', true)
+  }
   // set router's location
   router.push(context.url)
   context.meta = meta
