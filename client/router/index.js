@@ -11,6 +11,7 @@ import ItemView from '../views/ItemView.vue'
 import UserView from '../views/UserView.vue'
 import LandingView from '../views/LandingView.vue'
 import LoginView from '../views/LoginView.vue'
+import MainView from '../views/MainView.vue'
 
 const routeGuard = (to, from, next) => {
   if (store.getters.isUserLogin) {
@@ -38,6 +39,7 @@ export default new Router({
     { path: '/item/:id(\\d+)', component: ItemView },
     { path: '/user/:id', component: UserView },
     { path: '/landing' , component: LandingView},
+    { path: '/main' , component: MainView },
     {
       path: '/logout',
       beforeEnter (to, from, next) {

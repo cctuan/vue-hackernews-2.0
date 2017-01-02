@@ -14,9 +14,10 @@ const fail = {
 };
 
 router.get('/post/:id', async(function *(req, res) {
-  let article = {}
+  let post = {}
   try {
-    article = yield PostModel.load(req.params.id)
+    post = yield PostModel.load(req.params.id)
+    req.post = post
   } catch (e) {
     res.status(400).json({
       status: 400,
@@ -26,7 +27,7 @@ router.get('/post/:id', async(function *(req, res) {
   }
   res.status(200).json({
     status: 200,
-    result: article,
+    result: post,
   })
 }))
 
@@ -37,10 +38,16 @@ router.get('/posts', async(function *(req, res) {
     limit: limit,
     page: page
   };
-  let articles = []
+
+  if (req.query.q) {
+    options.criteria = {
+      'name': new RegExp(req.query.q, 'i')
+    }
+  }
+  let posts = []
   let count = 0
   try {
-    articles = yield PostModel.list(options)
+    posts = yield PostModel.list(options)
     count = yield PostModel.count()
   } catch (e) {
     res.status(400).json({
@@ -52,7 +59,7 @@ router.get('/posts', async(function *(req, res) {
 
   res.status(200).json({
     status: 200,
-    result: articles,
+    result: posts,
     count: count,
     options: options
   })
@@ -60,9 +67,9 @@ router.get('/posts', async(function *(req, res) {
 
 
 router.post('/post', async(function *(req, res) {
-  const post = new PostModel(req.body);
   let result = {}
   try {
+    let post = new PostModel(req.body);
     result = yield post.uploadAndSave()
   } catch (e) {
     res.status(500).json({
@@ -78,9 +85,15 @@ router.post('/post', async(function *(req, res) {
 }))
 
 router.post('/post/:id', async(function *(req, res) {
-  const post = new PostModel(req.body);
-  // post.author = req.user
+  let result = {}
   try {
+    let post = {}
+    if (req.post) {
+      post = req.post
+    } else {
+      post = yield PostModel.load(req.params.id)
+    }
+    post = Object.assign(post, req.body)
     result = yield post.uploadAndSave()
   } catch (e) {
     res.status(500).json({

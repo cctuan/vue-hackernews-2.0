@@ -1,6 +1,9 @@
 // this is aliased in webpack config based on server/client build
 import api from 'create-api'
 import axios from 'axios'
+if (typeof window === 'undefined') {
+  axios.defaults.baseURL = 'http://localhost:5000'
+}
 
 // warm the front page cache every 15 min
 // make sure to do this only once across all requests
@@ -63,6 +66,27 @@ export function watchList (type, cb) {
   return () => {
     ref.off('value', handler)
   }
+}
+
+export function savePost(data, id = null) {
+  if (id) {
+    return axios.post(`/api/post/${id}`, data)
+  } else {
+    return axios.post(`/api/post`, data)
+  }
+}
+
+export function fetchPost(id) {
+  return axios.get(`/api/post/${id}`)
+}
+
+export function fetchPostList(query) {
+  const queryArray = Object.keys(query).map(key => {
+    let val = query[key]
+    return `${key}=${val}`
+  })
+  return axios.get('/api/posts' +
+    (queryArray.length > 0 ? ('?' + queryArray.join('&')) : ''))
 }
 
 export function userLogout() {

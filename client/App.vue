@@ -13,7 +13,8 @@ export default {
 
   computed: {
     shoudShowHeader () {
-      return ['/ask'].indexOf(this.$route.path) !== -1
+      return ['/ask', '/main', '/posts', '/post']
+        .indexOf(this.$route.path) !== -1
     }
   },
 }

@@ -4,7 +4,10 @@ import {
   fetchItems,
   fetchIdsByType,
   fetchUser,
-  userLogout
+  userLogout,
+  fetchPostList,
+  fetchPost,
+  savePost,
 } from './api'
 
 Vue.use(Vuex)
@@ -14,6 +17,15 @@ const store = new Vuex.Store({
     hasVisited: false,
     isLogin: false,
     user: null,
+
+    post: null,
+
+    posts: {
+      query : '',
+      total : 0,
+      page: 1,
+      list: []
+    },
     activeType: null,
     itemsPerPage: 20,
     items: {/* [id: number]: Item */},
@@ -43,6 +55,29 @@ const store = new Vuex.Store({
         })
     },
 
+    FETCH_LIST_POST: ({commit, dispatch, state}, {query = {}}) => {
+      return fetchPostList(query)
+        .then(response => {
+          if (response.status === 200 && response.data.status === 200) {
+            const {result , options, count} = response.data
+            return commit('SET_POSTS', {
+              list : result,
+              page : options.page,
+              count : count
+            })
+          }
+        })
+    },
+
+    FETCH_POST: ({commit}, {id}) => {
+      return fetchPost(id)
+        .then(response => {
+          if (response.status === 200 && response.data.status === 200) {
+            return commit('SET_POST', response.data.result)
+          }
+        })
+    },
+
     // ensure data for rendering given list type
     FETCH_LIST_DATA: ({ commit, dispatch, state }, { type }) => {
       commit('SET_ACTIVE_TYPE', { type })
@@ -56,6 +91,15 @@ const store = new Vuex.Store({
       return dispatch('FETCH_ITEMS', {
         ids: getters.activeIds
       })
+    },
+
+    SAVE_POST: ({commit, state}, {post, id}) => {
+      return savePost(post, id)
+        .then(response => {
+          if (response.status === 200 && response.data.status === 200) {
+            return commit('SET_POST', response.data.result)
+          }
+        })
     },
 
     FETCH_ITEMS: ({ commit, state }, { ids }) => {
@@ -104,6 +148,16 @@ const store = new Vuex.Store({
       state.activeType = type
     },
 
+    SET_POSTS : (state , { list, page, count }) => {
+      state.posts.page = page
+      state.posts.total = count
+      state.posts.list = list
+    },
+
+    SET_POST : (state, post) => {
+      state.post = post
+    },
+
     SET_LIST: (state, { type, ids }) => {
       state.lists[type] = ids
     },
@@ -134,6 +188,18 @@ const store = new Vuex.Store({
       } else {
         return []
       }
+    },
+
+    activePost (state) {
+      return state.post
+    },
+
+    activePosts (state) {
+      return state.posts.list
+    },
+
+    totalPosts (state) {
+      return state.posts.total
     },
 
     // items that should be currently displayed.
