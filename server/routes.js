@@ -1,6 +1,7 @@
 'use strict';
 
 const express = require('express')
+const mongoose = require('mongoose')
 /*
  * Module dependencies.
  */
@@ -12,6 +13,14 @@ const router = express.Router()
 const fail = {
   failureRedirect: '/login'
 };
+
+const authCheck = (req, res, next) => {
+  if (req.isAuthenticated()) {
+    return next()
+  } else {
+    res.redirect('/');
+  }
+}
 
 router.get('/post/:id', async(function *(req, res) {
   let post = {}
@@ -31,24 +40,33 @@ router.get('/post/:id', async(function *(req, res) {
   })
 }))
 
-router.get('/posts', async(function *(req, res) {
+router.get('/posts', authCheck, async(function *(req, res) {
+
   const page = (req.query.page > 0 ? req.query.page : 1) - 1;
-  const limit = 30;
+  const limit = 30
   const options = {
     limit: limit,
-    page: page
-  };
-
-  if (req.query.q) {
-    options.criteria = {
-      'name': new RegExp(req.query.q, 'i')
+    page: page,
+    criteria : {
+      // testing
+      'author' : new mongoose.Types.ObjectId('58335eef36ef1b1607ca3781')//req.user._id
     }
   }
+
+  if (req.query.q) {
+    options.criteria['name'] = new RegExp(req.query.q, 'i')
+  }
+
   let posts = []
   let count = 0
   try {
     posts = yield PostModel.list(options)
-    count = yield PostModel.count()
+    count = yield PostModel.count({
+      'author' : new mongoose.Types.ObjectId('58335eef36ef1b1607ca3781')//req.user._id
+    })
+    console.log(posts, 'posts')
+    console.log(count, 'count')
+
   } catch (e) {
     res.status(400).json({
       status: 400,
@@ -66,7 +84,7 @@ router.get('/posts', async(function *(req, res) {
 }))
 
 
-router.post('/post', async(function *(req, res) {
+router.post('/post', authCheck, async(function *(req, res) {
   let result = {}
   try {
     let post = new PostModel(req.body);
@@ -84,7 +102,7 @@ router.post('/post', async(function *(req, res) {
   })
 }))
 
-router.post('/post/:id', async(function *(req, res) {
+router.post('/post/:id', authCheck, async(function *(req, res) {
   let result = {}
   try {
     let post = {}
@@ -92,6 +110,10 @@ router.post('/post/:id', async(function *(req, res) {
       post = req.post
     } else {
       post = yield PostModel.load(req.params.id)
+    }
+    if (req.post.author !== req.query.user._id) {
+      res.redirect('/')
+      return
     }
     post = Object.assign(post, req.body)
     result = yield post.uploadAndSave()

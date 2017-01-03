@@ -1,0 +1,22 @@
+{
+  "name": "drink-vue",
+  "version": "0.0.0",
+  "homepage": "null",
+  "authors": [
+    "George Duan"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "public",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bower": "*",
+    "framework7": "~1.5.2",
+    "install": "~1.0.4"
+  }
+}

@@ -69,7 +69,7 @@ const store = new Vuex.Store({
         })
     },
 
-    FETCH_POST: ({commit}, {id}) => {
+    FETCH_POST: ({commit}, id) => {
       return fetchPost(id)
         .then(response => {
           if (response.status === 200 && response.data.status === 200) {

@@ -4,6 +4,7 @@
   "author": "Evan You <yyx990803@gmail.com>",
   "private": true,
   "scripts": {
+    "postinstall": "bower install",
     "dev": "NODE_PATH=./ nodemon server",
     "start": "cross-env NODE_PATH=./ NODE_ENV=production node server",
     "build": "rimraf dist && npm run build:client && npm run build:server",
@@ -44,6 +45,7 @@
   },
   "devDependencies": {
     "autoprefixer": "^6.5.3",
+    "bower": "^1.8.0",
     "buble": "^0.15.1",
     "buble-loader": "^0.4.0",
     "css-loader": "^0.26.0",

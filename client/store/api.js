@@ -1,5 +1,5 @@
 // this is aliased in webpack config based on server/client build
-import api from 'create-api'
+// import api from 'create-api'
 import axios from 'axios'
 if (typeof window === 'undefined') {
   axios.defaults.baseURL = 'http://localhost:5000'
@@ -7,11 +7,12 @@ if (typeof window === 'undefined') {
 
 // warm the front page cache every 15 min
 // make sure to do this only once across all requests
+/**
 if (api.onServer && !api.warmCacheStarted) {
   api.warmCacheStarted = true
   warmCache()
 }
-
+**/
 function warmCache () {
   fetchItems((api.cachedIds.top || []).slice(0, 30))
   setTimeout(warmCache, 1000 * 60 * 15)

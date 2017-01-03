@@ -12,6 +12,8 @@ import UserView from '../views/UserView.vue'
 import LandingView from '../views/LandingView.vue'
 import LoginView from '../views/LoginView.vue'
 import MainView from '../views/MainView.vue'
+import PostView from '../views/PostView.vue'
+
 
 const routeGuard = (to, from, next) => {
   if (store.getters.isUserLogin) {
@@ -38,8 +40,19 @@ export default new Router({
     { path: '/job/:page(\\d+)?', component: createListView('job') },
     { path: '/item/:id(\\d+)', component: ItemView },
     { path: '/user/:id', component: UserView },
-    { path: '/landing' , component: LandingView},
-    { path: '/main' , component: MainView },
+    {
+      path: '/post/:id',
+      component: PostView
+    },
+    {
+      path: '/landing' ,
+      component: LandingView
+    },
+    {
+      path: '/main' ,
+      component: MainView,
+      beforeEnter: routeGuard
+    },
     {
       path: '/logout',
       beforeEnter (to, from, next) {
@@ -64,7 +77,7 @@ export default new Router({
     },
     {
       path: '/',
-      redirect: '/top',
+      redirect: '/main',
       beforeEnter: routeGuard
     }
   ]

@@ -1,7 +1,11 @@
 <template>
   <div id="app" v-bind:class="{'with-header' : shoudShowHeader}">
     <app-header v-if="shoudShowHeader" />
-    <router-view class="view"></router-view>
+    <transition name="fade" mode="out-in">
+      <keep-alive>
+        <router-view class="view"></router-view>
+      </keep-alive>
+    </transition>
   </div>
 </template>
 <script>
@@ -10,11 +14,15 @@ import AppHeader from './components/AppHeader.vue'
 export default {
   name: 'app',
   components: { AppHeader },
-
+  metaInfo: {
+    link: [
+      {rel: 'stylesheet', href: '/public/vendor/framework7/dist/css/framework7.material.min.css'}
+    ]
+  },
   computed: {
     shoudShowHeader () {
       return ['/ask', '/main', '/posts', '/post']
-        .indexOf(this.$route.path) !== -1
+        .some(path => this.$route.path.indexOf(path) !== -1)
     }
   },
 }
