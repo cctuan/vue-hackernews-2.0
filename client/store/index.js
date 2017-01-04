@@ -16,9 +16,9 @@ const store = new Vuex.Store({
   state: {
     hasVisited: false,
     isLogin: false,
-    user: null,
+    user: {},
 
-    post: null,
+    post: {},
 
     posts: {
       query : '',
@@ -214,6 +214,10 @@ const store = new Vuex.Store({
 
     isUserLogin (state) {
       return state.isLogin
+    },
+
+    activeUserId (state) {
+      return state.user._id
     }
   }
 })

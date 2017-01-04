@@ -49,7 +49,7 @@ router.get('/posts', authCheck, async(function *(req, res) {
     page: page,
     criteria : {
       // testing
-      'author' : new mongoose.Types.ObjectId('58335eef36ef1b1607ca3781')//req.user._id
+      'author' : req.user._id
     }
   }
 
@@ -62,10 +62,8 @@ router.get('/posts', authCheck, async(function *(req, res) {
   try {
     posts = yield PostModel.list(options)
     count = yield PostModel.count({
-      'author' : new mongoose.Types.ObjectId('58335eef36ef1b1607ca3781')//req.user._id
+      'author' : req.user._id
     })
-    console.log(posts, 'posts')
-    console.log(count, 'count')
 
   } catch (e) {
     res.status(400).json({
@@ -80,6 +78,24 @@ router.get('/posts', authCheck, async(function *(req, res) {
     result: posts,
     count: count,
     options: options
+  })
+}))
+
+router.post('/post/auth', authCheck, async(function *(req, res) {
+  let isAuth = false
+  try {
+    const post = yield PostModel.load(req.body.postId)
+    isAuth = post.author.toString() === (req.user ? req.user._id.toString() : '')
+  } catch (e) {
+    res.status(500).json({
+      status: 500,
+      result: e
+    })
+    return
+  }
+  res.status(200).json({
+    status: 200,
+    isAuth
   })
 }))
 

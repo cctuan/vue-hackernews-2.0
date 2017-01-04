@@ -1,6 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Meta from 'vue-meta'
+import {
+  userHasAuthorizedEdit
+} from './../store/api'
 import store from './../store'
 
 Vue.use(Router)
@@ -13,6 +16,7 @@ import LandingView from '../views/LandingView.vue'
 import LoginView from '../views/LoginView.vue'
 import MainView from '../views/MainView.vue'
 import PostView from '../views/PostView.vue'
+import EditView from '../views/EditView.vue'
 
 
 const routeGuard = (to, from, next) => {
@@ -40,6 +44,35 @@ export default new Router({
     { path: '/job/:page(\\d+)?', component: createListView('job') },
     { path: '/item/:id(\\d+)', component: ItemView },
     { path: '/user/:id', component: UserView },
+    {
+      path: '/post/:id?/edit',
+      component: EditView,
+      beforeEnter (to, from, next) {
+        // console.log(to, 'to')
+        if (store.getters.isUserLogin) {
+          if (to.params && to.params.id) {
+            userHasAuthorizedEdit({
+              postId : to.params.id
+            }).then(isAuth => {
+              if (isAuth) {
+                next()
+              } else {
+                next({ path: '/'})
+              }
+            }).catch(e => {
+              next({ path: '/' })
+            })
+          } else {
+            next()
+          }
+          next()
+        } else if (store.getters.isUserVisited) {
+          next({ path: '/login' })
+        } else {
+          next({ path: '/landing' })
+        }
+      }
+    },
     {
       path: '/post/:id',
       component: PostView

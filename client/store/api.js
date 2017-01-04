@@ -93,3 +93,14 @@ export function fetchPostList(query) {
 export function userLogout() {
   return axios.get('/auth/logout')
 }
+
+export function userHasAuthorizedEdit({postId}) {
+  return axios.post('/api/post/auth', {postId})
+    .then(response => {
+      if (response.status === 200 && response.data.status === 200) {
+        return response.data.isAuth
+      } else {
+        return false
+      }
+    })
+}
