@@ -13,7 +13,7 @@
         <div class="col-30">
           <div class="bottom-line">
             <span><a>刪除</a></span>
-            <span><a>編輯</a></span>
+            <span><router-link :to="`/post/${post._id}/edit`">編輯</router-link></span>
           </div>
         </div>
       </div>

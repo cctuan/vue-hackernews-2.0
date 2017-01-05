@@ -98,7 +98,10 @@ export function userHasAuthorizedEdit({postId}) {
   return axios.post('/api/post/auth', {postId})
     .then(response => {
       if (response.status === 200 && response.data.status === 200) {
-        return response.data.isAuth
+        return {
+          isAuth: response.data.isAuth,
+          post: response.data.post
+        }
       } else {
         return false
       }

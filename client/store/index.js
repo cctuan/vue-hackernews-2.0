@@ -15,6 +15,8 @@ Vue.use(Vuex)
 const store = new Vuex.Store({
   state: {
     hasVisited: false,
+    // when user try to edit a post , server will give a auth value
+    isAuthorized: false,
     isLogin: false,
     user: {},
 
@@ -53,6 +55,14 @@ const store = new Vuex.Store({
           commit('USER_LOGOUT')
           return Promise.resolve()
         })
+    },
+
+    AUTHORIZE_USER : ({ commit }, isAuth) => {
+      commit('SET_AUTH', isAuth)
+    },
+
+    UPDATE_CURRENT_POST: ({ commit }, post = {}) => {
+      commit('SET_POST', post)
     },
 
     FETCH_LIST_POST: ({commit, dispatch, state}, {query = {}}) => {
@@ -154,6 +164,10 @@ const store = new Vuex.Store({
       state.posts.list = list
     },
 
+    SET_AUTH : (state, isAuth) => {
+      state.isAuthorized = isAuth
+    },
+
     SET_POST : (state, post) => {
       state.post = post
     },
@@ -214,6 +228,10 @@ const store = new Vuex.Store({
 
     isUserLogin (state) {
       return state.isLogin
+    },
+
+    isAuthorized (state) {
+      return state.isAuthorized
     },
 
     activeUserId (state) {

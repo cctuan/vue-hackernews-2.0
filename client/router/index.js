@@ -50,26 +50,9 @@ export default new Router({
       beforeEnter (to, from, next) {
         // console.log(to, 'to')
         if (store.getters.isUserLogin) {
-          if (to.params && to.params.id) {
-            userHasAuthorizedEdit({
-              postId : to.params.id
-            }).then(isAuth => {
-              if (isAuth) {
-                next()
-              } else {
-                next({ path: '/'})
-              }
-            }).catch(e => {
-              next({ path: '/' })
-            })
-          } else {
-            next()
-          }
           next()
-        } else if (store.getters.isUserVisited) {
-          next({ path: '/login' })
         } else {
-          next({ path: '/landing' })
+          next(from)
         }
       }
     },

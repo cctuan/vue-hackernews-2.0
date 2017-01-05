@@ -83,8 +83,9 @@ router.get('/posts', authCheck, async(function *(req, res) {
 
 router.post('/post/auth', authCheck, async(function *(req, res) {
   let isAuth = false
+  let post = {}
   try {
-    const post = yield PostModel.load(req.body.postId)
+    post = yield PostModel.load(req.body.postId)
     isAuth = post.author.toString() === (req.user ? req.user._id.toString() : '')
   } catch (e) {
     res.status(500).json({
@@ -95,7 +96,8 @@ router.post('/post/auth', authCheck, async(function *(req, res) {
   }
   res.status(200).json({
     status: 200,
-    isAuth
+    isAuth,
+    post
   })
 }))
 
