@@ -1,11 +1,13 @@
 <template>
-  <div id="app" v-bind:class="{'with-header' : shoudShowHeader}">
+  <div id="app" class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
     <app-header v-if="shoudShowHeader" />
-    <transition name="fade" mode="out-in">
-      <keep-alive>
-        <router-view class="view"></router-view>
-      </keep-alive>
-    </transition>
+    <main class="mdl-layout__content">
+      <transition name="fade" mode="out-in">
+        <keep-alive>
+          <router-view class="view"></router-view>
+        </keep-alive>
+      </transition>
+    </main>
   </div>
 </template>
 <script>
@@ -16,7 +18,6 @@ export default {
   components: { AppHeader },
   metaInfo: {
     link: [
-      {rel: 'stylesheet', href: '/public/vendor/framework7/dist/css/framework7.material.min.css'}
     ]
   },
   computed: {
@@ -29,54 +30,4 @@ export default {
 </script>
 <style lang="css">
 
-html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
-del, dfn, em, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
-b, u, i, center,
-dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed,
-figure, figcaption, footer, header, hgroup,
-menu, nav, output, ruby, section, summary,
-time, mark, audio, video {
-	margin: 0;
-	padding: 0;
-	border: 0;
-	font-size: 100%;
-	font: inherit;
-	vertical-align: baseline;
-}
-/* HTML5 display-role reset for older browsers */
-article, aside, details, figcaption, figure,
-footer, header, hgroup, menu, nav, section {
-	display: block;
-}
-body {
-	line-height: 1;
-}
-ol, ul {
-	list-style: none;
-}
-blockquote, q {
-	quotes: none;
-}
-blockquote:before, blockquote:after,
-q:before, q:after {
-	content: '';
-	content: none;
-}
-table {
-	border-collapse: collapse;
-	border-spacing: 0;
-}
-#app {
-  height: 100%
-}
-
-#app.with-header {
-  margin-top: 55px
-}
 </style>

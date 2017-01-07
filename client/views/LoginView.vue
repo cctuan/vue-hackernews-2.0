@@ -1,6 +1,8 @@
 <template>
   <div class="landing-view">
-    <a href="/auth/facebook"><button>FACEBOOK LOGIN</button></a>
+    <a href="/auth/facebook">
+      <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">FACEBOOK LOGIN</button>
+    </a>
   </div>
 </template>
 

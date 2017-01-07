@@ -15,8 +15,11 @@ import UserView from '../views/UserView.vue'
 import LandingView from '../views/LandingView.vue'
 import LoginView from '../views/LoginView.vue'
 import MainView from '../views/MainView.vue'
+import MainPostView from '../views/MainPostView.vue'
 import PostView from '../views/PostView.vue'
 import EditView from '../views/EditView.vue'
+import QuickEditView from '../views/QuickEditView.vue'
+import PreviewEditView from '../views/PreviewEditView.vue'
 
 
 const routeGuard = (to, from, next) => {
@@ -45,20 +48,36 @@ export default new Router({
     { path: '/item/:id(\\d+)', component: ItemView },
     { path: '/user/:id', component: UserView },
     {
-      path: '/post/:id?/edit',
-      component: EditView,
-      beforeEnter (to, from, next) {
-        // console.log(to, 'to')
-        if (store.getters.isUserLogin) {
-          next()
-        } else {
-          next(from)
+      path: '/post/:id?',
+      component: MainPostView,
+      children: [
+        {
+          path: 'edit',
+          component: EditView,
+          beforeEnter (to, from, next) {
+            // console.log(to, 'to')
+            if (store.getters.isUserLogin) {
+              next()
+            } else {
+              next(from)
+            }
+          },
+          children: [
+            {
+              path: 'preview',
+              component: PreviewEditView
+            },
+            {
+              path: '',
+              component: QuickEditView
+            }
+          ]
+        },
+        {
+          path: '',
+          component: PostView
         }
-      }
-    },
-    {
-      path: '/post/:id',
-      component: PostView
+      ]
     },
     {
       path: '/landing' ,

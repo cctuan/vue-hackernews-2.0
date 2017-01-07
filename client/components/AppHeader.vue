@@ -1,20 +1,12 @@
 <template>
-  <div class="header">
-    <div class="inner">
-      <router-link to="/" exact>
-        <img class="logo" src="~public/logo-48.png" alt="logo">
-      </router-link>
-      <router-link to="/top">Top</router-link>
-      <router-link to="/new">New</router-link>
-      <router-link to="/show">Show</router-link>
-      <router-link to="/ask">Ask</router-link>
-      <router-link to="/job">Jobs</router-link>
-      <router-link to="/logout">Logout</router-link>
-      <a class="github" href="https://github.com/vuejs/vue-hackernews-2.0" target="_blank">
-        Built with Vue.js
-      </a>
+  <header class="mdl-layout__header">
+    <div class="mdl-layout__drawer-button">
+      <i class="material-icons"></i>
     </div>
-  </div>
+    <div class="mdl-layout__header-row">
+      <span class="mdl-layout-title">Theme Preview</span>
+    </div>
+  </header>
 </template>
 
 <script>

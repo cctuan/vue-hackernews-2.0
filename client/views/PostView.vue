@@ -42,23 +42,14 @@
 </template>
 
 <script>
-
-function fetchItem (store) {
-  return store.dispatch('FETCH_POST', store.state.route.params.id)
-}
-
+import {
+  isValidMongoId
+} from '../utility'
 export default {
   name: 'post-view',
   components: {},
-  computed: {
-    post () {
-      return this.$store.getters.activePost
-    }
-  },
-
-  preFetch: fetchItem,
-  beforeMount () {
-    fetchItem(this.$store)
+  props: {
+    post: {}
   },
   updated() {
     this.$el.querySelectorAll('._lazy').forEach(item => {

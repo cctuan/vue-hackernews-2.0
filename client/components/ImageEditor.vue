@@ -37,6 +37,17 @@ export default {
   beforeMount () {
   },
   mounted() {
+    console.log('test')
+    const item = this.$el
+    let img = document.createElement('img')
+    img.onload = () => {
+      item.style.backgroundImage = `url(${img.src})`
+      item.classList.remove('lazy')
+    }
+    img.onerror = () => {
+      item.classList.remove('lazy')
+    }
+    img.src = item.getAttribute('data-image')
   },
   updated() {
     const item = this.$el

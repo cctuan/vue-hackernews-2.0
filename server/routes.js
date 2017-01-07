@@ -36,7 +36,10 @@ router.get('/post/:id', async(function *(req, res) {
   }
   res.status(200).json({
     status: 200,
-    result: post,
+    result: {
+      post,
+      isAuth: req.user ? post.author === req.user._id : false
+    },
   })
 }))
 

@@ -41,6 +41,9 @@ module.exports = {
           objectAssign: 'Object.assign'
         }
       },
+      { test: /\.css$/, loader: "style-loader!css-loader" },
+      { test: /\.png$/, loader: "url-loader?limit=100000" },
+      { test: /\.jpg$/, loader: "file-loader" },
       {
         test: /\.(png|jpg|gif|svg)$/,
         loader: 'url-loader',

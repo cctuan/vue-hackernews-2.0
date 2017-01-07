@@ -1,19 +1,23 @@
 
-module.exports = {
-  1 : {
+module.exports = [
+  {
     'en' : 'Beer',
-    'zh' : ''
+    'zh' : '',
+    val : 1
   },
-  2 : {
+  {
     'en' : 'Wine',
-    'zh' : ''
+    'zh' : '',
+    val : 2
   },
-  3 : {
+  {
     'en' : 'Red Wine',
-    'zh' : ''
+    'zh' : '',
+    val: 3
   },
-  4 : {
+  {
     'en' : 'Whisky',
-    'zh' : ''
+    'zh' : '',
+    val: 4
   }
-}
+]

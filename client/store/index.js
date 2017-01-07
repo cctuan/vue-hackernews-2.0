@@ -20,7 +20,39 @@ const store = new Vuex.Store({
     isLogin: false,
     user: {},
 
-    post: {},
+    post: {
+      type: null,
+      name: null,
+      description_s: null,
+      rating: null,
+      thumb: {
+        theme: null,
+        original: null,
+        url: null
+      },
+      meta: {
+        nose: {
+          type: {},
+          strong: null
+        },
+        taste: {
+          type: {},
+          wine_body: null,
+          tannin: null,
+          sweetness: null,
+          acid: null
+        },
+        other: {
+          price: null,
+          year: null,
+          description: null,
+          matury: null
+        },
+        color: null,
+        clarity: null
+      },
+      author: null
+    },
 
     posts: {
       query : '',
@@ -83,7 +115,8 @@ const store = new Vuex.Store({
       return fetchPost(id)
         .then(response => {
           if (response.status === 200 && response.data.status === 200) {
-            return commit('SET_POST', response.data.result)
+            commit('SET_AUTH', response.data.result.isAuth)
+            return commit('SET_POST', response.data.result.post)
           }
         })
     },
@@ -103,8 +136,8 @@ const store = new Vuex.Store({
       })
     },
 
-    SAVE_POST: ({commit, state}, {post, id}) => {
-      return savePost(post, id)
+    SAVE_POST: ({commit, state}, {}) => {
+      return savePost(state.post, state.post._id)
         .then(response => {
           if (response.status === 200 && response.data.status === 200) {
             return commit('SET_POST', response.data.result)
@@ -169,7 +202,7 @@ const store = new Vuex.Store({
     },
 
     SET_POST : (state, post) => {
-      state.post = post
+      state.post = Object.assign(state.post, post)
     },
 
     SET_LIST: (state, { type, ids }) => {
