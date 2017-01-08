@@ -56,6 +56,15 @@ const store = new Vuex.Store({
     isLogin: false,
     user: {},
 
+    header: {
+      rightClicked: false,
+      leftClicked: false,
+      left: null,
+      center: null,
+      right: null,
+      overlap: false,
+    },
+
     post: createInitialPost(),
 
     posts: {
@@ -83,6 +92,18 @@ const store = new Vuex.Store({
     },
     LOGIN: ({ commit }, user) => {
       commit('USER_LOGIN', { user })
+    },
+
+    SET_HEADER: ({commit}, config) => {
+      commit('SET_HEADER', config)
+    },
+
+    HEADER_LEFT_CLICK: ({commit, state}) => {
+      commit('CLICK_HEADER_LEFT')
+    },
+
+    HEADER_RIGHT_CLICK: ({commit, state}) => {
+      commit('CLICK_HEADER_RIGHT')
     },
 
     LOGOUT: ({ commit }) => {
@@ -191,6 +212,21 @@ const store = new Vuex.Store({
       state.isLogin = true
     },
 
+    CLICK_HEADER_LEFT: (state) => {
+      state.header.leftClicked = !state.header.leftClicked
+    },
+
+    CLICK_HEADER_RIGHT: (state) => {
+      state.header.rightClicked = !state.header.rightClicked
+    },
+
+    SET_HEADER: (state, {center = '', left = null, right = null, overlap = false}) => {
+      state.header.left = left
+      state.header.center = center
+      state.header.right = right
+      state.header.overlap = overlap
+    },
+
     USER_LOGOUT: (state) => {
       state.user = null
       state.isLogin = false
@@ -236,6 +272,30 @@ const store = new Vuex.Store({
   },
 
   getters: {
+    headerLeftClick (state) {
+      return state.header.leftClicked
+    },
+
+    headerRightClick (state) {
+      return state.header.rightClicked
+    },
+
+    activeHeaderOverlap (state) {
+      return state.header.overlap
+    },
+
+    activeHeaderTitle (state) {
+      return state.header.center || ''
+    },
+
+    activeHeaderLeft (state) {
+      return state.header.left
+    },
+
+    activeHeaderRight (state) {
+      return state.header.right
+    },
+
     // ids of the items that should be currently displayed based on
     // current list type and current pagination
     activeIds (state) {

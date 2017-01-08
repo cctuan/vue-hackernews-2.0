@@ -27,11 +27,24 @@ export default {
     },
     hasPost() {
       return this.$store.getters.totalPosts > 0
+    },
+    leftHeaderClick() {
+      return this.$store.getters.headerLeftClick
+    },
+    rightHeaderClick() {
+      return this.$store.getters.headerRightClick
     }
   },
   preFetch: fetchItems,
+  watch: {
+    rightHeaderClick() {
+      this.$router.push('edit/new')
+    }
+  },
   beforeMount () {
     fetchItems(this.$store)
+  },
+  mounted () {
   },
   updated() {
     this.$el.querySelectorAll('._lazy').forEach(item => {

@@ -18,11 +18,12 @@ export default {
   components: { AppHeader },
   metaInfo: {
     link: [
+      {rel: 'stylesheet', href: 'https://fonts.googleapis.com/icon?family=Material+Icons'}
     ]
   },
   computed: {
     shoudShowHeader () {
-      return ['/ask', '/main', '/posts', '/post']
+      return ['/ask', '/main', '/posts', '/post', '/edit']
         .some(path => this.$route.path.indexOf(path) !== -1)
     }
   },

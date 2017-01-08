@@ -47,35 +47,56 @@ export default new Router({
     { path: '/job/:page(\\d+)?', component: createListView('job') },
     { path: '/item/:id(\\d+)', component: ItemView },
     { path: '/user/:id', component: UserView },
+    // NEED INVESTIGATING
+    // if edit subpath is also under post path
+    // the edit main view will not be replace if /post -> /post/edit/ or
+    // /post/edit -> /post/:id
+    // so I separate these two view...
     {
-      path: '/post/:id?',
+      path: '/post/:id',
       component: MainPostView,
       children: [
         {
-          path: 'edit',
-          component: EditView,
-          beforeEnter (to, from, next) {
-            // console.log(to, 'to')
-            if (store.getters.isUserLogin) {
-              next()
-            } else {
-              next(from)
-            }
+          path: 'view',
+          component: PostView,
+          beforeEnter(to, from, next) {
+            store.dispatch('SET_HEADER', {
+              center: '',
+              left: 'arrow_back',
+              right: 'menu',
+            })
+            next()
           },
-          children: [
-            {
-              path: 'preview',
-              component: PreviewEditView
-            },
-            {
-              path: '',
-              component: QuickEditView
-            }
-          ]
         },
+      ]
+    },
+    {
+      path: '/edit/:id?',
+      component: EditView,
+      children: [
         {
           path: '',
-          component: PostView
+          component: QuickEditView,
+          beforeEnter(to, from, next) {
+            store.dispatch('SET_HEADER', {
+              center: '新增筆記',
+              left: 'arrow_back',
+            })
+            next()
+          },
+        },
+        {
+          path: 'preview',
+          name: 'preview',
+          component: PreviewEditView,
+          beforeEnter(to, from, next) {
+            store.dispatch('SET_HEADER', {
+              center: '筆記預覽',
+              left: 'arrow_back',
+              right: 'more_vert',
+            })
+            next()
+          },
         }
       ]
     },
@@ -86,7 +107,20 @@ export default new Router({
     {
       path: '/main' ,
       component: MainView,
-      beforeEnter: routeGuard
+      beforeEnter(to, from, next) {
+        if (store.getters.isUserLogin) {
+          store.dispatch('SET_HEADER', {
+            center: '我的品酒筆記',
+            left: 'menu',
+            right: 'add'
+          })
+          next()
+        } else if (store.getters.isUserVisited) {
+          next({ path: '/login' })
+        } else {
+          next({ path: '/landing' })
+        }
+      },
     },
     {
       path: '/logout',
@@ -106,6 +140,10 @@ export default new Router({
         if (store.getters.isUserLogin) {
           next({ path: '/' })
         } else {
+          store.dispatch('SET_HEADER', {
+            center: '註冊',
+            left: 'arrow_back'
+          })
           next()
         }
       }

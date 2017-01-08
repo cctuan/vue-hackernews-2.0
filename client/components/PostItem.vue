@@ -7,7 +7,7 @@
           <p>{{post.description_s}}</p>
           <div>
             <span>{{post.rating}}</span>
-            <router-link :to="'/post/' + post._id">完整筆記</router-link>
+            <router-link :to="`/post/${post._id}/view`">完整筆記</router-link>
           </div>
         </div>
       </div>

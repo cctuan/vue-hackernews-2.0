@@ -8,11 +8,15 @@
 import {
   isValidMongoId
 } from '../utility'
+
+const PathRegex = new RegExp('^/post', 'i')
+
 function fetchItem (store) {
   if (isValidMongoId(store.state.route.params.id)) {
     return store.dispatch('FETCH_POST', store.state.route.params.id)
   }
-  return Promise.resolve()
+
+  return store.dispatch('RESET_POST')
 }
 
 export default {
@@ -22,8 +26,8 @@ export default {
     post () {
       return this.$store.getters.activePost
     },
-    route_params () {
-      return this.$store.state.route.params
+    route () {
+      return this.$store.state.route
     }
   },
 
@@ -33,11 +37,14 @@ export default {
   },
   watch : {
     // TODO: should save request while switch to save post
-    route_params (newVal, oldVal) {
-      if (newVal.id === oldVal.id) {
+    route (newValRoute, oldValRoute) {
+      if (!PathRegex.test(newValRoute.path)) {
         return
       }
-      if (newVal.id) {
+      if (newValRoute.params.id && newValRoute.params.id === oldValRoute.params.id) {
+        return
+      }
+      if (newValRoute.params.id) {
         fetchItem(this.$store)
       } else {
         this.$store.dispatch('RESET_POST')

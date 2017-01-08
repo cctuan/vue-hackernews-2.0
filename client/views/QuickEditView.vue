@@ -36,7 +36,7 @@
           </textarea>
         </div>
         <div class="btn">
-          <router-link to="edit/preview">
+          <router-link :to="previewPath">
             <button class="preview-btn mdl-button mdl-js-button mdl-button--raised mdl-button--colored">確認預覽</button>
           </router-link>
         </div>
@@ -64,7 +64,7 @@ export default {
     post: {
       default: {},
       type: Object
-    }
+    },
   },
   data() {
     return {
@@ -90,15 +90,43 @@ export default {
           title: '1 Star',
           value: 1
         }
-      ]
+      ],
     }
   },
   computed: {
+    previewPath() {
+      if (this.post._id) {
+        return {
+          name: 'preview',
+          params: {
+            id: this.post._id
+          }
+        }
+      } else {
+        return {
+          name: 'preview'
+        }
+      }
+    },
     rating() {
       return this.post.rating || 3
     },
+    leftHeaderClick() {
+      return this.$store.getters.headerLeftClick
+    },
+    rightHeaderClick() {
+      return this.$store.getters.headerRightClick
+    }
+  },
+  mounted () {
   },
   watch: {
+    leftHeaderClick (newVal) {
+      this.$router.go(-1)
+    },
+    rightHeaderClick (newVal) {
+      console.log('rightHeaderClick', newVal)
+    }
   },
   methods: {
     imageChange(url) {

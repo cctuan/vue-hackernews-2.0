@@ -81,14 +81,28 @@ export default {
     }
   },
   computed: {
+    leftHeaderClick() {
+      return this.$store.getters.headerLeftClick
+    },
+    rightHeaderClick() {
+      return this.$store.getters.headerRightClick
+    }
   },
   watch: {
+    leftHeaderClick (newVal) {
+      this.$router.go(-1)
+    },
+    rightHeaderClick (newVal) {
+      console.log('rightHeaderClick', newVal)
+    }
+  },
+  mounted () {
   },
   methods: {
     onSave () {
       this.$store.dispatch('SAVE_POST')
         .then((val) => {
-          this.$router.push({ path: `/post/${this.post._id}` })
+          this.$router.push({ path: `/post/${this.post._id}/view` })
         })
     }
   }

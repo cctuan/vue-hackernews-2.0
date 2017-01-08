@@ -13,7 +13,7 @@
         <div class="col-30">
           <div class="bottom-line">
             <span><a>刪除</a></span>
-            <span><router-link :to="`/post/${post._id}/edit`">編輯</router-link></span>
+            <span><router-link :to="`/edit/${post._id}`">編輯</router-link></span>
           </div>
         </div>
       </div>
@@ -45,11 +45,22 @@
 import {
   isValidMongoId
 } from '../utility'
+
+const PathRegex = new RegExp('^/post/[0-9a-fA-F]{24}$', 'i')
+
 export default {
   name: 'post-view',
   components: {},
   props: {
     post: {}
+  },
+  computed: {
+    leftHeaderClick() {
+      return this.$store.getters.headerLeftClick
+    },
+    rightHeaderClick() {
+      return this.$store.getters.headerRightClick
+    }
   },
   updated() {
     this.$el.querySelectorAll('._lazy').forEach(item => {
@@ -63,6 +74,16 @@ export default {
       }
       img.src = item.getAttribute('data-image')
     })
+  },
+  mounted() {
+  },
+  watch: {
+    leftHeaderClick (newVal) {
+      this.$router.go(-1)
+    },
+    rightHeaderClick (newVal) {
+      console.log('rightHeaderClick', newVal)
+    }
   },
   methods: {
   }
