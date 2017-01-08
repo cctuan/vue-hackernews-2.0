@@ -88,7 +88,7 @@ export default {
     onSave () {
       this.$store.dispatch('SAVE_POST')
         .then((val) => {
-          this.$router.push({ path: '/' })
+          this.$router.push({ path: `/post/${this.post._id}` })
         })
     }
   }

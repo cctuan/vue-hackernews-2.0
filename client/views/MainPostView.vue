@@ -21,6 +21,9 @@ export default {
   computed: {
     post () {
       return this.$store.getters.activePost
+    },
+    route_params () {
+      return this.$store.state.route.params
     }
   },
 
@@ -28,7 +31,18 @@ export default {
   beforeMount () {
     fetchItem(this.$store)
   },
-  updated() {
+  watch : {
+    // TODO: should save request while switch to save post
+    route_params (newVal, oldVal) {
+      if (newVal.id === oldVal.id) {
+        return
+      }
+      if (newVal.id) {
+        fetchItem(this.$store)
+      } else {
+        this.$store.dispatch('RESET_POST')
+      }
+    }
   },
   methods: {
   }

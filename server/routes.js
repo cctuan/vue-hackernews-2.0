@@ -104,11 +104,12 @@ router.post('/post/auth', authCheck, async(function *(req, res) {
   })
 }))
 
-
 router.post('/post', authCheck, async(function *(req, res) {
   let result = {}
+
   try {
     let post = new PostModel(req.body);
+    post.author = req.user
     result = yield post.uploadAndSave()
   } catch (e) {
     res.status(500).json({
@@ -127,18 +128,16 @@ router.post('/post/:id', authCheck, async(function *(req, res) {
   let result = {}
   try {
     let post = {}
-    if (req.post) {
-      post = req.post
-    } else {
-      post = yield PostModel.load(req.params.id)
-    }
-    if (req.post.author !== req.query.user._id) {
+    post = yield PostModel.load(req.params.id)
+
+    if (post.author.toString() !== req.user._id.toString()) {
       res.redirect('/')
       return
     }
-    post = Object.assign(post, req.body)
-    result = yield post.uploadAndSave()
+
+    result = yield PostModel.findByIdAndUpdate(req.body._id, req.body, {'new': true})
   } catch (e) {
+    console.error(e)
     res.status(500).json({
       status: 500,
       result: e

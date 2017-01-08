@@ -12,6 +12,42 @@ import {
 
 Vue.use(Vuex)
 
+const createInitialPost = () => {
+  return {
+    type: null,
+    name: null,
+    description_s: null,
+    rating: null,
+    thumb: {
+      theme: null,
+      original: null,
+      url: null
+    },
+    meta: {
+      nose: {
+        type: {},
+        strong: null
+      },
+      taste: {
+        type: {},
+        wine_body: null,
+        tannin: null,
+        sweetness: null,
+        acid: null
+      },
+      other: {
+        price: null,
+        year: null,
+        description: null,
+        matury: null
+      },
+      color: null,
+      clarity: null
+    },
+    author: null
+  }
+}
+
 const store = new Vuex.Store({
   state: {
     hasVisited: false,
@@ -20,39 +56,7 @@ const store = new Vuex.Store({
     isLogin: false,
     user: {},
 
-    post: {
-      type: null,
-      name: null,
-      description_s: null,
-      rating: null,
-      thumb: {
-        theme: null,
-        original: null,
-        url: null
-      },
-      meta: {
-        nose: {
-          type: {},
-          strong: null
-        },
-        taste: {
-          type: {},
-          wine_body: null,
-          tannin: null,
-          sweetness: null,
-          acid: null
-        },
-        other: {
-          price: null,
-          year: null,
-          description: null,
-          matury: null
-        },
-        color: null,
-        clarity: null
-      },
-      author: null
-    },
+    post: createInitialPost(),
 
     posts: {
       query : '',
@@ -136,10 +140,11 @@ const store = new Vuex.Store({
       })
     },
 
-    SAVE_POST: ({commit, state}, {}) => {
+    SAVE_POST: ({commit, state, dispatch}, {}) => {
       return savePost(state.post, state.post._id)
         .then(response => {
           if (response.status === 200 && response.data.status === 200) {
+            dispatch('FETCH_LIST_POST', {})
             return commit('SET_POST', response.data.result)
           }
         })
@@ -170,6 +175,10 @@ const store = new Vuex.Store({
       return state.users[id]
         ? Promise.resolve(state.users[id])
         : fetchUser(id).then(user => commit('SET_USER', { user }))
+    },
+
+    RESET_POST: ({ commit }) => {
+      return commit('RESET_POST')
     }
   },
 
@@ -203,6 +212,10 @@ const store = new Vuex.Store({
 
     SET_POST : (state, post) => {
       state.post = Object.assign(state.post, post)
+    },
+
+    RESET_POST : (state) => {
+      state.post = createInitialPost()
     },
 
     SET_LIST: (state, { type, ids }) => {
