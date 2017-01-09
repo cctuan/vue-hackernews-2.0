@@ -67,6 +67,8 @@ export default {
     },
     inputChange(evt) {
       const file = evt.target.files[0]
+      this.$emit('change', file)
+      return
       // XXX: should upload to cloudImage
       const fr = new FileReader()
       const img = new Image()

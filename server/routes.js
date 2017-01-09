@@ -2,11 +2,13 @@
 
 const express = require('express')
 const mongoose = require('mongoose')
+const multer  = require('multer')
 /*
  * Module dependencies.
  */
 const UserModel = require('./models/UserModel')
 const PostModel = require('./models/PostModel')
+const ImageEditor = require('./imageEditor')
 const { wrap: async } = require('co')
 const router = express.Router()
 
@@ -21,6 +23,45 @@ const authCheck = (req, res, next) => {
     res.redirect('/');
   }
 }
+
+const upload = multer()
+
+router.post('/upload/theme', authCheck, async(function *(req, res) {
+  let response
+  try {
+    response = yield ImageEditor.updateTheme(req.body.url, req.body.type)
+  } catch (e) {
+    res.status(500).json({
+      status: 500,
+      result: e
+    })
+    return
+  }
+  res.status(200).json({
+    status: 200,
+    result: response
+  })
+}))
+
+router.post('/image', authCheck, upload.any(), async(function *(req, res) {
+  let response
+  try {
+    let prefix = 'data:image/png;base64,'
+    response = yield ImageEditor.uploadImage(
+      prefix + new Buffer(req.files[0].buffer).toString('base64')
+    )
+  } catch (e) {
+    res.status(500).json({
+      status: 500,
+      result: e
+    })
+    return
+  }
+  res.status(200).json({
+    status: 200,
+    result: response
+  })
+}))
 
 router.get('/post/:id', async(function *(req, res) {
   let post = {}
@@ -44,7 +85,6 @@ router.get('/post/:id', async(function *(req, res) {
 }))
 
 router.get('/posts', authCheck, async(function *(req, res) {
-
   const page = (req.query.page > 0 ? req.query.page : 1) - 1;
   const limit = 30
   const options = {

@@ -2,8 +2,8 @@
   <fieldset :class="[`starability-${kind}`, 'rating']">
     <legend v-if="legend">{{ legend }}</legend>
     <template v-for="(item, index) in items">
-      <input type="radio" :id="uuid(index)" name="rating" :value="item.value" :checked="hasChecked(index)" v-on:change="change($event)">
-      <label class="touchable" :for="uuid(index)" :title="item.title || ''">{{ item.label || '' }}</label>
+      <input type="radio" :id="uuid(index)" name="rating" :value="item.value" :checked="hasChecked(index + 1)" v-on:change="change(index + 1)">
+      <label class="material-icons" :for="uuid(index)" :title="item.title || ''">{{(selected > index) ? "star" : "star_border"}}</label>
     </template>
   </fieldset>
 </template>
@@ -42,10 +42,10 @@ export default {
       return `rating-${this.uid}-item-${index}`
     },
     hasChecked (index) {
-      return this.count - index === this.selected
+      return this.selected === index
     },
-    change (e) {
-      this.selected = e.target.value >>> 0
+    change (index) {
+      this.selected = index
       this.$emit('change', this.selected)
     }
   },
@@ -92,18 +92,15 @@ fieldset {
 .starability-basic > label {
   position: relative;
   display: inline-block;
-  float: right;
+  float: left;
   width: 30px;
   height: 30px;
-  color: transparent;
   cursor: pointer;
-  background-image: url("../../public/icons.png");
   background-repeat: no-repeat;
 }
 
 @media screen and (-webkit-min-device-pixel-ratio: 2), screen and (min-resolution: 192dpi) {
   .starability-basic > label {
-    background-image: url("../../public/icons@2x.png");
     background-size: 30px auto;
   }
 }
@@ -142,15 +139,12 @@ fieldset {
   float: right;
   width: 30px;
   height: 30px;
-  color: transparent;
   cursor: pointer;
-  background-image: url("../../public/icons.png");
   background-repeat: no-repeat;
 }
 
 @media screen and (-webkit-min-device-pixel-ratio: 2), screen and (min-resolution: 192dpi) {
   .starability-slot > label {
-    background-image: url("../../public/icons@2x.png");
     background-size: 30px auto;
   }
 }
@@ -209,15 +203,12 @@ fieldset {
   float: right;
   width: 30px;
   height: 30px;
-  color: transparent;
   cursor: pointer;
-  background-image: url("../../public/icons.png");
   background-repeat: no-repeat;
 }
 
 @media screen and (-webkit-min-device-pixel-ratio: 2), screen and (min-resolution: 192dpi) {
   .starability-grow > label {
-    background-image: url("../../public/icons@2x.png");
     background-size: 30px auto;
   }
 }
@@ -228,14 +219,12 @@ fieldset {
   content: ' ';
   width: 30px;
   height: 30px;
-  background-image: url("../../public/icons.png");
   background-repeat: no-repeat;
   bottom: 0;
 }
 
 @media screen and (-webkit-min-device-pixel-ratio: 2), screen and (min-resolution: 192dpi) {
   .starability-grow > label:before {
-    background-image: url("../../public/icons@2x.png");
     background-size: 30px auto;
   }
 }
@@ -296,15 +285,12 @@ fieldset {
   float: right;
   width: 30px;
   height: 30px;
-  color: transparent;
   cursor: pointer;
-  background-image: url("../../public/icons.png");
   background-repeat: no-repeat;
 }
 
 @media screen and (-webkit-min-device-pixel-ratio: 2), screen and (min-resolution: 192dpi) {
   .starability-growRotate > label {
-    background-image: url("../../public/icons@2x.png");
     background-size: 30px auto;
   }
 }
@@ -315,14 +301,12 @@ fieldset {
   content: ' ';
   width: 30px;
   height: 30px;
-  background-image: url("../../public/icons.png");
   background-repeat: no-repeat;
   bottom: 0;
 }
 
 @media screen and (-webkit-min-device-pixel-ratio: 2), screen and (min-resolution: 192dpi) {
   .starability-growRotate > label:before {
-    background-image: url("../../public/icons@2x.png");
     background-size: 30px auto;
   }
 }
@@ -382,15 +366,12 @@ fieldset {
   float: right;
   width: 30px;
   height: 30px;
-  color: transparent;
   cursor: pointer;
-  background-image: url("../../public/icons.png");
   background-repeat: no-repeat;
 }
 
 @media screen and (-webkit-min-device-pixel-ratio: 2), screen and (min-resolution: 192dpi) {
   .starability-fade > label {
-    background-image: url("../../public/icons@2x.png");
     background-size: 30px auto;
   }
 }
@@ -401,7 +382,6 @@ fieldset {
   content: ' ';
   width: 30px;
   height: 30px;
-  background-image: url("../../public/icons.png");
   background-repeat: no-repeat;
   background-position: 0 -30px;
   bottom: 30px;
@@ -409,7 +389,6 @@ fieldset {
 
 @media screen and (-webkit-min-device-pixel-ratio: 2), screen and (min-resolution: 192dpi) {
   .starability-fade > label:before {
-    background-image: url("../../public/icons@2x.png");
     background-size: 30px auto;
   }
 }
@@ -473,15 +452,12 @@ fieldset {
   float: right;
   width: 30px;
   height: 30px;
-  color: transparent;
   cursor: pointer;
-  background-image: url("../../public/icons-checkmark.png");
   background-repeat: no-repeat;
 }
 
 @media screen and (-webkit-min-device-pixel-ratio: 2), screen and (min-resolution: 192dpi) {
   .starability-checkmark > label {
-    background-image: url("../../public/icons-checkmark@2x.png");
     background-size: 30px auto;
   }
 }
@@ -497,7 +473,6 @@ fieldset {
   content: ' ';
   width: 30px;
   height: 30px;
-  background-image: url("../../public/icons-checkmark.png");
   background-repeat: no-repeat;
   background-position: 0 -60px;
   right: -30px;
@@ -505,7 +480,6 @@ fieldset {
 
 @media screen and (-webkit-min-device-pixel-ratio: 2), screen and (min-resolution: 192dpi) {
   .starability-checkmark > label:before {
-    background-image: url("../../public/icons-checkmark@2x.png");
     background-size: 30px auto;
   }
 }

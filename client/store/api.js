@@ -81,6 +81,20 @@ export function fetchPost(id) {
   return axios.get(`/api/post/${id}`)
 }
 
+export function uploadImage(image) {
+  const data = new FormData()
+  data.append('file', image)
+  return axios.post(`/api/image`, data)
+}
+
+
+export function changeTheme(url, type) {
+  return axios.post(`/api/upload/theme`, {
+    url: url,
+    type: type
+  })
+}
+
 export function fetchPostList(query) {
   const queryArray = Object.keys(query).map(key => {
     let val = query[key]

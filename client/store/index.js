@@ -8,6 +8,8 @@ import {
   fetchPostList,
   fetchPost,
   savePost,
+  changeTheme,
+  uploadImage,
 } from './api'
 
 Vue.use(Vuex)
@@ -106,6 +108,26 @@ const store = new Vuex.Store({
       commit('CLICK_HEADER_RIGHT')
     },
 
+    UPLOAD_IMAGE: ({commit, state}, file) => {
+      return uploadImage(file)
+        .then(response => {
+          if (response.status === 200 && response.data.status === 200) {
+            const { result } = response.data
+            return commit('SET_ORIGINAL_URL', result.secure_url)
+          }
+        })
+    },
+
+    SELECT_THEME: ({commit, state}, {url, type}) => {
+      return changeTheme(url, type)
+        .then(response => {
+          if (response.status === 200 && response.data.status === 200) {
+            const { result } = response.data
+            return commit('SET_IMAGE_URL', result.secure_url)
+          }
+        })
+    },
+
     LOGOUT: ({ commit }) => {
       return userLogout()
         .then(() => {
@@ -120,10 +142,6 @@ const store = new Vuex.Store({
 
     AUTHORIZE_USER : ({ commit }, isAuth) => {
       commit('SET_AUTH', isAuth)
-    },
-
-    UPDATE_CURRENT_POST: ({ commit }, post = {}) => {
-      commit('SET_POST', post)
     },
 
     FETCH_LIST_POST: ({commit, dispatch, state}, {query = {}}) => {
@@ -167,12 +185,12 @@ const store = new Vuex.Store({
     },
 
     SAVE_POST: ({commit, state, dispatch}, {}) => {
-      return savePost(state.cachedPost, state.post._id)
+      return savePost(state.cachePost, state.post._id)
         .then(response => {
           if (response.status === 200 && response.data.status === 200) {
-            dispatch('FETCH_LIST_POST', {})
             commit('SET_CACHED_POST', response.data.result)
-            return commit('SET_POST', response.data.result)
+            commit('SET_POST', response.data.result)
+            return dispatch('FETCH_LIST_POST', {})
           }
         })
     },
@@ -242,6 +260,15 @@ const store = new Vuex.Store({
       state.activeType = type
     },
 
+    SET_ORIGINAL_URL : (state, url) => {
+      state.cachePost.thumb.original = url
+      state.cachePost.thumb.url = url
+    },
+
+    SET_IMAGE_URL : (state, url) => {
+      state.cachePost.thumb.url = url
+    },
+
     SET_POSTS : (state , { list, page, count }) => {
       state.posts.page = page
       state.posts.total = count
@@ -257,7 +284,7 @@ const store = new Vuex.Store({
     },
 
     SET_POST : (state, post) => {
-      state.post = Object.assign(state.post, post)
+      state.post = post
     },
 
     RESET_POST : (state) => {

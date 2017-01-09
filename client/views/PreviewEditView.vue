@@ -51,12 +51,6 @@ import {
   DRINK_TYPE
 } from '../../config/constants'
 
-const ThemeCustomizer = (type, url) => {
-  return new Promise((resolve, reject) => {
-
-  })
-}
-
 export default {
   name: 'quick-edit-view',
   components: {
@@ -126,8 +120,10 @@ export default {
         })
     },
     selectTheme(type) {
-      ThemeCustomizer(type, this.post.thumb.original ||
-        this.post.thumb.url)
+      this.$store.dispatch('SELECT_THEME', {
+        url: this.post.thumb.original,
+        type
+      })
     }
   }
 }

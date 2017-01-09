@@ -2,8 +2,7 @@
   <div>
     <image-editor :url="post.thumb ? post.thumb.url : ''" v-on:change="imageChange"/>
     <div class="rating-field">
-      <p>按一下星星來評分</p>
-      <rating-star uid="quick" :items="rating_map" legend="Default star rating:" :value="rating" @change="updateRate"></rating-star>
+      <rating-star uid="quick" :items="rating_map" legend="按一下星星來評分" :value="rating" @change="updateRate"></rating-star>
     </div>
     <div class="content">
       <div class="content-inner">
@@ -71,25 +70,25 @@ export default {
       drink_types: DRINK_TYPE,
       rating_map: [
         {
-          title: '5 Stars',
-          value: 5
-        },
-        {
-          title: '4 Stars',
-          value: 4
-        },
-        {
-          title: '3 Stars',
-          value: 3
+          title: '1 Star',
+          value: 1
         },
         {
           title: '2 Stars',
           value: 2
         },
         {
-          title: '1 Star',
-          value: 1
-        }
+          title: '3 Stars',
+          value: 3
+        },
+        {
+          title: '4 Stars',
+          value: 4
+        },
+        {
+          title: '5 Stars',
+          value: 5
+        },
       ],
     }
   },
@@ -132,13 +131,17 @@ export default {
     }
   },
   methods: {
-    imageChange(url) {
+    imageChange(file) {
+      // console.log(url, ' url')
+      this.$store.dispatch('UPLOAD_IMAGE', file)
+      /**
       this.$emit('change', Object.assign(this.post, {
         thumb: {
           url: url,
           original: url
         }
       }))
+      **/
     },
     updateRate (val) {
       this.$emit('change', Object.assign(this.post, {rating: val}))
