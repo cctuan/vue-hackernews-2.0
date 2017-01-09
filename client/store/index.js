@@ -66,7 +66,7 @@ const store = new Vuex.Store({
     },
 
     post: createInitialPost(),
-
+    cachePost: createInitialPost(),
     posts: {
       query : '',
       total : 0,
@@ -114,6 +114,10 @@ const store = new Vuex.Store({
         })
     },
 
+    SET_CACHED_POST : ({ commit }, post = {}) => {
+      commit('SET_CACHED_POST', post)
+    },
+
     AUTHORIZE_USER : ({ commit }, isAuth) => {
       commit('SET_AUTH', isAuth)
     },
@@ -141,6 +145,7 @@ const store = new Vuex.Store({
         .then(response => {
           if (response.status === 200 && response.data.status === 200) {
             commit('SET_AUTH', response.data.result.isAuth)
+            commit('SET_CACHED_POST', response.data.result.post)
             return commit('SET_POST', response.data.result.post)
           }
         })
@@ -162,10 +167,11 @@ const store = new Vuex.Store({
     },
 
     SAVE_POST: ({commit, state, dispatch}, {}) => {
-      return savePost(state.post, state.post._id)
+      return savePost(state.cachedPost, state.post._id)
         .then(response => {
           if (response.status === 200 && response.data.status === 200) {
             dispatch('FETCH_LIST_POST', {})
+            commit('SET_CACHED_POST', response.data.result)
             return commit('SET_POST', response.data.result)
           }
         })
@@ -246,12 +252,17 @@ const store = new Vuex.Store({
       state.isAuthorized = isAuth
     },
 
+    SET_CACHED_POST : (state, post) => {
+      state.cachePost = Object.assign(state.cachePost, post)
+    },
+
     SET_POST : (state, post) => {
       state.post = Object.assign(state.post, post)
     },
 
     RESET_POST : (state) => {
       state.post = createInitialPost()
+      state.cachePost = createInitialPost()
     },
 
     SET_LIST: (state, { type, ids }) => {
@@ -308,6 +319,10 @@ const store = new Vuex.Store({
       } else {
         return []
       }
+    },
+
+    cachedPost (state) {
+      return state.cachePost
     },
 
     activePost (state) {

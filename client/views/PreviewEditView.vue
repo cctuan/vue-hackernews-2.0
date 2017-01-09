@@ -3,7 +3,18 @@
     <div class="mdl-card mdl-shadow--2dp preview-img"
       :style="'background-image:url(' + post.thumb.url + ')'">
     </div>
-    <p>{{post.name}}</p>
+    <div class="mdl-grid">
+      <div class="mdl-cell mdl-cell--4-col theme-section" v-on:click="selectTheme(1)">
+        1
+      </div>
+      <div class="mdl-cell mdl-cell--4-col theme-section" v-on:click="selectTheme(2)">
+        2
+      </div>
+      <div class="mdl-cell mdl-cell--4-col theme-section" v-on:click="selectTheme(3)">
+        3
+      </div>
+    </div>
+    <h2 class="mdl-card__title-text">{{post.name}}</h2>
     <rating-star uid="quick" :items="rating_map" legend="Default star rating:" :value="post.rating"></rating-star>
     <p>{{post.description_s}}</p>
     <ul class="mdl-list">
@@ -39,6 +50,12 @@ import RatingStar from '../components/RatingStar.vue'
 import {
   DRINK_TYPE
 } from '../../config/constants'
+
+const ThemeCustomizer = (type, url) => {
+  return new Promise((resolve, reject) => {
+
+  })
+}
 
 export default {
   name: 'quick-edit-view',
@@ -90,6 +107,9 @@ export default {
   },
   watch: {
     leftHeaderClick (newVal) {
+      if (this.$store.state.route.name !== 'preview') {
+        return
+      }
       this.$router.go(-1)
     },
     rightHeaderClick (newVal) {
@@ -104,6 +124,10 @@ export default {
         .then((val) => {
           this.$router.push({ path: `/post/${this.post._id}/view` })
         })
+    },
+    selectTheme(type) {
+      ThemeCustomizer(type, this.post.thumb.original ||
+        this.post.thumb.url)
     }
   }
 }
@@ -120,4 +144,6 @@ export default {
 .confirm-send
   button
     width 100%
+.theme-section
+  height 100px
 </style>

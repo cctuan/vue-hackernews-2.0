@@ -122,6 +122,9 @@ export default {
   },
   watch: {
     leftHeaderClick (newVal) {
+      if (this.$store.state.route.name !== 'quick-edit') {
+        return
+      }
       this.$router.go(-1)
     },
     rightHeaderClick (newVal) {
@@ -130,7 +133,12 @@ export default {
   },
   methods: {
     imageChange(url) {
-      this.$emit('change', Object.assign(this.post, {thumb: {url: url}}))
+      this.$emit('change', Object.assign(this.post, {
+        thumb: {
+          url: url,
+          original: url
+        }
+      }))
     },
     updateRate (val) {
       this.$emit('change', Object.assign(this.post, {rating: val}))

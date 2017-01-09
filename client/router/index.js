@@ -59,6 +59,7 @@ export default new Router({
         {
           path: 'view',
           component: PostView,
+          name: 'post-view',
           beforeEnter(to, from, next) {
             store.dispatch('SET_HEADER', {
               center: '',
@@ -77,6 +78,7 @@ export default new Router({
         {
           path: '',
           component: QuickEditView,
+          name: 'quick-edit',
           beforeEnter(to, from, next) {
             store.dispatch('SET_HEADER', {
               center: '新增筆記',
@@ -107,6 +109,7 @@ export default new Router({
     {
       path: '/main' ,
       component: MainView,
+      name: 'list-view',
       beforeEnter(to, from, next) {
         if (store.getters.isUserLogin) {
           store.dispatch('SET_HEADER', {

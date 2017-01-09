@@ -19,10 +19,11 @@
       </div>
       <div class="card demo-card-header-pic">
         <div :data-image="post && post.thumb ? post.thumb.url : ''" style=""
-          valign="bottom" class="card-header color-white no-border _lazy">Journey To Mountains</div>
+          valign="bottom" class="thumb-container _lazy"></div>
         <div class="card-content">
           <div class="card-content-inner">
-            <h3>{{post ? post.name : ''}}<span class="right-end">得分:{{post.rating}}/5</span></h3>
+            <h2 class="mdl-card__title-text">{{post ? post.name : ''}}</h2>
+            <span class="right-end">得分:{{post.rating}}/5</span>
             <p class="color-gray">Posted on January 21, 2015</p>
             <p>{{post ? post.description_s : ''}}</p>
             <template v-if="(post && post.meta)">
@@ -79,6 +80,11 @@ export default {
   },
   watch: {
     leftHeaderClick (newVal) {
+      console.info('leftHeaderClick and current view is', 'post view')
+      console.log(this.$store.state.route, 'post-view')
+      if (this.$store.state.route.name !== 'post-view') {
+        return
+      }
       this.$router.go(-1)
     },
     rightHeaderClick (newVal) {
@@ -90,4 +96,9 @@ export default {
 }
 </script>
 <style lang="stylus" scoped>
+.thumb-container
+  padding-bottom 58%
+  background-repeat no-repeat
+  background-size contain
+  background-position center
 </style>

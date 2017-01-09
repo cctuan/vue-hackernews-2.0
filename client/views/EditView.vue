@@ -3,7 +3,7 @@
   <div class="post-view">
     <div class="edit-view">
       <div class="view-inner">
-        <router-view :post="_post" v-on:change="postUpdate" />
+        <router-view :post="post" v-on:change="postUpdate" />
       </div>
     </div>
   </div>
@@ -27,8 +27,9 @@ export default {
   name: 'edit-main-view',
   components: {},
   computed: {
-    _post () {
-      return Object.assign({}, this.$store.getters.activePost)
+    post () {
+      console.log(this.$store.getters.cachedPost, 'this.$store.getters.cachedPost')
+      return this.$store.getters.cachedPost
     },
     route () {
       return this.$store.state.route
@@ -41,14 +42,14 @@ export default {
   },
   methods: {
     postUpdate(newPost) {
-      this.$store.dispatch('UPDATE_CURRENT_POST', newPost)
+      this.$store.dispatch('SET_CACHED_POST', newPost)
     }
   },
   watch : {
     // TODO: should save request while switch to save post
     route (newValRoute, oldValRoute) {
       if (newValRoute.params.id === 'new') {
-        store.dispatch('RESET_POST')
+        this.$store.dispatch('RESET_POST')
       }
     }
   }
