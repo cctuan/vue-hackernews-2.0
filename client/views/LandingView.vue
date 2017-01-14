@@ -3,7 +3,11 @@
     <img>
     <p>照片美化與酒評產生器<br>創造分享更多樂趣</p>
     <p>
-      <router-link to="/"><button>開始撰寫筆記</button></router-link>
+      <router-link to="/">
+        <button class="start-btn mdl-button mdl-button--raised mdl-button--colored">
+          開始撰寫筆記
+        </button>
+      </router-link>
     </p>
     <p><a>立即加入</a>一飲LINE@帳號</p>
     <div>
@@ -27,7 +31,12 @@ export default {
   },
 }
 </script>
-<style lang="stylus">
+<style lang="stylus" scoped>
 .landing-view
   height: 100%
+  text-align center
+  padding 0 50px
+.start-btn
+  width 100%
+  background-color #7dd0e0
 </style>

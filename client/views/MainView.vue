@@ -2,9 +2,14 @@
   <div class="main-view">
     <search-input v-if="hasPost" v-on:change="inputValueChange"></search-input>
     <post-item v-if="hasPost" :post="post" v-for="post in posts"></post-item>
-    <div v-if="!hasPost">
-      <h3>目前還沒有任何筆記喔</h3>
-      <router-link to="/"><button>開始新的筆記</button></router-link>
+    <div v-if="!hasPost" class="no-post-section">
+      <h5>目前還沒有任何筆記喔</h5>
+      <p>立即撰寫品酒筆記，記錄並分享您每日品酒的細節與點滴</p>
+      <router-link to="/edit">
+        <button class="new-edit-btn mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+          開始新的筆記
+        </button>
+      </router-link>
     </div>
   </div>
 </template>
@@ -78,4 +83,10 @@ export default {
 }
 </script>
 <style lang="stylus" scoped>
+.no-post-section
+  text-align center
+  padding 0 50px
+  .new-edit-btn
+    width 100%
+    background-color #7dd0e0
 </style>
