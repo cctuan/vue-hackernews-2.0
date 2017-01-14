@@ -1,8 +1,9 @@
 // this is aliased in webpack config based on server/client build
 // import api from 'create-api'
 import axios from 'axios'
+import env from '../../config/env'
 if (typeof window === 'undefined') {
-  axios.defaults.baseURL = 'http://localhost:5000'
+  axios.defaults.baseURL = 'http://localhost:' + env.PORT
 }
 
 // warm the front page cache every 15 min
