@@ -6,6 +6,7 @@
   "scripts": {
     "postinstall": "bower install",
     "dev": "NODE_PATH=./ nodemon server",
+    "heroku-postbuild" : "npm run build",
     "start": "cross-env NODE_PATH=./ NODE_ENV=production node server",
     "build": "rimraf dist && npm run build:client && npm run build:server",
     "build:client": "cross-env NODE_ENV=production webpack --config build/webpack.client.config.js --progress --hide-modules",
