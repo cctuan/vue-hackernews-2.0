@@ -107,6 +107,9 @@ export default {
       this.$router.go(-1)
     },
     rightHeaderClick (newVal) {
+      if (this.$store.state.route.name !== 'preview') {
+        return
+      }
       console.log('rightHeaderClick', newVal)
     }
   },

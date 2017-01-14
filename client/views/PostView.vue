@@ -10,12 +10,6 @@
         </div>
         <div class="col-40">
         </div>
-        <div class="col-30">
-          <div class="bottom-line">
-            <span><a>刪除</a></span>
-            <span><router-link :to="`/edit/${post._id}`">編輯</router-link></span>
-          </div>
-        </div>
       </div>
       <div class="card demo-card-header-pic">
         <div :data-image="post && post.thumb ? post.thumb.url : ''" style=""
@@ -38,11 +32,15 @@
           </div>
         </div>
       </div>
+      <menu-dialog :actions="menuActions" :display="menuDisplay"
+        :position="menuPosition" v-on:close="menuDisplay=false"
+        v-on:select="onMenyClick"/>
     </div>
   </div>
 </template>
 
 <script>
+import MenuDialog from '../components/MenuDialog.vue'
 import {
   isValidMongoId
 } from '../utility'
@@ -51,7 +49,25 @@ const PathRegex = new RegExp('^/post/[0-9a-fA-F]{24}$', 'i')
 
 export default {
   name: 'post-view',
-  components: {},
+  components: {
+    MenuDialog
+  },
+  data () {
+    return {
+      menuPosition: {
+        top: '0px',
+        right: '0px'
+      },
+      menuDisplay: false,
+      menuActions : [{
+        name: '首頁',
+        type: 'home'
+      },{
+        name: '編輯',
+        type: 'edit'
+      },]
+    }
+  },
   props: {
     post: {}
   },
@@ -88,10 +104,26 @@ export default {
       this.$router.go(-1)
     },
     rightHeaderClick (newVal) {
+      if (this.$store.state.route.name !== 'post-view') {
+        return
+      }
+      this.menuDisplay = !this.menuDisplay
       console.log('rightHeaderClick', newVal)
     }
   },
   methods: {
+    onMenyClick(action) {
+      switch (action.type) {
+        case 'home': {
+          this.$router.push({ path: `/` })
+          break
+        }
+        case 'edit': {
+          this.$router.push({ path: `/edit/${this.post._id}` })
+          break
+        }
+      }
+    }
   }
 }
 </script>

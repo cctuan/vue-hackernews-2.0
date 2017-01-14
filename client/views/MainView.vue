@@ -38,6 +38,9 @@ export default {
   preFetch: fetchItems,
   watch: {
     rightHeaderClick() {
+      if (this.$store.state.route.name !== 'list-view') {
+        return
+      }
       this.$router.push('edit/new')
     }
   },
