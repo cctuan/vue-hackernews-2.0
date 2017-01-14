@@ -1,7 +1,7 @@
 <template>
   <div>
     <image-editor :url="post.thumb ? post.thumb.url : ''" v-on:change="imageChange"/>
-    <div class="rating-field">
+    <div class="rating-field margin-top-25">
       <rating-star uid="quick" :items="rating_map" legend="按一下星星來評分" :value="rating" @change="updateRate"></rating-star>
     </div>
     <div class="content">
@@ -12,7 +12,7 @@
           </div>
           <div class="chip-list">
             <div class="drink-type-item" v-for="drink_type in drink_types">
-              <div :class="'mdl-button mdl-js-button ' + (post.type === drink_type.val ? 'selected' : '')"
+              <div :class="'type-item mdl-button mdl-js-button ' + (post.type === drink_type.val ? 'selected' : '')"
                 v-on:click="selectDrinkType(drink_type.val)">
                 {{drink_type['en']}}
               </div>
@@ -24,15 +24,20 @@
           <div class="edit-title">
             品名
           </div>
-          <input class="mdl-textfield__input" v-model="post.name">
+          <div class="mdl-textfield">
+            <input class="mdl-textfield__input" v-model="post.name" id="brand-name">
+            <label class="mdl-textfield__label" for="brand-name"></label>
+          </div>
         </div>
         <div class="bar"></div>
         <div class="edit-section">
           <div class="edit-title">
             短評
           </div>
-          <textarea class="mdl-textfield__input" type="text" v-model="post.description_s">
-          </textarea>
+          <div class="mdl-textfield">
+            <textarea class="mdl-textfield__input" v-model="post.description_s" id="description_s" />
+            <label class="mdl-textfield__label" for="description_s"></label>
+          </div>
         </div>
         <div class="btn">
           <router-link :to="previewPath">
@@ -155,8 +160,8 @@ export default {
 <style lang="stylus" scoped>
 .rating-field
   text-align center
-.edit-section
-  height 100px
+.margin-top-25
+  margin-top 25px
 .content-inner
   padding 10px
 .chip-flat
@@ -174,4 +179,13 @@ export default {
     border-style: solid;
   .selected
     background-color: rgba(158,158,158,.2)
+.bar
+  clear both
+.type-item
+  color #cbccce
+  margin-top 10px
+.mdl-textfield
+  width 100%
+  input, textarea
+    border-bottom-color #cbccce
 </style>

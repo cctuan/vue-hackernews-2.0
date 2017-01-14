@@ -1,8 +1,9 @@
 <template>
   <form class="searchbar">
     <div class="search-input">
+      <i class="material-icons search-icon">search</i>
       <input type="search" placeholder="搜尋" v-model="inputValue">
-      <a class="search-clear" v-on:click="inputValue = null"></a>
+      <a class="search-clear material-icons" v-on:click="inputValue = null">cancel</a>
     </div>
   </form>
 </template>
@@ -26,7 +27,6 @@ export default {
 .searchbar
   height 48px
   width 100%
-  background #2196f3
   box-sizing border-box
   padding 0 16px
   overflow hidden
@@ -42,6 +42,12 @@ export default {
   color #fff
   z-index 200
 
+.search-icon
+  position absolute
+  top 0
+  left 0
+  line-height 32px
+
 .search-input
   width 100%
   height 32px
@@ -50,6 +56,8 @@ export default {
   -webkit-flex-shrink 1
   -ms-flex 0 1 auto
   flex-shrink 1
+  input
+    text-indent 25px
 
 input
   box-sizing border-box
@@ -71,14 +79,7 @@ input
   height 100%
   padding 0 36px 0 24px
   background-color transparent
-  background-repeat no-repeat
-  background-position 0 center
-  background-image url(../../public/magnifying-glass.svg)
   opacity 1
-  -webkit-background-size 24px 24px
-  background-size 24px 24px
-  -webkit-transition-duration .3s
-  transition-duration .3s
 
 input::-webkit-search-cancel-button
   display none
@@ -86,17 +87,10 @@ input::-webkit-search-cancel-button
 .search-clear
   position absolute
   width 56px
-  height 100%
+  line-height 32px
   right -16px
   top 0
   opacity 0
-  background-position center
-  background-repeat no-repeat
-  -webkit-background-size 24px 24px
-  background-size 24px 24px
-  background-image url(../../public/cancel.svg)
-  -webkit-transition-duration .3s
-  transition-duration .3s
   cursor pointer
   pointer-events auto
   opacity 1

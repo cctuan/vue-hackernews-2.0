@@ -5,6 +5,12 @@ export function host (url) {
   return parts.join('.')
 }
 
+export function timeConvert(time) {
+  const date = new Date(time)
+  return date.getFullYear() + '.' +
+    (date.getMonth() + 1) + '.' + date.getDate()
+}
+
 export function timeAgo (time) {
   const between = Date.now() / 1000 - Number(time)
   if (between < 3600) {

@@ -1,5 +1,5 @@
 <template>
-  <header class="mdl-layout__header">
+  <header class="mdl-layout__header customized">
     <div class="mdl-layout__drawer-button" v-if="!!left"
       v-on:click="onLeftClick">
       <i class="material-icons back-icon">
@@ -53,9 +53,6 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-.back-icon
-  background-size 100%
-  background-repeat no-repeat
-  background-position center
-  background-image url(../../public/back.png)
+.customized
+  background-color #7dd0e0
 </style>

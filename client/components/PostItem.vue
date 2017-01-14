@@ -3,10 +3,11 @@
     <div class="card-inner _lazy" :data-image="post.thumb ? post.thumb.url : null">
       <div class="card-content">
         <div class="card-content-inner">
-          <h4>{{post.name}}</h4>
+          <h6>{{post.name}}</h6>
           <p>{{post.description_s}}</p>
           <div>
-            <span>{{post.rating}}</span>
+            <i class="material-icons">star</i>
+            <span class="rating-value">{{post.rating}}.0</span>
             <router-link :to="`/post/${post._id}/view`">完整筆記</router-link>
           </div>
         </div>
@@ -45,8 +46,19 @@ export default {
   color white
   width 100%
   bottom 0
-  padding 4px 8px
+  padding 10px 25px
   box-sizing border-box
+  h6
+    padding 0
+    margin 0
+  p
+    margin 0 0 5px
+  .rating-value
+    margin-left 10px
+  i
+    font-size 15px
+    color yellow
+    line-height 20px
 a
   color white
   float right

@@ -1,22 +1,13 @@
 <template>
-  <div>
+  <div class="container">
     <div class="mdl-card mdl-shadow--2dp preview-img"
       :style="'background-image:url(' + post.thumb.url + ')'">
     </div>
-    <div class="mdl-grid">
-      <div class="mdl-cell mdl-cell--4-col theme-section" v-on:click="selectTheme(1)">
-        1
-      </div>
-      <div class="mdl-cell mdl-cell--4-col theme-section" v-on:click="selectTheme(2)">
-        2
-      </div>
-      <div class="mdl-cell mdl-cell--4-col theme-section" v-on:click="selectTheme(3)">
-        3
-      </div>
+    <theme-selector :post="post" />
+    <post-basic-information :post="post" />
+    <div class="section-title">
+      分享設定
     </div>
-    <h2 class="mdl-card__title-text">{{post.name}}</h2>
-    <rating-star uid="quick" :items="rating_map" legend="Default star rating:" :value="post.rating"></rating-star>
-    <p>{{post.description_s}}</p>
     <ul class="mdl-list">
       <li class="mdl-list__item">
         <span class="mdl-list__item-primary-content">
@@ -47,6 +38,9 @@
 
 <script>
 import RatingStar from '../components/RatingStar.vue'
+import PostBasicInformation from '../components/PostBasicInformation.vue'
+import ThemeSelector from '../components/ThemeSelector.vue'
+
 import {
   DRINK_TYPE
 } from '../../config/constants'
@@ -54,7 +48,7 @@ import {
 export default {
   name: 'quick-edit-view',
   components: {
-    RatingStar,
+    RatingStar, PostBasicInformation, ThemeSelector
   },
   props: {
     post: {
@@ -67,6 +61,20 @@ export default {
       enable_fb_sharing: true,
       enable_line_sharing: true,
       drink_types: DRINK_TYPE,
+      theme_selections : [
+        {
+          preview: '/public/theme-select.png',
+          type: 1
+        },
+        {
+          preview: '/public/theme-select.png',
+          type: 2
+        },
+        {
+          preview: '/public/theme-select.png',
+          type: 3
+        }
+      ],
       rating_map: [
         {
           title: '5 Stars',
@@ -132,6 +140,8 @@ export default {
 }
 </script>
 <style lang="stylus" scoped>
+.container
+  background-color #243241
 .rating-field
   text-align center
 .preview-img
@@ -143,6 +153,18 @@ export default {
 .confirm-send
   button
     width 100%
-.theme-section
-  height 100px
+.clear-fix
+  clear both
+.section-title
+  box-sizing border-box
+  background-color #1d242c
+  color #56585a
+  font-size 14px
+  font-weight 500
+  line-height 24px
+  padding-left 20px
+  width: 100%;
+
+.mdl-list__item
+  color #cbccce
 </style>

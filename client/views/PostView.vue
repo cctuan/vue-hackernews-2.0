@@ -1,46 +1,21 @@
 <template>
   <div class="post-view">
     <div class="page-content">
-      <div class="row">
-        <div class="col-30">
-          <p class="buttons-row share-icons">
-            <a class="button"><i class="f7-icons">social_facebook_fill</i></a>
-            <a class="button"><i class="f7-icons share-line"></i></a>
-          </p>
-        </div>
-        <div class="col-40">
-        </div>
-      </div>
       <div class="card demo-card-header-pic">
         <div :data-image="post && post.thumb ? post.thumb.url : ''" style=""
           valign="bottom" class="thumb-container _lazy"></div>
-        <div class="card-content">
-          <div class="card-content-inner">
-            <h2 class="mdl-card__title-text">{{post ? post.name : ''}}</h2>
-            <span class="right-end">得分:{{post.rating}}/5</span>
-            <p class="color-gray">Posted on January 21, 2015</p>
-            <p>{{post ? post.description_s : ''}}</p>
-            <template v-if="(post && post.meta)">
-              <template v-if="post.meta.other">
-                <h4 v-if="post.meta.other.year">Year : {{post.meta.other.year}}</h4>
-                <h4 v-if="post.meta.other.price">Price : {{post.meta.other.price}}NTD</h4>
-              </template>
-              <template v-if="(post.meta.color || post.meta.clarity)">
-                <h4>Appearance :</h4>
-              </template>
-            </template>
-          </div>
-        </div>
+        <post-basic-information :post="post" />
       </div>
       <menu-dialog :actions="menuActions" :display="menuDisplay"
         :position="menuPosition" v-on:close="menuDisplay=false"
-        v-on:select="onMenyClick"/>
+        v-on:select="onMenuClick"/>
     </div>
   </div>
 </template>
 
 <script>
 import MenuDialog from '../components/MenuDialog.vue'
+import PostBasicInformation from '../components/PostBasicInformation.vue'
 import {
   isValidMongoId
 } from '../utility'
@@ -50,7 +25,7 @@ const PathRegex = new RegExp('^/post/[0-9a-fA-F]{24}$', 'i')
 export default {
   name: 'post-view',
   components: {
-    MenuDialog
+    MenuDialog, PostBasicInformation
   },
   data () {
     return {
@@ -112,7 +87,7 @@ export default {
     }
   },
   methods: {
-    onMenyClick(action) {
+    onMenuClick(action) {
       switch (action.type) {
         case 'home': {
           this.$router.push({ path: `/` })
@@ -133,4 +108,38 @@ export default {
   background-repeat no-repeat
   background-size contain
   background-position center
+section
+  padding 20px
+.title
+  width 100%
+  margin-top 5px
+.rating
+  float left
+  margin 0
+  padding 0
+  margin-left 20px
+  li
+    font-size 14px
+  label
+    font-size 14px
+.rating-val
+  float left
+.update-time
+  float left
+  margin-left 20px
+  color #4f5256
+.description_s
+  color #cbccce
+  width 100%
+hr
+  height 1px
+  border 0
+  background-color #323538
+.demo-list-item
+  width 100%
+.setting-item
+  border-top 1px solid
+  color #4f5256
+.setting-item-value
+  color #cbccce
 </style>
