@@ -6,12 +6,13 @@ const FacebookStrategy = require('passport-facebook').Strategy;
 const {
   FACEBOOK_CLIENT_ID,
   FACEBOOK_SECRET,
+  ROOT_PATH
 } = require('config/env');
 
 module.exports = new FacebookStrategy({
     clientID: FACEBOOK_CLIENT_ID,
     clientSecret: FACEBOOK_SECRET,
-    callbackURL: '/auth/facebook/callback'
+    callbackURL: ROOT_PATH + 'auth/facebook/callback'
   },
   function (accessToken, refreshToken, profile, done) {
     const options = {
