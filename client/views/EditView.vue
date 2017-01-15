@@ -45,6 +45,9 @@ export default {
   },
   methods: {
     postUpdate(newPost) {
+      if (!newPost.createdAt || !newPost.updatedAt) {
+        newPost.updatedAt = newPost.createdAt = new Date().toISOString()
+      }
       this.$store.dispatch('SET_CACHED_POST', newPost)
     }
   },

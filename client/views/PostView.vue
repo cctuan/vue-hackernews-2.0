@@ -24,6 +24,20 @@ import ROUTES from '../../config/constants/ROUTES'
 
 const PathRegex = new RegExp('^/post/[0-9a-fA-F]{24}$', 'i')
 
+const lazyloadImgs = ($el) => {
+  $el.querySelectorAll('._lazy').forEach(item => {
+    let img = document.createElement('img')
+    img.onload = () => {
+      item.style.backgroundImage = `url(${img.src})`
+      item.classList.remove('_lazy')
+    }
+    img.onerror = () => {
+      item.classList.remove('_lazy')
+    }
+    img.src = item.getAttribute('data-image')
+  })
+}
+
 export default {
   name: 'post-view',
   components: {
@@ -57,23 +71,13 @@ export default {
     }
   },
   updated() {
-    this.$el.querySelectorAll('._lazy').forEach(item => {
-      let img = document.createElement('img')
-      img.onload = () => {
-        item.style.backgroundImage = `url(${img.src})`
-        item.classList.remove('_lazy')
-      }
-      img.onerror = () => {
-        item.classList.remove('_lazy')
-      }
-      img.src = item.getAttribute('data-image')
-    })
+    lazyloadImgs(this.$el)
   },
   mounted() {
+    lazyloadImgs(this.$el)
   },
   watch: {
     leftHeaderClick (newVal) {
-      console.info('leftHeaderClick and current view is', 'post view')
       console.log(this.$store.state.route, 'post-view')
       if (this.$store.state.route.name !== ROUTES.POST_VIEW) {
         return
