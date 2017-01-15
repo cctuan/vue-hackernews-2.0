@@ -3,7 +3,7 @@
   <div class="post-view">
     <div class="edit-view">
       <div class="view-inner">
-        <router-view :post="post" v-on:change="postUpdate" />
+        <router-view :post="post" v-on:change="postUpdate" :name="routeName" />
       </div>
     </div>
   </div>
@@ -13,6 +13,7 @@
 import {
   isValidMongoId
 } from '../utility'
+import ROUTES from '../../config/constants/ROUTES'
 
 const PathRegex = new RegExp('^/post', 'i')
 
@@ -27,8 +28,10 @@ export default {
   name: 'edit-main-view',
   components: {},
   computed: {
+    routeName() {
+      return this.$store.state.route.name
+    },
     post () {
-      console.log(this.$store.getters.cachedPost, 'this.$store.getters.cachedPost')
       return this.$store.getters.cachedPost
     },
     route () {
@@ -48,7 +51,7 @@ export default {
   watch : {
     // TODO: should save request while switch to save post
     route (newValRoute, oldValRoute) {
-      if (newValRoute.params.id === 'new') {
+      if (oldValRoute.name === 'list-view') {
         this.$store.dispatch('RESET_POST')
       }
     }

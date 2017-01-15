@@ -33,10 +33,14 @@
     <div class="btn confirm-send">
       <button v-on:click="onSave" class="preview-btn mdl-button mdl-js-button mdl-button--raised mdl-button--colored">確認送出</button>
     </div>
+    <menu-dialog :actions="menuActions" :display="menuDisplay"
+      :position="menuPosition" v-on:close="menuDisplay=false"
+      v-on:select="onMenuClick"/>
   </div>
 </template>
 
 <script>
+import MenuDialog from '../components/MenuDialog.vue'
 import RatingStar from '../components/RatingStar.vue'
 import PostBasicInformation from '../components/PostBasicInformation.vue'
 import ThemeSelector from '../components/ThemeSelector.vue'
@@ -44,11 +48,12 @@ import ThemeSelector from '../components/ThemeSelector.vue'
 import {
   DRINK_TYPE
 } from '../../config/constants'
+import ROUTES from '../../config/constants/ROUTES'
 
 export default {
-  name: 'quick-edit-view',
+  name: 'preview-edit-view',
   components: {
-    RatingStar, PostBasicInformation, ThemeSelector
+    RatingStar, PostBasicInformation, ThemeSelector, MenuDialog
   },
   props: {
     post: {
@@ -75,6 +80,15 @@ export default {
           type: 3
         }
       ],
+      menuPosition: {
+        top: '0px',
+        right: '0px'
+      },
+      menuDisplay: false,
+      menuActions : [{
+        name: '首頁',
+        type: 'home'
+      }],
       rating_map: [
         {
           title: '5 Stars',
@@ -109,15 +123,16 @@ export default {
   },
   watch: {
     leftHeaderClick (newVal) {
-      if (this.$store.state.route.name !== 'preview') {
+      if (this.$store.state.route.name !== ROUTES.PREVIEW_EDIT) {
         return
       }
       this.$router.go(-1)
     },
     rightHeaderClick (newVal) {
-      if (this.$store.state.route.name !== 'preview') {
+      if (this.$store.state.route.name !== ROUTES.PREVIEW_EDIT) {
         return
       }
+      this.menuDisplay = !this.menuDisplay
       console.log('rightHeaderClick', newVal)
     }
   },
@@ -135,6 +150,14 @@ export default {
         url: this.post.thumb.original,
         type
       })
+    },
+    onMenuClick(action) {
+      switch (action.type) {
+        case 'home': {
+          this.$router.push({ path: `/` })
+          break
+        }
+      }
     }
   }
 }

@@ -6,6 +6,8 @@ import {
 } from './../store/api'
 import store from './../store'
 
+import ROUTES from '../../config/constants/ROUTES'
+
 Vue.use(Router)
 Vue.use(Meta)
 
@@ -20,6 +22,12 @@ import PostView from '../views/PostView.vue'
 import EditView from '../views/EditView.vue'
 import QuickEditView from '../views/QuickEditView.vue'
 import PreviewEditView from '../views/PreviewEditView.vue'
+
+// TODO move all compoentns here
+let ALL_COMPONENTS = {}
+ALL_COMPONENTS[ROUTES.PREVIEW_EDIT] = PreviewEditView
+ALL_COMPONENTS[ROUTES.QUICK_EDIT] = QuickEditView
+ALL_COMPONENTS[ROUTES.POST_VIEW] = PostView
 
 
 const routeGuard = (to, from, next) => {
@@ -58,8 +66,8 @@ export default new Router({
       children: [
         {
           path: 'view',
-          component: PostView,
-          name: 'post-view',
+          components: ALL_COMPONENTS,
+          name: ROUTES.POST_VIEW,
           beforeEnter(to, from, next) {
             store.dispatch('SET_HEADER', {
               center: '',
@@ -76,26 +84,26 @@ export default new Router({
       component: EditView,
       children: [
         {
-          path: '',
-          component: QuickEditView,
-          name: 'quick-edit',
-          beforeEnter(to, from, next) {
-            store.dispatch('SET_HEADER', {
-              center: '新增筆記',
-              left: 'arrow_back',
-            })
-            next()
-          },
-        },
-        {
           path: 'preview',
-          name: 'preview',
-          component: PreviewEditView,
+          name: ROUTES.PREVIEW_EDIT,
+          components: ALL_COMPONENTS,
           beforeEnter(to, from, next) {
             store.dispatch('SET_HEADER', {
               center: '筆記預覽',
               left: 'arrow_back',
               right: 'more_vert',
+            })
+            next()
+          },
+        },
+        {
+          path: '',
+          components: ALL_COMPONENTS,
+          name: ROUTES.QUICK_EDIT,
+          beforeEnter(to, from, next) {
+            store.dispatch('SET_HEADER', {
+              center: '新增筆記',
+              left: 'arrow_back',
             })
             next()
           },

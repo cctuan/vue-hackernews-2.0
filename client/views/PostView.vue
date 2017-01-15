@@ -19,6 +19,8 @@ import PostBasicInformation from '../components/PostBasicInformation.vue'
 import {
   isValidMongoId
 } from '../utility'
+import ROUTES from '../../config/constants/ROUTES'
+
 
 const PathRegex = new RegExp('^/post/[0-9a-fA-F]{24}$', 'i')
 
@@ -73,13 +75,13 @@ export default {
     leftHeaderClick (newVal) {
       console.info('leftHeaderClick and current view is', 'post view')
       console.log(this.$store.state.route, 'post-view')
-      if (this.$store.state.route.name !== 'post-view') {
+      if (this.$store.state.route.name !== ROUTES.POST_VIEW) {
         return
       }
       this.$router.go(-1)
     },
     rightHeaderClick (newVal) {
-      if (this.$store.state.route.name !== 'post-view') {
+      if (this.$store.state.route.name !== ROUTES.POST_VIEW) {
         return
       }
       this.menuDisplay = !this.menuDisplay

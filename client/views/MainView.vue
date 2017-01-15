@@ -18,6 +18,7 @@
 
 import SearchInput from '../components/SearchInput.vue'
 import PostItem from '../components/PostItem.vue'
+import ROUTES from '../../config/constants/ROUTES'
 
 function fetchItems (store, query = {}) {
   return store.dispatch('FETCH_LIST_POST', query)
@@ -46,7 +47,7 @@ export default {
       if (this.$store.state.route.name !== 'list-view') {
         return
       }
-      this.$router.push('edit/new')
+      this.$router.push({ name: ROUTES.QUICK_EDIT })
     }
   },
   beforeMount () {

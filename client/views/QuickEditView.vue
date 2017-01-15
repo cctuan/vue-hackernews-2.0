@@ -58,6 +58,8 @@ import {
 import {
   isValidMongoId
 } from '../utility'
+import ROUTES from '../../config/constants/ROUTES'
+
 
 export default {
   name: 'quick-edit-view',
@@ -101,14 +103,14 @@ export default {
     previewPath() {
       if (this.post._id) {
         return {
-          name: 'preview',
+          name: ROUTES.PREVIEW_EDIT,
           params: {
             id: this.post._id
           }
         }
       } else {
         return {
-          name: 'preview'
+          name: ROUTES.PREVIEW_EDIT
         }
       }
     },
@@ -126,7 +128,7 @@ export default {
   },
   watch: {
     leftHeaderClick (newVal) {
-      if (this.$store.state.route.name !== 'quick-edit') {
+      if (this.$store.state.route.name !== ROUTES.QUICK_EDIT) {
         return
       }
       this.$router.go(-1)

@@ -1,6 +1,6 @@
 <template>
   <div class="post-view">
-    <router-view :post="post"/>
+    <router-view :post="post" :name="$store.state.route.name" />
   </div>
 </template>
 
@@ -20,7 +20,7 @@ function fetchItem (store) {
 }
 
 export default {
-  name: 'post-main-view',
+  name: 'main-post-view',
   components: {},
   computed: {
     post () {
