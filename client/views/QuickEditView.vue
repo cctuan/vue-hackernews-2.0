@@ -115,7 +115,7 @@ export default {
       }
     },
     rating() {
-      return this.post.rating || 3
+      return this.post.rating || 0
     },
     leftHeaderClick() {
       return this.$store.getters.headerLeftClick

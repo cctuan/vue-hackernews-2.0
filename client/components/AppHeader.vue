@@ -10,8 +10,8 @@
       <div class="mdl-layout-spacer">
         <span class="mdl-layout-title">{{title}}</span>
       </div>
-      <div v-on:click="onRightClick" class="mdl-textfield mdl-js-textfield mdl-textfield--expandable
-                  mdl-textfield--floating-label mdl-textfield--align-right is-upgraded" v-if="!!right">
+      <div v-on:click="onRightClick" class="mdl-textfield mdl-textfield--expandable
+                  mdl-textfield--floating-label mdl-textfield--align-right clickable" v-if="!!right">
         <i class="material-icons back-icon">
           {{right}}
         </i>
@@ -55,4 +55,6 @@ export default {
 <style lang="stylus" scoped>
 .customized
   background-color #7dd0e0
+.clickable
+  cursor pointer
 </style>
