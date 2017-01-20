@@ -3,10 +3,13 @@
     <search-input v-if="hasPost" v-on:change="inputValueChange"></search-input>
     <post-item v-if="hasPost" :post="post" v-for="post in posts"></post-item>
     <div v-if="!hasPost" class="no-post-section">
-      <h5>目前還沒有任何筆記喔</h5>
-      <p>立即撰寫品酒筆記，記錄並分享您每日品酒的細節與點滴</p>
+      <div class="main-page-icon">
+        <i class="material-icons">mood</i>
+      </div>
+      <div class="sub-header">目前還沒有任何筆記喔</div>
+      <p class="body">立即撰寫品酒筆記，記錄並分享您每日品酒的細節與點滴</p>
       <router-link to="/edit">
-        <button class="new-edit-btn mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+        <button class="common-color main-func-button mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
           開始新的筆記
         </button>
       </router-link>
@@ -90,4 +93,27 @@ export default {
   .new-edit-btn
     width 100%
     background-color #7dd0e0
+  a
+    margin-top 30px
+    display inline-block
+  button
+    background-color #7ad0e2
+.main-page-icon
+  i
+    font-size 70px
+    margin-top 30%
+.sub-header
+  margin 30px 0 10px
+.main-func-button
+  height 50px
+  padding 15px 50px
+  font-family MicrosoftJhengHei
+  font-size 16px
+  font-weight bold
+  font-style normal
+  font-stretch normal
+  line-height normal
+  letter-spacing normal
+  text-align center
+  color #ffffff
 </style>

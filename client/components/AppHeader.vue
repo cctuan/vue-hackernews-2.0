@@ -1,5 +1,5 @@
 <template>
-  <header class="mdl-layout__header customized">
+  <header class="mdl-layout__header common-color">
     <div class="mdl-layout__drawer-button" v-if="!!left"
       v-on:click="onLeftClick">
       <i class="material-icons back-icon">
@@ -53,8 +53,8 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-.customized
-  background-color #7dd0e0
 .clickable
   cursor pointer
+.common-color
+  background-color: #7ad0e2
 </style>

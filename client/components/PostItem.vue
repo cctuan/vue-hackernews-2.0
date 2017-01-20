@@ -3,9 +3,9 @@
     <div class="card-inner _lazy" :data-image="post.thumb ? post.thumb.url : null">
       <div class="card-content">
         <div class="card-content-inner">
-          <h6>{{post.name}}</h6>
-          <p>{{post.description_s}}</p>
-          <div>
+          <div class="headline">{{post.name}}</div>
+          <p class="body">{{post.description_s}}</p>
+          <div class="bottom">
             <i class="material-icons">star</i>
             <span class="rating-value">{{post.rating}}.0</span>
             <router-link :to="`/post/${post._id}/view`">完整筆記</router-link>
@@ -29,7 +29,7 @@ export default {
 </script>
 <style lang="stylus" scoped>
 .card
-  padding 2px 4px 2px 4px
+  padding 8px
   float left
   width 100%
   box-sizing border-box
@@ -46,19 +46,29 @@ export default {
   color white
   width 100%
   bottom 0
+  height 30%
   padding 10px 25px
   box-sizing border-box
+  .card-content-inner
+    .headline
+      line-height 32px
+    .bottom
+      i
+        font-size 16px
   h6
     padding 0
     margin 0
   p
     margin 0 0 5px
   .rating-value
+    font-size 16px
     margin-left 10px
   i
     font-size 15px
     color yellow
     line-height 20px
+  .body
+    text-align left
 a
   color white
   float right

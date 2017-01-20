@@ -1,8 +1,11 @@
 <template>
   <div class="login-view">
-    <h5>初次登入需綁定FB帳號</h5>
-    <p>使用本服務前，請先登入您的Facebook帳號以利一飲提供優質的使用情境與服務</p>
-    <a href="/auth/facebook">
+    <div class="login-icon">
+      <i class="material-icons">card_giftcard</i>
+    </div>
+    <div class="sub-header">初次登入需綁定FB帳號</div>
+    <p class="body">使用本服務前，請先登入您的Facebook帳號以利一飲提供優質的使用情境與服務</p>
+    <a class="login-button-container" href="/auth/facebook">
       <button class="login-fb-btn mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
         以 Facebook 帳戶註冊
       </button>
@@ -18,6 +21,27 @@ export default {
 }
 </script>
 <style lang="stylus" scoped>
+.login-icon
+  i
+    font-size 70px
+    margin-top 30%
+.sub-header
+  margin 30px 0 10px
+.login-button-container
+  margin-top 30px
+  display inline-block
+  button
+    height 20px
+    padding 15px 68px
+    font-family MicrosoftJhengHei
+    font-size 16px
+    font-weight bold
+    font-style normal
+    font-stretch normal
+    line-height normal
+    letter-spacing normal
+    text-align center
+    color #ffffff
 .login-view
   height 100%
   text-align center

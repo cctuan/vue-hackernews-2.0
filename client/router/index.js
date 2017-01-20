@@ -123,7 +123,7 @@ export default new Router({
           store.dispatch('SET_HEADER', {
             center: '我的品酒筆記',
             left: 'menu',
-            right: 'add'
+            right: 'create'
           })
           next()
         } else if (store.getters.isUserVisited) {
