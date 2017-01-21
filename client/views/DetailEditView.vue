@@ -3,11 +3,23 @@
     <basic-edit :post="post" v-on:change="postChange" v-on:imageChange="imageChange" />
     <div class="btn-container">
       <a v-on:click="$emit('cancel')">
-        <button class="preview-btn mdl-button mdl-js-button mdl-button--raised mdl-button--colored">取消</button>
+        <button class="preview-btn mdl-button mdl-button--raised">取消</button>
       </a>
-      <router-link :to="previewPath">
-        <button class="preview-btn mdl-button mdl-js-button mdl-button--raised mdl-button--colored">確認預覽</button>
-      </router-link>
+      <a v-on:click="onClickNextStep">
+        <button class="preview-btn mdl-button mdl-button--raised">
+          {{bottomLeftBtnText}}
+        </button>
+      </a>
+    </div>
+    <div class="tab-list">
+      <div class="tab-inner">
+        <div :class="'tab' +
+          (index <= tabIndex ? (index === tabIndex ? ' selected' : ' in-selected') : '')"
+          v-for="(tab, index) in tabList" @click="switchTab(index)">
+          <i class="material-icons">{{tab.icon}}</i>
+          <div class="action">{{tab.label}}</div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -24,7 +36,7 @@ import ROUTES from '../../config/constants/ROUTES'
 
 
 export default {
-  name: 'quick-edit-view',
+  name: 'detail-edit-view',
   components: {
     BasicEdit
   },
@@ -36,6 +48,25 @@ export default {
   },
   data() {
     return {
+      tabIndex: 1,
+      tabList: [
+        {
+          icon: 'art_track',
+          label: '短評'
+        },{
+          icon: 'local_bar',
+          label: '外觀'
+        },{
+          icon: 'local_florist',
+          label: '氣味'
+        },{
+          icon: 'opacity',
+          label: '味覺'
+        },{
+          icon: 'assignment_turned_in',
+          label: '總結'
+        }
+      ],
       drink_types: DRINK_TYPE,
       rating_map: [
         {
@@ -76,6 +107,9 @@ export default {
         }
       }
     },
+    bottomLeftBtnText() {
+      return this.tabIndex === 4 ? '確認預覽' : '下一步'
+    },
     leftHeaderClick() {
       return this.$store.getters.headerLeftClick
     },
@@ -87,7 +121,7 @@ export default {
   },
   watch: {
     leftHeaderClick (newVal) {
-      if (this.$store.state.route.name !== ROUTES.QUICK_EDIT) {
+      if (this.$store.state.route.name !== ROUTES.DETAIL_EDIT) {
         return
       }
       this.$emit('cancel')
@@ -117,6 +151,20 @@ export default {
     },
     selectDrinkType(val) {
       this.$emit('change', Object.assign(this.post, {type: val}))
+    },
+    switchTab(val) {
+      this.$store.dispatch('SET_HEADER', {
+        center: this.tabList[val].label,
+        left: 'arrow_back',
+      })
+      this.tabIndex = val
+    },
+    onClickNextStep() {
+      if (this.tabIndex !== 4) {
+        this.tabIndex++
+      } else {
+
+      }
     }
   }
 }
@@ -129,6 +177,7 @@ export default {
     display inline-block
     width 48%
     button
+      color white
       width 100%
       font-size 16px
       padding-top 15px
@@ -140,4 +189,23 @@ export default {
       margin-left 3%
       button
         background-color #7ad0e2
+.tab-list
+  background-color #11161d
+  .tab
+    &.selected
+      background-color #7ad0e2
+      color white
+      border-bottom 3px solid #7ad0e2
+    &.in-selected
+      border-bottom 3px solid #7ad0e2
+    cursor pointer
+    padding 9px 0
+    text-align center
+    display inline-block
+    border-bottom 3px solid #11161d
+    width 20%
+    i
+      font-size 24px
+    div
+      font-size 10px
 </style>

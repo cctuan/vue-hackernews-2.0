@@ -28,7 +28,7 @@
             快速筆記
           </button>
         </router-link>
-        <router-link to="/edit">
+        <router-link to="/edit/detail">
           <button class="detail-edit common-color main-func-button mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
             完整筆記
           </button>
