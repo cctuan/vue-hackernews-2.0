@@ -99,10 +99,11 @@ export default new Router({
           },
         },
         {
-          path: '',
+          path: 'detail',
           components: ALL_COMPONENTS,
           name: ROUTES.DETAIL_EDIT,
           beforeEnter(to, from, next) {
+            console.log('__ROUTES.DETAIL_EDIT', to)
             store.dispatch('SET_HEADER', {
               center: '新增筆記',
               left: 'arrow_back',
