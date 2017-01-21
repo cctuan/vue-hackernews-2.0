@@ -17,9 +17,6 @@ import BasicEdit from '../components/BasicEdit.vue'
 import {
   DRINK_TYPE
 } from '../../config/constants'
-import {
-  isValidMongoId
-} from '../utility'
 import ROUTES from '../../config/constants/ROUTES'
 
 

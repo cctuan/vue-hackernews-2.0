@@ -1,6 +1,7 @@
 <template>
   <div>
-    <basic-edit :post="post" v-on:change="postChange" v-on:imageChange="imageChange" />
+    <basic-edit v-if="tabIndex == 0" :post="post" v-on:change="postChange" v-on:imageChange="imageChange" />
+    <appearance-edit v-if="tabIndex == 1" :post="post" v-on:change="postChange" />
     <div class="btn-container">
       <a v-on:click="$emit('cancel')">
         <button class="preview-btn mdl-button mdl-button--raised">取消</button>
@@ -26,19 +27,17 @@
 
 <script>
 import BasicEdit from '../components/BasicEdit.vue'
+import AppearanceEdit from '../components/AppearanceEdit.vue'
 import {
   DRINK_TYPE
 } from '../../config/constants'
-import {
-  isValidMongoId
-} from '../utility'
 import ROUTES from '../../config/constants/ROUTES'
 
 
 export default {
   name: 'detail-edit-view',
   components: {
-    BasicEdit
+    BasicEdit, AppearanceEdit
   },
   props: {
     post: {
@@ -163,7 +162,7 @@ export default {
       if (this.tabIndex !== 4) {
         this.tabIndex++
       } else {
-
+        this.$router.push({ path: `/edit/preview` })
       }
     }
   }
@@ -172,6 +171,7 @@ export default {
 <style lang="stylus" scoped>
 .btn-container
   padding 0 16px
+  margin-top 15px
   margin-bottom 15px
   a
     display inline-block
