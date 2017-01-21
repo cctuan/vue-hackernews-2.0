@@ -31,7 +31,7 @@ export default {
   margin-top 30px
   display inline-block
   button
-    height 20px
+    height 50px
     padding 15px 68px
     font-family MicrosoftJhengHei
     font-size 16px
