@@ -1,10 +1,12 @@
 <template>
   <fieldset :class="[`starability-${kind}`, 'rating']">
     <legend v-if="legend">{{ legend }}</legend>
-    <template v-for="(item, index) in items">
-      <input type="radio" :id="uuid(index)" name="rating" :value="item.value" :checked="hasChecked(index + 1)" v-on:change="change(index + 1)">
-      <label class="material-icons" :for="uuid(index)" :title="item.title || ''">{{(selected > index) ? "star" : "star_border"}}</label>
-    </template>
+    <div class="star-container">
+      <template v-for="(item, index) in items">
+        <input type="radio" :id="uuid(index)" name="rating" :value="item.value" :checked="hasChecked(index + 1)" v-on:change="change(index + 1)">
+        <label class="material-icons" :for="uuid(index)" :title="item.title || ''">{{(selected > index) ? "star" : "star_border"}}</label>
+      </template>
+    </div>
   </fieldset>
 </template>
 
@@ -60,434 +62,39 @@ export default {
 fieldset {
   margin: auto;
 }
-
+.star-container {
+  margin: 10px 0 15px;
+  width: 100%;
+}
 .starability-basic {
   display: block;
   position: relative;
-  width: 150px;
-  min-height: 60px;
+  width: 100%;
   padding: 0;
   border: none;
 }
 
-.starability-basic > input {
+.starability-basic legend {
+  position: relative;
+  padding-top: 16px;
+  font-size: 14px;
+}
+
+.starability-basic input {
   position: absolute;
   margin-right: -100%;
   opacity: 0;
 }
 
-.starability-basic > input:checked ~ label,
-.starability-basic > input:focus ~ label {
-  background-position: 0 -30px;
-}
-
-.starability-basic > input:hover ~ label {
-  background-position: 0 -30px;
-}
-
-.starability-basic > input:focus + label {
-  outline: 1px dotted #999;
-}
-
-.starability-basic > label {
+.starability-basic label {
   position: relative;
   display: inline-block;
-  float: left;
-  width: 30px;
-  height: 30px;
+  margin: 0 8px;
+  font-size: 20px;
+  width: 20px;
+  height: 20px;
   cursor: pointer;
-  background-repeat: no-repeat;
 }
 
-@media screen and (-webkit-min-device-pixel-ratio: 2), screen and (min-resolution: 192dpi) {
-  .starability-basic > label {
-    background-size: 30px auto;
-  }
-}
 
-.starability-slot {
-  display: block;
-  position: relative;
-  width: 150px;
-  min-height: 60px;
-  padding: 0;
-  border: none;
-}
-
-.starability-slot > input {
-  position: absolute;
-  margin-right: -100%;
-  opacity: 0;
-}
-
-.starability-slot > input:checked ~ label,
-.starability-slot > input:focus ~ label {
-  background-position: 0 -30px;
-}
-
-.starability-slot > input:hover ~ label {
-  background-position: 0 -30px;
-}
-
-.starability-slot > input:focus + label {
-  outline: 1px dotted #999;
-}
-
-.starability-slot > label {
-  position: relative;
-  display: inline-block;
-  float: right;
-  width: 30px;
-  height: 30px;
-  cursor: pointer;
-  background-repeat: no-repeat;
-}
-
-@media screen and (-webkit-min-device-pixel-ratio: 2), screen and (min-resolution: 192dpi) {
-  .starability-slot > label {
-    background-size: 30px auto;
-  }
-}
-
-.starability-slot > input:checked ~ label,
-.starability-slot > input:hover ~ label,
-.starability-slot > input:focus ~ label {
-  transition: background-position .7s;
-}
-
-@keyframes grow {
-  0% {
-    transform: scale(1, 1);
-  }
-  99% {
-    transform: scale(4, 4);
-    opacity: 0;
-  }
-  100% {
-    transform: scale(1, 1);
-    opacity: 0;
-  }
-}
-
-.starability-grow {
-  display: block;
-  position: relative;
-  width: 150px;
-  min-height: 60px;
-  padding: 0;
-  border: none;
-}
-
-.starability-grow > input {
-  position: absolute;
-  margin-right: -100%;
-  opacity: 0;
-}
-
-.starability-grow > input:checked ~ label,
-.starability-grow > input:focus ~ label {
-  background-position: 0 -30px;
-}
-
-.starability-grow > input:hover ~ label {
-  background-position: 0 -30px;
-}
-
-.starability-grow > input:focus + label {
-  outline: 1px dotted #999;
-}
-
-.starability-grow > label {
-  position: relative;
-  display: inline-block;
-  float: right;
-  width: 30px;
-  height: 30px;
-  cursor: pointer;
-  background-repeat: no-repeat;
-}
-
-@media screen and (-webkit-min-device-pixel-ratio: 2), screen and (min-resolution: 192dpi) {
-  .starability-grow > label {
-    background-size: 30px auto;
-  }
-}
-
-.starability-grow > label:before {
-  display: none;
-  position: absolute;
-  content: ' ';
-  width: 30px;
-  height: 30px;
-  background-repeat: no-repeat;
-  bottom: 0;
-}
-
-@media screen and (-webkit-min-device-pixel-ratio: 2), screen and (min-resolution: 192dpi) {
-  .starability-grow > label:before {
-    background-size: 30px auto;
-  }
-}
-
-.starability-grow > input:checked + label:before {
-  background-position: 0 -30px;
-  display: block;
-  animation-duration: 1s;
-  animation-name: grow;
-  animation-fill-mode: forwards;
-}
-
-@keyframes grow-rotate {
-  0% {
-    transform: scale(1, 1) rotate(0deg);
-  }
-  99% {
-    transform: scale(4, 4) rotate(90deg);
-    opacity: 0;
-  }
-  100% {
-    transform: scale(1, 1) rotate(0deg);
-    opacity: 0;
-  }
-}
-
-.starability-growRotate {
-  display: block;
-  position: relative;
-  width: 150px;
-  min-height: 60px;
-  padding: 0;
-  border: none;
-}
-
-.starability-growRotate > input {
-  position: absolute;
-  margin-right: -100%;
-  opacity: 0;
-}
-
-.starability-growRotate > input:checked ~ label,
-.starability-growRotate > input:focus ~ label {
-  background-position: 0 -30px;
-}
-
-.starability-growRotate > input:hover ~ label {
-  background-position: 0 -30px;
-}
-
-.starability-growRotate > input:focus + label {
-  outline: 1px dotted #999;
-}
-
-.starability-growRotate > label {
-  position: relative;
-  display: inline-block;
-  float: right;
-  width: 30px;
-  height: 30px;
-  cursor: pointer;
-  background-repeat: no-repeat;
-}
-
-@media screen and (-webkit-min-device-pixel-ratio: 2), screen and (min-resolution: 192dpi) {
-  .starability-growRotate > label {
-    background-size: 30px auto;
-  }
-}
-
-.starability-growRotate > label:before {
-  display: none;
-  position: absolute;
-  content: ' ';
-  width: 30px;
-  height: 30px;
-  background-repeat: no-repeat;
-  bottom: 0;
-}
-
-@media screen and (-webkit-min-device-pixel-ratio: 2), screen and (min-resolution: 192dpi) {
-  .starability-growRotate > label:before {
-    background-size: 30px auto;
-  }
-}
-
-.starability-growRotate > input:checked + label:before {
-  background-position: 0 -30px;
-  display: block;
-  animation-duration: 1s;
-  animation-name: grow-rotate;
-  animation-fill-mode: forwards;
-}
-
-@keyframes fade {
-  0% {
-    transform: translateY(30px);
-  }
-  80% {
-    opacity: 100%;
-  }
-  100% {
-    transform: none;
-    opacity: 0;
-  }
-}
-
-.starability-fade {
-  display: block;
-  position: relative;
-  width: 150px;
-  min-height: 60px;
-  padding: 0;
-  border: none;
-}
-
-.starability-fade > input {
-  position: absolute;
-  margin-right: -100%;
-  opacity: 0;
-}
-
-.starability-fade > input:checked ~ label,
-.starability-fade > input:focus ~ label {
-  background-position: 0 -30px;
-}
-
-.starability-fade > input:hover ~ label {
-  background-position: 0 -30px;
-}
-
-.starability-fade > input:focus + label {
-  outline: 1px dotted #999;
-}
-
-.starability-fade > label {
-  position: relative;
-  display: inline-block;
-  float: right;
-  width: 30px;
-  height: 30px;
-  cursor: pointer;
-  background-repeat: no-repeat;
-}
-
-@media screen and (-webkit-min-device-pixel-ratio: 2), screen and (min-resolution: 192dpi) {
-  .starability-fade > label {
-    background-size: 30px auto;
-  }
-}
-
-.starability-fade > label:before {
-  display: none;
-  position: absolute;
-  content: ' ';
-  width: 30px;
-  height: 30px;
-  background-repeat: no-repeat;
-  background-position: 0 -30px;
-  bottom: 30px;
-}
-
-@media screen and (-webkit-min-device-pixel-ratio: 2), screen and (min-resolution: 192dpi) {
-  .starability-fade > label:before {
-    background-size: 30px auto;
-  }
-}
-
-.starability-fade > input:checked + label:before {
-  display: block;
-  animation-name: fade;
-  animation-duration: 1s;
-  animation-fill-mode: forwards;
-}
-
-@keyframes checkmark {
-  0% {
-    transform: translateX(-15px);
-  }
-  60% {
-    opacity: 1;
-  }
-  70% {
-    transform: none;
-  }
-  80% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-  }
-}
-
-.starability-checkmark {
-  display: block;
-  position: relative;
-  width: 150px;
-  min-height: 60px;
-  padding: 0;
-  border: none;
-}
-
-.starability-checkmark > input {
-  position: absolute;
-  margin-right: -100%;
-  opacity: 0;
-}
-
-.starability-checkmark > input:checked ~ label,
-.starability-checkmark > input:focus ~ label {
-  background-position: 0 -30px;
-}
-
-.starability-checkmark > input:hover ~ label {
-  background-position: 0 -30px;
-}
-
-.starability-checkmark > input:focus + label {
-  outline: 1px dotted #999;
-}
-
-.starability-checkmark > label {
-  position: relative;
-  display: inline-block;
-  float: right;
-  width: 30px;
-  height: 30px;
-  cursor: pointer;
-  background-repeat: no-repeat;
-}
-
-@media screen and (-webkit-min-device-pixel-ratio: 2), screen and (min-resolution: 192dpi) {
-  .starability-checkmark > label {
-    background-size: 30px auto;
-  }
-}
-
-.starability-checkmark > label {
-  position: static;
-  z-index: 2;
-}
-
-.starability-checkmark > label:before {
-  display: none;
-  position: absolute;
-  content: ' ';
-  width: 30px;
-  height: 30px;
-  background-repeat: no-repeat;
-  background-position: 0 -60px;
-  right: -30px;
-}
-
-@media screen and (-webkit-min-device-pixel-ratio: 2), screen and (min-resolution: 192dpi) {
-  .starability-checkmark > label:before {
-    background-size: 30px auto;
-  }
-}
-
-.starability-checkmark > input:checked + label:before {
-  display: block;
-  animation-name: checkmark;
-  animation-duration: .7s;
-  animation-fill-mode: forwards;
-}
 </style>

@@ -3,7 +3,28 @@
   <div class="post-view">
     <div class="edit-view">
       <div class="view-inner">
-        <router-view :post="post" v-on:change="postUpdate" :name="routeName" />
+        <router-view :post="post" v-on:change="postUpdate"
+          :name="routeName" v-on:cancel="showModal=true"/>
+        <modal v-if="showModal" @close="showModal = false">
+          <div slot="body" class="edit-dialog">
+            <div class="headline">
+              取消編輯
+            </div>
+            <div class="body">
+              您的筆記尚未編輯完成，確定要捨棄此份筆記？
+            </div>
+            <div class="btn-container">
+              <div class="continue-btn" @click="showModal=false">
+                繼續編輯
+              </div>
+              <router-link to="/">
+                <div class="cancel-btn">
+                  確定捨棄
+                </div>
+              </router-link>
+            </div>
+          </div>
+        </modal>
       </div>
     </div>
   </div>
@@ -14,6 +35,7 @@ import {
   isValidMongoId
 } from '../utility'
 import ROUTES from '../../config/constants/ROUTES'
+import Modal from '../components/Modal.vue'
 
 const PathRegex = new RegExp('^/post', 'i')
 
@@ -26,7 +48,12 @@ function fetchItem (store) {
 
 export default {
   name: 'edit-main-view',
-  components: {},
+  components: {Modal},
+  data() {
+    return {
+      showModal: false
+    }
+  },
   computed: {
     routeName() {
       return this.$store.state.route.name
@@ -52,6 +79,9 @@ export default {
     }
   },
   watch : {
+    '$route'() {
+      this.showModal = false
+    },
     // TODO: should save request while switch to save post
     route (newValRoute, oldValRoute) {
       if (oldValRoute.name === 'list-view') {
@@ -64,23 +94,20 @@ export default {
 <style lang="stylus" scoped>
 .rating-field
   text-align center
-.edit-section
-  height 100px
-.content-inner
-  padding 10px
-.chip-flat
-  width 20%
-  float left
-  height 20px
-  padding 5px 10px
-.preview-btn
-  width 100%
-.drink-type-item
-  float left
-  padding 0 10px 0 10px
-  div
-    border-width: 1px;
-    border-style: solid;
-  .selected
-    background-color: rgba(158,158,158,.2)
+.edit-dialog
+  .headline
+    color #000000
+  .body
+    margin-top 15px
+    color rgba(0, 0, 0, 0.5)
+  .btn-container
+    text-align right
+    margin-top 24px
+    .continue-btn, a
+      display inline-block
+    .continue-btn, .cancel-btn
+      cursor pointer
+      padding 10px
+    .cancel-btn
+      color #7ad0e2
 </style>

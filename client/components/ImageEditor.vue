@@ -1,7 +1,10 @@
 <template>
   <div v-bind:class="classObject" :data-image="url">
-    <div class="caption">
-      <button v-on:click="uploadImage">拍下美酒照片</button>
+    <div class="caption" v-on:click="uploadImage">
+      <div class="icon-container">
+        <i class="material-icons">photo_camera</i>
+      </div>
+      <div class="sub-header">拍下美酒照片</div>
       <input id="myFileInput" type="file"
         accept="image/*;capture=camera"
         style="display: none"
@@ -99,7 +102,7 @@ export default {
 </script>
 <style lang="stylus" scoped>
 .thumb
-  padding-bottom 56%
+  padding-bottom 70%
   background-size contain
   background-position center center
   background-repeat no-repeat
@@ -112,4 +115,10 @@ export default {
   position absolute
   text-align center
   bottom calc(50% - 75px)
+  .icon-container
+    cursor pointer
+    i
+      font-size 50px
+  .sub-header
+    margin-top 15px
 </style>

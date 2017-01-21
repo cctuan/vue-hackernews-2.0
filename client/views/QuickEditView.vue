@@ -1,7 +1,7 @@
 <template>
   <div>
     <image-editor :url="post.thumb ? post.thumb.url : ''" v-on:change="imageChange"/>
-    <div class="rating-field margin-top-25">
+    <div class="rating-field">
       <rating-star uid="quick" :items="rating_map" legend="按一下星星來評分" :value="rating" @change="updateRate"></rating-star>
     </div>
     <div class="content">
@@ -18,28 +18,30 @@
               </div>
             </div>
           </div>
+          <div class="clear-both"></div>
         </div>
-        <div class="bar"></div>
         <div class="edit-section">
           <div class="edit-title">
             品名
           </div>
           <div class="mdl-textfield">
-            <input class="mdl-textfield__input" v-model="post.name" id="brand-name">
+            <input class="mdl-textfield__input" placeholder="請輸入酒款名稱"
+              v-model="post.name" id="brand-name">
             <label class="mdl-textfield__label" for="brand-name"></label>
           </div>
-        </div>
-        <div class="bar"></div>
-        <div class="edit-section">
           <div class="edit-title">
             短評
           </div>
           <div class="mdl-textfield">
-            <textarea class="mdl-textfield__input" v-model="post.description_s" id="description_s" />
+            <textarea class="mdl-textfield__input"  placeholder="請輸入２０字以內短評"
+              v-model="post.description_s" id="description_s" />
             <label class="mdl-textfield__label" for="description_s"></label>
           </div>
         </div>
-        <div class="btn">
+        <div class="btn-container">
+          <a v-on:click="$emit('cancel')">
+            <button class="preview-btn mdl-button mdl-js-button mdl-button--raised mdl-button--colored">取消</button>
+          </a>
           <router-link :to="previewPath">
             <button class="preview-btn mdl-button mdl-js-button mdl-button--raised mdl-button--colored">確認預覽</button>
           </router-link>
@@ -162,10 +164,18 @@ export default {
 <style lang="stylus" scoped>
 .rating-field
   text-align center
-.margin-top-25
-  margin-top 25px
 .content-inner
-  padding 10px
+  padding 0 16px
+.edit-section
+  border-top 1px solid rgba(255, 255, 255, 0.12)
+  .edit-title
+    font-size 14px
+    padding 15px 0
+  .clear-both
+    clear both
+    margin-bottom 15px
+  .mdl-textfield__input
+    border-bottom-color rgba(255, 255, 255, 0.12)
 .chip-flat
   width 20%
   float left
@@ -181,8 +191,6 @@ export default {
     border-style: solid;
   .selected
     background-color: rgba(158,158,158,.2)
-.bar
-  clear both
 .type-item
   color #cbccce
   margin-top 10px
@@ -190,4 +198,19 @@ export default {
   width 100%
   input, textarea
     border-bottom-color #cbccce
+.btn-container
+  a
+    display inline-block
+    width 48%
+    button
+      font-size 16px
+      padding-top 15px
+      padding-bottom 15px
+      height auto
+      line-height normal
+      background-color #303943
+    &:nth-child(2)
+      margin-left 3%
+      button
+        background-color #7ad0e2
 </style>
