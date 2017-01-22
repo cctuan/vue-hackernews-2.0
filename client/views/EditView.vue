@@ -1,10 +1,12 @@
 
 <template>
-  <div class="post-view" :name="routeName">
+  <div class="post-view">
     <div class="edit-view">
       <div class="view-inner" :name="routeName">
-        <router-view :post="post" v-on:change="postUpdate"
-          :name="routeName" v-on:cancel="showModal=true"/>
+        <keep-alive>
+          <router-view :post="post" v-on:change="postUpdate"
+            v-on:cancel="showModal=true"/>
+        </keep-alive>
         <modal v-if="showModal" @close="showModal = false">
           <div slot="body" class="edit-dialog">
             <div class="headline">
@@ -56,7 +58,6 @@ export default {
   },
   computed: {
     routeName() {
-      console.log('this.$store.state.route.name', this.$store.state.route.name)
       return this.$store.state.route.name
     },
     post () {

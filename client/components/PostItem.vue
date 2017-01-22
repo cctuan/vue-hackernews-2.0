@@ -46,7 +46,6 @@ export default {
   color white
   width 100%
   bottom 0
-  height 30%
   padding 10px 25px
   box-sizing border-box
   .card-content-inner

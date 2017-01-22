@@ -24,14 +24,6 @@ import QuickEditView from '../views/QuickEditView.vue'
 import DetailEditView from '../views/DetailEditView.vue'
 import PreviewEditView from '../views/PreviewEditView.vue'
 
-// TODO move all compoentns here
-let ALL_COMPONENTS = {}
-ALL_COMPONENTS[ROUTES.PREVIEW_EDIT] = PreviewEditView
-ALL_COMPONENTS[ROUTES.QUICK_EDIT] = QuickEditView
-ALL_COMPONENTS[ROUTES.POST_VIEW] = PostView
-ALL_COMPONENTS[ROUTES.DETAIL_EDIT] = DetailEditView
-
-
 const routeGuard = (to, from, next) => {
   if (store.getters.isUserLogin) {
     next()
@@ -68,7 +60,7 @@ export default new Router({
       children: [
         {
           path: 'view',
-          components: ALL_COMPONENTS,
+          component: PostView,
           name: ROUTES.POST_VIEW,
           beforeEnter(to, from, next) {
             store.dispatch('SET_HEADER', {
@@ -88,7 +80,7 @@ export default new Router({
         {
           path: 'preview',
           name: ROUTES.PREVIEW_EDIT,
-          components: ALL_COMPONENTS,
+          component: PreviewEditView,
           beforeEnter(to, from, next) {
             store.dispatch('SET_HEADER', {
               center: '筆記預覽',
@@ -100,7 +92,7 @@ export default new Router({
         },
         {
           path: 'detail',
-          components: ALL_COMPONENTS,
+          component: DetailEditView,
           name: ROUTES.DETAIL_EDIT,
           beforeEnter(to, from, next) {
             console.log('__ROUTES.DETAIL_EDIT', to)
@@ -113,7 +105,7 @@ export default new Router({
         },
         {
           path: '',
-          components: ALL_COMPONENTS,
+          component: QuickEditView,
           name: ROUTES.QUICK_EDIT,
           beforeEnter(to, from, next) {
             store.dispatch('SET_HEADER', {

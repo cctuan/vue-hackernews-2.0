@@ -1,6 +1,8 @@
 <template>
   <div class="post-view">
-    <router-view :post="post" :name="$store.state.route.name" />
+    <keep-alive>
+      <router-view :post="post" />
+    </keep-alive>
   </div>
 </template>
 

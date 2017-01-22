@@ -2,11 +2,7 @@
   <div id="app" class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
     <app-header v-if="shoudShowHeader" />
     <main class="mdl-layout__content">
-      <transition name="fade" mode="out-in">
-        <keep-alive>
-          <router-view class="view"></router-view>
-        </keep-alive>
-      </transition>
+      <router-view class="view"></router-view>
     </main>
   </div>
 </template>
