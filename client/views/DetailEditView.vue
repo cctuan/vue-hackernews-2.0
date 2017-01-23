@@ -2,6 +2,7 @@
   <div>
     <basic-edit v-if="tabIndex == 0" :post="post" v-on:change="postChange" v-on:imageChange="imageChange" />
     <appearance-edit v-if="tabIndex == 1" :post="post" v-on:change="postChange" />
+    <nose-edit v-if="tabIndex == 2" :post="post" v-on:change="postChange" />
     <div class="btn-container">
       <a v-on:click="$emit('cancel')">
         <button class="preview-btn mdl-button mdl-button--raised">取消</button>
@@ -28,16 +29,18 @@
 <script>
 import BasicEdit from '../components/BasicEdit.vue'
 import AppearanceEdit from '../components/AppearanceEdit.vue'
+import NoseEdit from '../components/NoseEdit.vue'
+import deepExtend from 'deep-extend'
+
 import {
   DRINK_TYPE
 } from '../../config/constants'
 import ROUTES from '../../config/constants/ROUTES'
 
-
 export default {
   name: 'detail-edit-view',
   components: {
-    BasicEdit, AppearanceEdit
+    BasicEdit, AppearanceEdit, NoseEdit
   },
   props: {
     post: {
@@ -47,7 +50,7 @@ export default {
   },
   data() {
     return {
-      tabIndex: 1,
+      tabIndex: 2,
       tabList: [
         {
           icon: 'art_track',
@@ -143,13 +146,7 @@ export default {
       **/
     },
     postChange(val) {
-      this.$emit('change', Object.assign(this.post, val))
-    },
-    updateRate (val) {
-      this.$emit('change', Object.assign(this.post, {rating: val}))
-    },
-    selectDrinkType(val) {
-      this.$emit('change', Object.assign(this.post, {type: val}))
+      this.$emit('change', deepExtend(this.post, val))
     },
     switchTab(val) {
       this.$store.dispatch('SET_HEADER', {

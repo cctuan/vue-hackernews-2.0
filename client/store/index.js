@@ -1,5 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import deepExtend from 'deep-extend'
+
 import {
   fetchItems,
   fetchIdsByType,
@@ -27,11 +29,11 @@ const createInitialPost = () => {
     },
     meta: {
       nose: {
-        type: {},
+        type: [],
         strong: null
       },
       taste: {
-        type: {},
+        type: [],
         wine_body: null,
         tannin: null,
         sweetness: null,
@@ -280,7 +282,7 @@ const store = new Vuex.Store({
     },
 
     SET_CACHED_POST : (state, post) => {
-      state.cachePost = Object.assign(state.cachePost, post)
+      deepExtend(state.cachePost, post)
     },
 
     SET_POST : (state, post) => {

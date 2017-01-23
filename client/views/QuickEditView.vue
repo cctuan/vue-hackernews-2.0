@@ -14,6 +14,7 @@
 
 <script>
 import BasicEdit from '../components/BasicEdit.vue'
+import deepExtend from 'deep-extend'
 import {
   DRINK_TYPE
 } from '../../config/constants'
@@ -107,7 +108,7 @@ export default {
       **/
     },
     postChange(val) {
-      this.$emit('change', Object.assign(this.post, val))
+      this.$emit('change', deepExtend(this.post, val))
     },
     updateRate (val) {
       this.$emit('change', Object.assign(this.post, {rating: val}))

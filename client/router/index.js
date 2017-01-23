@@ -18,13 +18,21 @@ import LandingView from '../views/LandingView.vue'
 import LoginView from '../views/LoginView.vue'
 import MainView from '../views/MainView.vue'
 import MainPostView from '../views/MainPostView.vue'
+import PostView from '../views/PostView.vue'
 import EditView from '../views/EditView.vue'
-
-const QuickEditView = process.BROWSER ? () => System.import('../views/QuickEditView.vue') : require('../views/QuickEditView.vue')
-const DetailEditView = process.BROWSER ? () => System.import('../views/DetailEditView.vue') : require('../views/DetailEditView.vue')
-const PostView = process.BROWSER ? () => System.import('../views/PostView.vue') : require('../views/PostView.vue')
-const PreviewEditView = process.BROWSER ? () => System.import('../views/PreviewEditView.vue') : require('../views/PreviewEditView.vue')
-
+/**
+// lazy load below scripts since they are bug and requires sometimes
+// TODO switch to lazyload ,
+**/
+import DetailEditView from '../views/DetailEditView.vue'
+import PreviewEditView from '../views/PreviewEditView.vue'
+import QuickEditView from '../views/QuickEditView.vue'
+/**
+**/
+// const QuickEditView = process.BROWSER ? () => System.import('../views/QuickEditView.vue') : require('../views/QuickEditView.vue')
+// const DetailEditView = process.BROWSER ? () => System.import('../views/DetailEditView.vue') : require('../views/DetailEditView.vue')
+// const PostView = process.BROWSER ? () => System.import('../views/PostView.vue') : require('../views/PostView.vue')
+// const PreviewEditView = process.BROWSER ? () => System.import('../views/PreviewEditView.vue') : require('../views/PreviewEditView.vue')
 
 const routeGuard = (to, from, next) => {
   if (store.getters.isUserLogin) {
