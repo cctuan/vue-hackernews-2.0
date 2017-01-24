@@ -3,6 +3,7 @@
     <basic-edit v-if="tabIndex == 0" :post="post" v-on:change="postChange" v-on:imageChange="imageChange" />
     <appearance-edit v-if="tabIndex == 1" :post="post" v-on:change="postChange" />
     <nose-edit v-if="tabIndex == 2" :post="post" v-on:change="postChange" />
+    <taste-edit v-if="tabIndex == 3" :post="post" v-on:change="postChange" />
     <div class="btn-container">
       <a v-on:click="$emit('cancel')">
         <button class="preview-btn mdl-button mdl-button--raised">取消</button>
@@ -30,6 +31,8 @@
 import BasicEdit from '../components/BasicEdit.vue'
 import AppearanceEdit from '../components/AppearanceEdit.vue'
 import NoseEdit from '../components/NoseEdit.vue'
+import TasteEdit from '../components/TasteEdit.vue'
+
 import deepExtend from 'deep-extend'
 
 import {
@@ -40,7 +43,7 @@ import ROUTES from '../../config/constants/ROUTES'
 export default {
   name: 'detail-edit-view',
   components: {
-    BasicEdit, AppearanceEdit, NoseEdit
+    BasicEdit, AppearanceEdit, NoseEdit, TasteEdit
   },
   props: {
     post: {
@@ -50,7 +53,7 @@ export default {
   },
   data() {
     return {
-      tabIndex: 2,
+      tabIndex: 3,
       tabList: [
         {
           icon: 'art_track',

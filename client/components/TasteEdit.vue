@@ -1,11 +1,17 @@
 <template>
   <div class="content">
     <div class="content-inner">
-      <form-slider :value="_strong" min="1" max="3" step="1"
-        v-on:change="onStrongChange" :values="strongs" title="強度"/>
-      <taste-nose-form title="smell type"
-        detailTitle="detail smell type" :values="noses"
-        :val="_currentNose" v-on:change="onNoseChange" />
+      <form-slider :value="_wineBody" min="1" max="3" step="1"
+        v-on:change="onWineBodyChange" :values="wineBodys" title="Body"/>
+      <form-slider :value="_tannin" min="1" max="3" step="1"
+        v-on:change="onTanninChange" :values="tannins" title="Tannin"/>
+      <form-slider :value="_sweetness" min="1" max="3" step="1"
+        v-on:change="onSweetnessChange" :values="sweetnesses" title="Sweetness"/>
+      <form-slider :value="_acid" min="1" max="3" step="1"
+        v-on:change="onAcidChange" :values="acids" title="Acid"/>
+      <taste-nose-form title="taste type"
+        detailTitle="detail taste type" :values="tastes"
+        :val="_currentTasteType" v-on:change="onTasteChange" />
     </div>
   </div>
 </template>
@@ -20,7 +26,7 @@ import {
   mergeDeep
 } from './../utility'
 export default {
-  name: 'nose-edit',
+  name: 'taste-edit',
   components: {
     FormSlider, TasteNoseForm
   },
@@ -32,12 +38,27 @@ export default {
   },
   data() {
     return {
-      strongs: [
+      wineBodys: [
         {label: '微弱', val: 1},
         {label: '平衡適中', val: 2},
         {label: '強烈', val: 3},
       ],
-      noses: [
+      tannins: [
+        {label: '微弱', val: 1},
+        {label: '平衡適中', val: 2},
+        {label: '強烈', val: 3},
+      ],
+      sweetnesses: [
+        {label: '微弱', val: 1},
+        {label: '平衡適中', val: 2},
+        {label: '強烈', val: 3},
+      ],
+      acids: [
+        {label: '微弱', val: 1},
+        {label: '平衡適中', val: 2},
+        {label: '強烈', val: 3},
+      ],
+      tastes: [
         {label: 'Fruit', types: [
           {label: 'Straw', val: 1},
           {label: 'Something', val: 2}
@@ -62,11 +83,23 @@ export default {
     }
   },
   computed: {
-    _strong () {
-      return this.post.meta.nose.strong || 1
+    _acid() {
+      return this.post.meta.taste.acid || 1
     },
-    _currentNose() {
-      return this.post.meta.nose.type || []
+    _wineBody () {
+      return this.post.meta.taste.wine_body || 1
+    },
+    _tannin () {
+      return this.post.meta.taste.tannin || 1
+    },
+    _strong () {
+      return this.post.meta.taste.strong || 1
+    },
+    _sweetness(){
+      return this.post.meta.taste.sweetness || 1
+    },
+    _currentTasteType() {
+      return this.post.meta.taste.type || []
     }
   },
   mounted () {
@@ -74,23 +107,39 @@ export default {
   watch: {
   },
   methods: {
-    onStrongChange(val) {
+    onTanninChange(val) {
       let _post = Object.create(this.post)
-      _post.meta.nose.strong = val
+      _post.meta.taste.tannin = val
+      this.$emit('change', _post)
+
+    },
+    onWineBodyChange(val) {
+      let _post = Object.create(this.post)
+      _post.meta.taste.wine_body = val
       this.$emit('change', _post)
     },
-    onNoseChange(val) {
+    onSweetnessChange(val) {
       let _post = Object.create(this.post)
-      if (!_post.meta.nose.type) {
-        _post.meta.nose.type = {}
+      _post.meta.taste.sweetness = val
+      this.$emit('change', _post)
+    },
+    onAcidChange(val) {
+      let _post = Object.create(this.post)
+      _post.meta.taste.acid = val
+      this.$emit('change', _post)
+    },
+    onTasteChange(val) {
+      let _post = Object.create(this.post)
+      if (!_post.meta.taste.type) {
+        _post.meta.taste.type = {}
       }
 
-      let currentIndex = _post.meta.nose.type.indexOf(val)
+      let currentIndex = _post.meta.taste.type.indexOf(val)
 
       if (currentIndex === -1) {
-        _post.meta.nose.type.push(val)
+        _post.meta.taste.type.push(val)
       } else {
-        _post.meta.nose.type.splice(currentIndex, 1)
+        _post.meta.taste.type.splice(currentIndex, 1)
       }
 
       this.$emit('change', _post)
