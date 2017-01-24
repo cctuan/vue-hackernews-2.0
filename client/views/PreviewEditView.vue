@@ -1,13 +1,12 @@
 <template>
-  <div class="container">
+  <div class="preview-content">
     <div class="mdl-card mdl-shadow--2dp preview-img"
       :style="'background-image:url(' + post.thumb.url + ')'">
     </div>
-    <theme-selector :post="post" />
+    <theme-selector :post="post" v-on:change="postUpdate"/>
+    <div class="post-form-title">基本資訊</div>
     <post-basic-information :post="post" />
-    <div class="section-title">
-      分享設定
-    </div>
+    <div class="post-form-title">分享設定</div>
     <ul class="mdl-list">
       <li class="mdl-list__item">
         <span class="mdl-list__item-primary-content">
@@ -89,28 +88,6 @@ export default {
         name: '首頁',
         type: 'home'
       }],
-      rating_map: [
-        {
-          title: '5 Stars',
-          value: 5
-        },
-        {
-          title: '4 Stars',
-          value: 4
-        },
-        {
-          title: '3 Stars',
-          value: 3
-        },
-        {
-          title: '2 Stars',
-          value: 2
-        },
-        {
-          title: '1 Star',
-          value: 1
-        }
-      ]
     }
   },
   computed: {
@@ -139,6 +116,12 @@ export default {
   mounted () {
   },
   methods: {
+    postUpdate(newPost) {
+      if (!newPost.createdAt || !newPost.updatedAt) {
+        newPost.updatedAt = newPost.createdAt = new Date().toISOString()
+      }
+      this.$store.dispatch('SET_CACHED_POST', newPost)
+    },
     onSave () {
       this.$store.dispatch('SAVE_POST')
         .then((val) => {
@@ -163,7 +146,7 @@ export default {
 }
 </script>
 <style lang="stylus" scoped>
-.container
+.preview-content
   background-color #243241
 .rating-field
   text-align center
@@ -187,7 +170,13 @@ export default {
   line-height 24px
   padding-left 20px
   width: 100%;
-
 .mdl-list__item
   color #cbccce
+.post-form-title
+  font-size 14px
+  color rgba(255, 255, 255, 0.5)
+  width 100%
+  height 20px
+  padding 6px 16px
+  background-color #11161d
 </style>

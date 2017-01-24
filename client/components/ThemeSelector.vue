@@ -1,23 +1,32 @@
 <template>
-  <section class="theme-section">
-    <h6>
+  <div class="theme-section">
+    <div class="edit-title">
       更換照片類型
-    </h6>
+    </div>
     <span class="reset-button">預設</span>
     <ul class="preview-list">
-      <li class="theme-item" v-on:click="selectTheme(theme)"
+      <li :class="'theme-item' + (post.thumb.theme === theme.type ? ' selected' : '')"
+        v-on:click="selectTheme(theme.type)"
         v-for="theme in theme_selections"
         :style="`background-image:url(${theme.preview})`">
+        <i class="material-icons checked-icon">done</i>
       </li>
     </ul>
     <div class="clear-fix"></div>
-  </section>
+  </div>
 </template>
 
 <script>
 
 export default {
   name: 'theme-selector',
+
+  props: {
+    post: {
+      default: {},
+      type: Object
+    }
+  },
   data () {
     return {
       theme_selections: [
@@ -36,16 +45,7 @@ export default {
       ]
     }
   },
-  props: {
-    post: {
-      default: {},
-      type: Object
-    }
-  },
   computed: {
-
-  },
-  props: {
 
   },
   mounted () {
@@ -55,7 +55,9 @@ export default {
   },
   methods: {
     selectTheme(theme) {
-
+      let _post = Object.create(this.post)
+      _post.thumb.theme = theme
+      this.$emit('change', _post)
     }
   }
 }
@@ -63,9 +65,10 @@ export default {
 
 <style lang="stylus" scoped>
 .theme-section
-  h6
-    margin 5px 24px
+  padding 0 16px
+  .edit-title
     font-size 14px
+    padding 15px 0
   .reset-button
     position absolute
     right 0
@@ -79,15 +82,32 @@ export default {
   overflow-x scroll
   white-space nowrap
   padding 0
-  margin 0
+  margin-top 0
+  margin-bottom 15px
 .theme-item
+  position relative
   background-repeat no-repeat
   background-size cover
   background-position center
   margin-right 10px
   width 33%
   height 100px
-  display inline-block  
+  display inline-block
+  text-align center
+  .checked-icon
+    width 20px
+    height 20px
+    background-color #7ad0e2
+    border-radius 50%
+    color #1d242c
+    font-size 20px
+    text-align center
+    margin-top 40px
+    visibility hidden
+  &.selected
+    opacity 0.8
+    .checked-icon
+      visibility visible
 .clear-fix
   clear both
 </style>
