@@ -10,7 +10,7 @@
           酒種
         </div>
         <div class="chip-list">
-          <div class="drink-type-item" v-for="drink_type in drink_types">
+          <div class="chip-item" v-for="drink_type in drink_types">
             <div :class="'type-item mdl-button mdl-js-button ' + (post.type === drink_type.val ? 'selected' : '')"
               v-on:click="selectDrinkType(drink_type.val)">
               {{drink_type['en']}}
@@ -122,7 +122,7 @@ export default {
     margin-bottom 15px
   .mdl-textfield__input
     border-bottom-color rgba(255, 255, 255, 0.12)
-.drink-type-item
+.chip-item
   float left
   padding 0 10px 0 10px
   div
