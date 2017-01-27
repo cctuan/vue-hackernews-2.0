@@ -12,21 +12,15 @@
         <span class="mdl-list__item-primary-content">
           Facebook
         </span>
-        <span class="mdl-list__item-secondary-action">
-          <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="list-switch-1">
-            <input type="checkbox" class="mdl-switch__input" v-model="enable_fb_sharing" />
-          </label>
-        </span>
+        <v-switch :checked="$store.getters.activeSharing.facebook"
+          v-on:change="onFacebookTrigger"/>
       </li>
       <li class="mdl-list__item">
         <span class="mdl-list__item-primary-content">
           LINE
         </span>
-        <span class="mdl-list__item-secondary-action">
-          <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="list-switch-1">
-            <input type="checkbox" class="mdl-switch__input" v-model="enable_line_sharing" />
-          </label>
-        </span>
+        <v-switch :checked="$store.getters.activeSharing.line"
+          v-on:change="onLineTrigger"/>
       </li>
     </ul>
     <div class="btn confirm-send">
@@ -43,6 +37,7 @@ import MenuDialog from '../components/MenuDialog.vue'
 import RatingStar from '../components/RatingStar.vue'
 import PostBasicInformation from '../components/PostBasicInformation.vue'
 import ThemeSelector from '../components/ThemeSelector.vue'
+import VSwitch from '../components/VSwitch.vue'
 
 import {
   DRINK_TYPE
@@ -52,7 +47,8 @@ import ROUTES from '../../config/constants/ROUTES'
 export default {
   name: 'preview-edit-view',
   components: {
-    RatingStar, PostBasicInformation, ThemeSelector, MenuDialog
+    RatingStar, PostBasicInformation, ThemeSelector, MenuDialog,
+    VSwitch
   },
   props: {
     post: {
@@ -132,6 +128,16 @@ export default {
       this.$store.dispatch('SELECT_THEME', {
         url: this.post.thumb.original,
         type
+      })
+    },
+    onFacebookTrigger(val){
+      this.$store.dispatch('SET_SHARING', {
+        facebook: val,
+      })
+    },
+    onLineTrigger(val){
+      this.$store.dispatch('SET_SHARING', {
+        line: val,
       })
     },
     onMenuClick(action) {

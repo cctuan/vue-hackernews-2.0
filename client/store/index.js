@@ -77,6 +77,10 @@ const store = new Vuex.Store({
       page: 1,
       list: []
     },
+    share_setting: {
+      facebook: true,
+      line: true
+    },
     activeType: null,
     itemsPerPage: 20,
     items: {/* [id: number]: Item */},
@@ -96,6 +100,10 @@ const store = new Vuex.Store({
     },
     LOGIN: ({ commit }, user) => {
       commit('USER_LOGIN', { user })
+    },
+
+    SET_SHARING: ({commit, state}, config) => {
+      commit('SET_SHARING', Object.assign({}, state.share_setting, config))
     },
 
     SET_HEADER: ({commit}, config) => {
@@ -246,6 +254,11 @@ const store = new Vuex.Store({
       state.header.rightClicked = !state.header.rightClicked
     },
 
+    SET_SHARING: (state, {facebook, line}) => {
+      state.share_setting.facebook = facebook
+      state.share_setting.line = line
+    },
+
     SET_HEADER: (state, {center = '', left = null, right = null, overlap = false}) => {
       state.header.left = left
       state.header.center = center
@@ -364,6 +377,10 @@ const store = new Vuex.Store({
 
     totalPosts (state) {
       return state.posts.total
+    },
+
+    activeSharing (state) {
+      return state.share_setting
     },
 
     // items that should be currently displayed.
