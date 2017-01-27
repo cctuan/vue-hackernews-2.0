@@ -17,6 +17,12 @@
 </template>
 
 <script>
+import TASTES from './../../config/constants/TASTE_TYPE'
+import WINE_BODYS from './../../config/constants/WINE_BODY'
+import TANNINS from './../../config/constants/TANNIN'
+import SWEETNESS from './../../config/constants/SWEETNESS'
+import STRONGS from './../../config/constants/STRONGS'
+import ACIDS from './../../config/constants/ACID'
 import TasteNoseForm from './TasteNoseForm.vue'
 import FormSlider from './FormSlider.vue'
 import {
@@ -38,48 +44,11 @@ export default {
   },
   data() {
     return {
-      wineBodys: [
-        {label: '微弱', val: 1},
-        {label: '平衡適中', val: 2},
-        {label: '強烈', val: 3},
-      ],
-      tannins: [
-        {label: '微弱', val: 1},
-        {label: '平衡適中', val: 2},
-        {label: '強烈', val: 3},
-      ],
-      sweetnesses: [
-        {label: '微弱', val: 1},
-        {label: '平衡適中', val: 2},
-        {label: '強烈', val: 3},
-      ],
-      acids: [
-        {label: '微弱', val: 1},
-        {label: '平衡適中', val: 2},
-        {label: '強烈', val: 3},
-      ],
-      tastes: [
-        {label: 'Fruit', types: [
-          {label: 'Straw', val: 1},
-          {label: 'Something', val: 2}
-        ]},
-        {label: 'Flower', types: [
-          {label: 'Purple', val: 3},
-          {label: 'Rose', val: 4}
-        ]},
-        {label: 'SmellType', types: [
-          {label: 'A', val: 5},
-          {label: 'B', val: 6}
-        ]},
-        {label: 'Something', types: [
-          {label: 'C', val: 7},
-          {label: 'D', val: 8}
-        ]},
-        {label: 'Dry Fruit', types: [
-          {label: 'E', val: 9},
-          {label: 'F', val: 10}
-        ]}
-      ]
+      wineBodys: WINE_BODYS,
+      tannins: TANNINS,
+      sweetnesses: SWEETNESS,
+      acids: ACIDS,
+      tastes: TASTES
     }
   },
   computed: {

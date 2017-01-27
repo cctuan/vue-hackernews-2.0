@@ -1,15 +1,6 @@
 
-module.exports = {
-  1 : {
-    'en' : 'Round',
-    'zh' : '圓潤'
-  },
-  2 : {
-    'en' : 'Medium',
-    'zh' : '中等'
-  },
-  3 : {
-    'en' : 'Sour',
-    'zh' : '酸'
-  }
-}
+module.exports = [
+  {label: '微弱', val: 1},
+  {label: '平衡適中', val: 2},
+  {label: '強烈', val: 3},
+]

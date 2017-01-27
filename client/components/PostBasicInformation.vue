@@ -61,13 +61,13 @@
     <div class="post-form-title">氣味</div>
     <section class="chip-text-section">
       <div class="chip-text" v-for="noseItem in _nose">
-        {{noseItem.label}}
+        {{noseItem._label}}
       </div>
     </section>
     <div class="post-form-title">味覺</div>
     <section class="chip-text-section">
-      <div class="chip-text" v-for="noseItem in _nose">
-        {{noseItem.label}}
+      <div class="chip-text" v-for="tasteItem in _taste">
+        {{tasteItem._label}}
       </div>
     </section>
   </div>
@@ -78,6 +78,12 @@ import COLORS from './../../config/constants/COLOR'
 import CLARITIES from './../../config/constants/CLARITY'
 import NOSES from './../../config/constants/NOSES'
 import STRONGS from './../../config/constants/STRONGS'
+import TASTES from './../../config/constants/TASTE_TYPE'
+import WINE_BODYS from './../../config/constants/WINE_BODY'
+import TANNINS from './../../config/constants/TANNIN'
+import SWEETNESS from './../../config/constants/SWEETNESS'
+import STRONGS from './../../config/constants/STRONGS'
+import ACIDS from './../../config/constants/ACID'
 export default {
   name: 'post-basic-information',
   components: {
@@ -88,8 +94,18 @@ export default {
       colors: COLORS,
       noses: NOSES,
       strongs: STRONGS,
+      wineBodys: WINE_BODYS,
+      tannins: TANNINS,
+      sweetnesses: SWEETNESS,
+      acids: ACIDS,
+      tastes: TASTES,
+      tastePostLabel: '味',
       strongLabel: '強度',
-      nosePostLabel: '香'
+      nosePostLabel: '香',
+      wineBodyLabel: '強度',
+      tanninLabel: '單寧',
+      acidLabel: '酸味',
+      sweetnessLabel: '甜度'
     }
   },
   props: {
@@ -112,6 +128,60 @@ export default {
         return clarity.val === this.post.meta.clarity
       })
     },
+    _taste() {
+      let result = []
+      if (this.post.meta.taste.acid) {
+        const acidItem = this.acids.find(acid => {
+          return acid.val === this.post.meta.taste.acid
+        })
+        if (acidItem){
+          acidItem._label = this.acidLabel + acidItem.label
+          result.push(acidItem)
+        }
+      }
+      if (this.post.meta.taste.sweetness) {
+        const sweetItem = this.sweetnesses.find(sweet => {
+          return sweet.val === this.post.meta.taste.sweetness
+        })
+        if (sweetItem){
+          sweetItem._label = this.sweetnessLabel + sweetItem.label
+          result.push(sweetItem)
+        }
+      }
+      if (this.post.meta.taste.tannin) {
+        const tanninItem = this.tannins.find(tannin => {
+          return tannin.val === this.post.meta.taste.tannin
+        })
+        if (tanninItem){
+          tanninItem._label = this.tanninLabel + tanninItem.label
+          result.push(tanninItem)
+        }
+      }
+      if (this.post.meta.taste.wine_body) {
+        const wineBodyItem = this.wineBodys.find(wineBody => {
+          return wineBody.val === this.post.meta.taste.wine_body
+        })
+        if (wineBodyItem){
+          wineBodyItem._label = this.wineBodyLabel + wineBodyItem.label
+          result.push(wineBodyItem)
+        }
+      }
+      if (this.post.meta.taste.type && this.post.meta.taste.type.length) {
+        this.post.meta.taste.type.forEach(type => {
+          let mapValue = this.tastes.find(taste => {
+            return taste.types.find(subType => {
+              return subType.val === type
+            })
+          })
+
+          if (mapValue) {
+            mapValue._label = mapValue.label + this.tastePostLabel
+            result.push(mapValue)
+          }
+        })
+      }
+      return result
+    },
     _nose() {
       let result = []
       if (this.post.meta.nose.strong) {
@@ -119,6 +189,7 @@ export default {
           return strong.val === this.post.meta.nose.strong
         })
         if (strongItem){
+          strongItem._label = this.strongLabel + strongItem.label
           result.push(strongItem)
         }
       }
@@ -131,6 +202,7 @@ export default {
           })
 
           if (mapValue) {
+            mapValue._label = mapValue.label + this.nosePostLabel
             result.push(mapValue)
           }
         })

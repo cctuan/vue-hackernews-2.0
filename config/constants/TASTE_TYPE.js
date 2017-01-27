@@ -1,28 +1,23 @@
 
-const FRUIT_TYPE = require('./FRUIT_TYPE')
-const GRAIN_TYPE = require('./GRAIN_TYPE')
-const FLORAL_TYPE = require('./FLORAL_TYPE')
-
-
-module.exports = {
-  1 : {
-    'en' : 'Fruit',
-    'zh' : '',
-    types : FRUIT_TYPE
-  },
-  2 : {
-    'en' : 'Grain',
-    'zh' : '',
-    types : GRAIN_TYPE
-  },
-  3 : {
-    'en' : 'Floral',
-    'zh' : '',
-    types : FLORAL_TYPE
-  },
-  4 : {
-    'en' : 'Floral',
-    'zh' : '',
-    types : FLORAL_TYPE
-  }
-}
+module.exports = [
+  {label: 'Fruit', types: [
+    {label: 'Straw', val: 1},
+    {label: 'Something', val: 2}
+  ]},
+  {label: 'Flower', types: [
+    {label: 'Purple', val: 3},
+    {label: 'Rose', val: 4}
+  ]},
+  {label: 'SmellType', types: [
+    {label: 'A', val: 5},
+    {label: 'B', val: 6}
+  ]},
+  {label: 'Something', types: [
+    {label: 'C', val: 7},
+    {label: 'D', val: 8}
+  ]},
+  {label: 'Dry Fruit', types: [
+    {label: 'E', val: 9},
+    {label: 'F', val: 10}
+  ]}
+]
