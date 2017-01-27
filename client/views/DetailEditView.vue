@@ -31,11 +31,11 @@
 </template>
 
 <script>
-import BasicEdit from '../components/BasicEdit.vue'
-import AppearanceEdit from '../components/AppearanceEdit.vue'
-import NoseEdit from '../components/NoseEdit.vue'
-import TasteEdit from '../components/TasteEdit.vue'
-import SummaryEdit from '../components/SummaryEdit.vue'
+import BasicEdit from 'components/BasicEdit.vue'
+import AppearanceEdit from 'components/AppearanceEdit.vue'
+import NoseEdit from 'components/NoseEdit.vue'
+import TasteEdit from 'components/TasteEdit.vue'
+import SummaryEdit from 'components/SummaryEdit.vue'
 
 import deepExtend from 'deep-extend'
 

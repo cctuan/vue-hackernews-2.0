@@ -13,11 +13,9 @@
 </template>
 
 <script>
-import BasicEdit from '../components/BasicEdit.vue'
+import BasicEdit from 'components/BasicEdit.vue'
 import deepExtend from 'deep-extend'
-import {
-  DRINK_TYPE
-} from '../../config/constants'
+import DRINK_TYPE from 'config/constants/DRINK_TYPE'
 import ROUTES from '../../config/constants/ROUTES'
 
 

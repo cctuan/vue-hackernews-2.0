@@ -17,12 +17,12 @@
 </template>
 
 <script>
-import TASTES from './../../config/constants/TASTE_TYPE'
-import WINE_BODYS from './../../config/constants/WINE_BODY'
-import TANNINS from './../../config/constants/TANNIN'
-import SWEETNESS from './../../config/constants/SWEETNESS'
-import STRONGS from './../../config/constants/STRONGS'
-import ACIDS from './../../config/constants/ACID'
+import TASTES from 'config/constants/TASTE_TYPE'
+import WINE_BODYS from 'config/constants/WINE_BODY'
+import TANNINS from 'config/constants/TANNIN'
+import SWEETNESS from 'config/constants/SWEETNESS'
+import STRONGS from 'config/constants/STRONGS'
+import ACIDS from 'config/constants/ACID'
 import TasteNoseForm from './TasteNoseForm.vue'
 import FormSlider from './FormSlider.vue'
 import {

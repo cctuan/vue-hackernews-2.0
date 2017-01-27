@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import COLORS from './../../config/constants/COLOR'
+import COLORS from 'config/constants/COLOR'
 export default {
   name: 'color-chip',
   components: {

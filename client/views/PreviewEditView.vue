@@ -33,16 +33,13 @@
 </template>
 
 <script>
-import MenuDialog from '../components/MenuDialog.vue'
-import RatingStar from '../components/RatingStar.vue'
-import PostBasicInformation from '../components/PostBasicInformation.vue'
-import ThemeSelector from '../components/ThemeSelector.vue'
-import VSwitch from '../components/VSwitch.vue'
-
-import {
-  DRINK_TYPE
-} from '../../config/constants'
-import ROUTES from '../../config/constants/ROUTES'
+import MenuDialog from 'components/MenuDialog.vue'
+import RatingStar from 'components/RatingStar.vue'
+import PostBasicInformation from 'components/PostBasicInformation.vue'
+import ThemeSelector from 'components/ThemeSelector.vue'
+import VSwitch from 'components/VSwitch.vue'
+import DRINK_TYPE from 'config/constants/DRINK_TYPE'
+import ROUTES from 'config/constants/ROUTES'
 
 export default {
   name: 'preview-edit-view',

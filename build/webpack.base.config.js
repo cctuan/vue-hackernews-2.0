@@ -20,7 +20,10 @@ module.exports = {
   },
   resolve: {
     alias: {
-      'public': path.resolve(__dirname, '../public')
+      'public': path.resolve(__dirname, '../public'),
+      'config': path.resolve(__dirname, '../config'),
+      'components': path.resolve(__dirname, '../client/components'),
+      'views': path.resolve(__dirname, '../client/views'),
     }
   },
   module: {

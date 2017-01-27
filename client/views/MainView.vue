@@ -40,10 +40,10 @@
 
 <script>
 
-import SearchInput from '../components/SearchInput.vue'
-import Modal from '../components/Modal.vue'
-import PostItem from '../components/PostItem.vue'
-import ROUTES from '../../config/constants/ROUTES'
+import SearchInput from 'components/SearchInput.vue'
+import Modal from 'components/Modal.vue'
+import PostItem from 'components/PostItem.vue'
+import ROUTES from 'config/constants/ROUTES'
 
 function fetchItems (store, query = {}) {
   return store.dispatch('FETCH_LIST_POST', query)

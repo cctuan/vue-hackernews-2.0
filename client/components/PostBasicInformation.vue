@@ -74,16 +74,16 @@
 </template>
 
 <script>
-import COLORS from './../../config/constants/COLOR'
-import CLARITIES from './../../config/constants/CLARITY'
-import NOSES from './../../config/constants/NOSES'
-import STRONGS from './../../config/constants/STRONGS'
-import TASTES from './../../config/constants/TASTE_TYPE'
-import WINE_BODYS from './../../config/constants/WINE_BODY'
-import TANNINS from './../../config/constants/TANNIN'
-import SWEETNESS from './../../config/constants/SWEETNESS'
-import STRONGS from './../../config/constants/STRONGS'
-import ACIDS from './../../config/constants/ACID'
+import COLORS from 'config/constants/COLOR'
+import CLARITIES from 'config/constants/CLARITY'
+import NOSES from 'config/constants/NOSES'
+import STRONGS from 'config/constants/STRONGS'
+import TASTES from 'config/constants/TASTE_TYPE'
+import WINE_BODYS from 'config/constants/WINE_BODY'
+import TANNINS from 'config/constants/TANNIN'
+import SWEETNESS from 'config/constants/SWEETNESS'
+import STRONGS from 'config/constants/STRONGS'
+import ACIDS from 'config/constants/ACID'
 export default {
   name: 'post-basic-information',
   components: {

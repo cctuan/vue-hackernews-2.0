@@ -30,7 +30,7 @@
 
 <script>
 import ColorChip from './ColorChip.vue'
-import CLARITIES from './../../config/constants/CLARITY'
+import CLARITIES from 'config/constants/CLARITY'
 import {
   DRINK_TYPE
 } from '../../config/constants'

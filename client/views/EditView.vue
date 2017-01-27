@@ -36,8 +36,8 @@
 import {
   isValidMongoId
 } from '../utility'
-import ROUTES from '../../config/constants/ROUTES'
-import Modal from '../components/Modal.vue'
+import ROUTES from 'config/constants/ROUTES'
+import Modal from 'components/Modal.vue'
 
 const PathRegex = new RegExp('^/post', 'i')
 

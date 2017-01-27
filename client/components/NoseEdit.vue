@@ -13,12 +13,9 @@
 <script>
 import TasteNoseForm from './TasteNoseForm.vue'
 import FormSlider from './FormSlider.vue'
-import NOSES from './../../config/constants/NOSES'
-import STRONGS from './../../config/constants/STRONGS'
-
-import {
-  DRINK_TYPE
-} from '../../config/constants'
+import NOSES from 'config/constants/NOSES'
+import STRONGS from 'config/constants/STRONGS'
+import DRINK_TYPE from 'config/constants/DRINK_TYPE'
 import {
   mergeDeep
 } from './../utility'

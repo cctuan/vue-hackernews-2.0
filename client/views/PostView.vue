@@ -14,12 +14,12 @@
 </template>
 
 <script>
-import MenuDialog from '../components/MenuDialog.vue'
-import PostBasicInformation from '../components/PostBasicInformation.vue'
+import MenuDialog from 'components/MenuDialog.vue'
+import PostBasicInformation from 'components/PostBasicInformation.vue'
 import {
   isValidMongoId
 } from '../utility'
-import ROUTES from '../../config/constants/ROUTES'
+import ROUTES from 'config/constants/ROUTES'
 
 
 const PathRegex = new RegExp('^/post/[0-9a-fA-F]{24}$', 'i')
