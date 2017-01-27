@@ -5,19 +5,7 @@
         <div class="edit-title">
           顏色
         </div>
-        <div class="circle-list">
-          <div :class="'circle-container ' +
-            (colorItem.val === post.meta.color ? 'selected' : '')"
-            v-for="colorItem in colors"
-            v-on:click="onClickColor(colorItem.val)">
-            <div class="circle" :style="'background-color:' + colorItem.color">
-            </div>
-            <div class="label">
-              {{colorItem.label}}
-            </div>
-          </div>
-        </div>
-        <div class="clear-both"></div>
+        <color-chip :post="post" />
       </div>
       <div class="edit-section clarity-section">
         <div class="edit-title">
@@ -41,6 +29,8 @@
 </template>
 
 <script>
+import ColorChip from './ColorChip.vue'
+import CLARITIES from './../../config/constants/CLARITY'
 import {
   DRINK_TYPE
 } from '../../config/constants'
@@ -50,6 +40,7 @@ import {
 export default {
   name: 'appearance-edit',
   components: {
+    ColorChip
   },
   props: {
     post: {
@@ -59,22 +50,7 @@ export default {
   },
   data() {
     return {
-      colors: [
-        {color: '#b388ff', label: '粉紅', val: 1},
-        {color: '#ff5252', label: '寶石紅', val: 2},
-        {color: '#d50000', label: '紅色', val: 3},
-        {color: '#b388ff', label: '粉紫', val: 4},
-        {color: '#512da8', label: '紫色', val: 5},
-        {color: '#311b92', label: '深紫', val: 6},
-        {color: '#ff5722', label: '磚紅', val: 7},
-        {color: '#7ad0e2', label: '紅褐', val: 8},
-        {color: '#4e342e', label: '咖啡', val: 9},
-      ],
-      clarities: [
-        {color: '#cfd8dc', label: '清澈', val: 1},
-        {color: '#90a4ae', label: '朦朧', val: 2},
-        {color: '#546e7a', label: '混濁', val: 3},
-      ]
+      clarities: CLARITIES
     }
   },
   computed: {

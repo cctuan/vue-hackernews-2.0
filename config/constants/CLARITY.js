@@ -1,15 +1,6 @@
 
-module.exports = {
-  1 : {
-    'en' : 'Clear',
-    'zh' : '清澈'
-  },
-  2 : {
-    'en' : 'Dull',
-    'zh' : '中等'
-  },
-  3 : {
-    'en' : 'Cloudy',
-    'zh' : '混濁'
-  }
-}
+module.exports = [
+  {color: '#cfd8dc', label: '清澈', val: 1},
+  {color: '#90a4ae', label: '朦朧', val: 2},
+  {color: '#546e7a', label: '混濁', val: 3},
+]

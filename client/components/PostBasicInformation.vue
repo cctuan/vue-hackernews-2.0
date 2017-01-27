@@ -1,64 +1,141 @@
 <template>
-  <section class="mdl-components__page mdl-grid">
-    <div class="post-header">{{post ? post.name : ''}}</div>
-    <div class="post-info">
-      <span class="rating-val">{{post.rating}}.0</span>
-      <ul class="rating">
-        <li class="material-icons" v-for="(item, index) in [1,2,3,4,5]">
-          <label class="material-icons">{{item > post.rating ? 'star_border' : 'star'}}</label>
+  <div>
+    <section class="mdl-components__page mdl-grid">
+      <div class="post-header">{{post ? post.name : ''}}</div>
+      <div class="post-info">
+        <span class="rating-val">{{post.rating}}.0</span>
+        <ul class="rating">
+          <li class="material-icons" v-for="(item, index) in [1,2,3,4,5]">
+            <label class="material-icons">{{item > post.rating ? 'star_border' : 'star'}}</label>
+          </li>
+        </ul>
+        <span class="update-time">{{post.updatedAt | timeConvert}}</span>
+      </div>
+      <div class="description_s">{{post ? post.description_s : ''}}</div>
+      <ul class="post-intro-list">
+        <li class="post-intro-li"
+          v-if="post.meta && post.meta.other && post.meta.other.year">
+          <span class="title">
+            年份
+          </span>
+           <span class="value">
+             {{post.meta.other.year}}
+           </span>
+        </li>
+        <li class="post-intro-li"
+          v-if="post.meta && post.meta.other && post.meta.other.matury">
+          <span class="title">
+            成熟度
+          </span>
+           <span class="value">
+             {{post.meta.other.matury}}
+           </span>
+        </li>
+        <li class="post-intro-li"
+          v-if="post.meta && post.meta.other && post.meta.other.price">
+          <span class="title">
+            價格
+          </span>
+          <span class="value">
+           {{post.meta.other.price}}
+          </span>
+        </li>
+        <li class="post-intro-li"
+          v-if="post.meta && post.meta.other && post.meta.other.price">
+          <span class="title">
+            外觀
+          </span>
+          <div class="appearance-container" v-if="_hasAppearance">
+            <div class="clarity-container circle" v-if="post.meta.clarity">
+              <div class="chip-clarity" :style="'background-color:' + _clarity.color"></div>
+              <div class="label">{{_clarity.label}}</div>
+            </div>
+            <div class="color-container circle" v-if="post.meta.color">
+              <div class="chip-color" :style="'background-color:' + _color.color"></div>
+              <div class="label">{{_color.label}}</div>
+            </div>
+          </div>
         </li>
       </ul>
-      <span class="update-time">{{post.updatedAt | timeConvert}}</span>
-    </div>
-    <div class="description_s">{{post ? post.description_s : ''}}</div>
-    <ul class="post-intro-list">
-      <li class="post-intro-li"
-        v-if="post.meta && post.meta.other && post.meta.other.year">
-        <span class="title">
-          年份
-        </span>
-         <span class="value">
-           {{post.meta.other.year}}
-         </span>
-      </li>
-      <li class="post-intro-li"
-        v-if="post.meta && post.meta.other && post.meta.other.matury">
-        <span class="title">
-          成熟度
-        </span>
-         <span class="value">
-           {{post.meta.other.matury}}
-         </span>
-      </li>
-      <li class="post-intro-li"
-        v-if="post.meta && post.meta.other && post.meta.other.price">
-        <span class="title">
-          價格
-        </span>
-         <span class="value">
-           {{post.meta.other.price}}
-         </span>
-      </li>
-      <li class="post-intro-li"
-        v-if="post.meta && post.meta.other && post.meta.other.price">
-        <span class="title">
-          外觀
-        </span>
-         <span class="value">
-           {{post.meta.other.price}}
-         </span>
-      </li>
-    </ul>
-  </section>
+    </section>
+    <div class="post-form-title">氣味</div>
+    <section class="chip-text-section">
+      <div class="chip-text" v-for="noseItem in _nose">
+        {{noseItem.label}}
+      </div>
+    </section>
+    <div class="post-form-title">味覺</div>
+    <section class="chip-text-section">
+      <div class="chip-text" v-for="noseItem in _nose">
+        {{noseItem.label}}
+      </div>
+    </section>
+  </div>
 </template>
 
 <script>
+import COLORS from './../../config/constants/COLOR'
+import CLARITIES from './../../config/constants/CLARITY'
+import NOSES from './../../config/constants/NOSES'
+import STRONGS from './../../config/constants/STRONGS'
 export default {
   name: 'post-basic-information',
+  components: {
+  },
+  data () {
+    return {
+      clarities: CLARITIES,
+      colors: COLORS,
+      noses: NOSES,
+      strongs: STRONGS,
+      strongLabel: '強度',
+      nosePostLabel: '香'
+    }
+  },
   props: {
     post: {
       default: {},
       type: Object
+    }
+  },
+  computed: {
+    _hasAppearance() {
+      return this.post.meta.color || this.post.meta.clarity
+    },
+    _color() {
+      return this.colors.find(color => {
+        return color.val === this.post.meta.color
+      })
+    },
+    _clarity() {
+      return this.clarities.find(clarity => {
+        return clarity.val === this.post.meta.clarity
+      })
+    },
+    _nose() {
+      let result = []
+      if (this.post.meta.nose.strong) {
+        const strongItem = this.strongs.find(strong => {
+          return strong.val === this.post.meta.nose.strong
+        })
+        if (strongItem){
+          result.push(strongItem)
+        }
+      }
+      if (this.post.meta.nose.type && this.post.meta.nose.type.length) {
+        this.post.meta.nose.type.forEach(type => {
+          let mapValue = this.noses.find(nose => {
+            return nose.types.find(subType => {
+              return subType.val === type
+            })
+          })
+
+          if (mapValue) {
+            result.push(mapValue)
+          }
+        })
+      }
+      return result
     }
   }
 }
@@ -66,6 +143,8 @@ export default {
 <style lang="stylus" scoped>
 section
   padding 20px
+  &.chip-text-section
+    padding 7px 20px
 .post-header
   width 100%
   font-size 20px
@@ -109,4 +188,45 @@ section
       display inline-block
       text-align right
       width 90%
+.appearance-container
+  margin-top 15px
+  .circle
+    width 190px
+    display inline-block
+    position relative
+    .chip-clarity,
+    .chip-color
+      display inline-block
+      width 40px
+      height 40px
+      border-radius 50%
+    .chip-clarity
+      &:after
+        content ''
+        position absolute
+        top 0
+        left 0
+        width 40px
+        height 20px
+        border-radius 40px 40px 0 0
+        background-color white
+    .label
+      display inline-block
+      position absolute
+      line-height 40px
+      margin-left 10px
+
+.post-form-title
+  font-size 14px
+  color rgba(255, 255, 255, 0.5)
+  width 100%
+  height 20px
+  padding 6px 16px
+  background-color #11161d
+.chip-text
+  margin 6px 15px 6px 0
+  display inline-block
+  padding 6px 15px
+  border-radius 30px
+  background-color #303943
 </style>
