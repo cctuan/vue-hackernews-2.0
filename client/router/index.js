@@ -6,27 +6,24 @@ import {
 } from './../store/api'
 import store from './../store'
 
-import ROUTES from '../../config/constants/ROUTES'
+import ROUTES from 'config/constants/ROUTES'
 
 Vue.use(Router)
 Vue.use(Meta)
 
-import { createListView } from '../views/CreateListView'
-import ItemView from '../views/ItemView.vue'
-import UserView from '../views/UserView.vue'
-import LandingView from '../views/LandingView.vue'
-import LoginView from '../views/LoginView.vue'
-import MainView from '../views/MainView.vue'
-import MainPostView from '../views/MainPostView.vue'
-import PostView from '../views/PostView.vue'
-import EditView from '../views/EditView.vue'
+import LandingView from 'views/LandingView.vue'
+import LoginView from 'views/LoginView.vue'
+import MainView from 'views/MainView.vue'
+import MainPostView from 'views/MainPostView.vue'
+import PostView from 'views/PostView.vue'
+import EditView from 'views/EditView.vue'
 /**
 // lazy load below scripts since they are bug and requires sometimes
 // TODO switch to lazyload ,
 **/
-import DetailEditView from '../views/DetailEditView.vue'
-import PreviewEditView from '../views/PreviewEditView.vue'
-import QuickEditView from '../views/QuickEditView.vue'
+import DetailEditView from 'views/DetailEditView.vue'
+import PreviewEditView from 'views/PreviewEditView.vue'
+import QuickEditView from 'views/QuickEditView.vue'
 /**
 **/
 // const QuickEditView = process.BROWSER ? () => System.import('../views/QuickEditView.vue') : require('../views/QuickEditView.vue')
@@ -48,22 +45,6 @@ export default new Router({
   mode: 'history',
   scrollBehavior: () => ({ y: 0 }),
   routes: [
-    {
-      path: '/top/:page(\\d+)?',
-      component: createListView('top'),
-      beforeEnter: routeGuard
-    },
-    { path: '/new/:page(\\d+)?', component: createListView('new') },
-    { path: '/show/:page(\\d+)?', component: createListView('show') },
-    { path: '/ask/:page(\\d+)?', component: createListView('ask') },
-    { path: '/job/:page(\\d+)?', component: createListView('job') },
-    { path: '/item/:id(\\d+)', component: ItemView },
-    { path: '/user/:id', component: UserView },
-    // NEED INVESTIGATING
-    // if edit subpath is also under post path
-    // the edit main view will not be replace if /post -> /post/edit/ or
-    // /post/edit -> /post/:id
-    // so I separate these two view...
     {
       path: '/post/:id',
       component: MainPostView,
