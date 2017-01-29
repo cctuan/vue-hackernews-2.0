@@ -1,6 +1,6 @@
 <template>
   <div class="card">
-    <div class="card-inner _lazy" :data-image="post.thumb ? post.thumb.url : null">
+    <div class="card-inner _lazy" :data-image="post.thumb.current ? post.thumb.current.secure_url : null">
       <div class="card-content">
         <div class="card-content-inner">
           <div class="headline">{{post.name}}</div>

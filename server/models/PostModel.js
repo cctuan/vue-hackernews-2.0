@@ -13,7 +13,8 @@ const PostSchema = mongoose.Schema({
   rating : Number,
 
   thumb: {
-    url: String,
+    current:  mongoose.Schema.Types.Mixed,
+    original:  mongoose.Schema.Types.Mixed,
     theme: {
       type: Number
     }
