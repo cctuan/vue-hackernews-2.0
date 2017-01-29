@@ -89,4 +89,7 @@ export default {
 </script>
 
 <style lang="stylus">
+.mdl-menu__container
+  position fixed
+  top 56px
 </style>

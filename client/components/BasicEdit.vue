@@ -1,5 +1,6 @@
 <template>
   <div class="content">
+    <linear-progress v-if="isImageUploading" />
     <image-editor :url="post.thumb ? post.thumb.url : ''" v-on:change="imageChange"/>
     <div class="rating-field">
       <rating-star uid="quick" :items="rating_map" legend="按一下星星來評分" :value="rating" @change="updateRate"></rating-star>
@@ -42,15 +43,19 @@
 </template>
 
 <script>
+import LinearProgress from './LinearProgress.vue'
 import RatingStar from './RatingStar.vue'
 import ImageEditor from './ImageEditor.vue'
+import DRINK_TYPE from 'config/constants/DRINK_TYPE'
+import STATUS from 'config/constants/STATUS.js'
+
 import {
   DRINK_TYPE
 } from '../../config/constants'
 export default {
   name: 'basic-edit',
   components: {
-    RatingStar, ImageEditor
+    LinearProgress, RatingStar, ImageEditor
   },
   props: {
     post: {
@@ -86,6 +91,9 @@ export default {
     }
   },
   computed: {
+    isImageUploading(){
+      return this.$store.getters.currentImageStatus === STATUS.IMAGE_UPLOADING
+    },
     rating() {
       return this.post.rating || 0
     },

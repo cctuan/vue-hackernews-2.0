@@ -14,6 +14,8 @@ import {
   uploadImage,
 } from './api'
 
+import STATUS from 'config/constants/STATUS.js'
+
 Vue.use(Vuex)
 
 const createInitialPost = () => {
@@ -68,7 +70,9 @@ const store = new Vuex.Store({
       right: null,
       overlap: false,
     },
-
+    status: {
+      image: ''
+    },
     post: createInitialPost(),
     cachePost: createInitialPost(),
     posts: {
@@ -119,12 +123,19 @@ const store = new Vuex.Store({
     },
 
     UPLOAD_IMAGE: ({commit, state}, file) => {
+      commit('SET_STATUS', {status: STATUS.IMAGE_UPLOADING, type: 'image'})
       return uploadImage(file)
         .then(response => {
           if (response.status === 200 && response.data.status === 200) {
             const { result } = response.data
+            commit('SET_STATUS', {status: STATUS.IMAGE_UPLOAD_SUCCESS, type: 'image'})
             return commit('SET_ORIGINAL_URL', result.secure_url)
+          } else {
+            commit('SET_STATUS', {status: STATUS.IMAGE_UPLOAD_FAIL, type: 'image'})
           }
+        })
+        .catch(e => {
+          commit('SET_STATUS', {status: STATUS.IMAGE_UPLOAD_FAIL, type: 'image'})
         })
     },
 
@@ -238,6 +249,9 @@ const store = new Vuex.Store({
   },
 
   mutations: {
+    SET_STATUS: (state, {status, type}) => {
+      state.status[type] = status
+    },
     HAS_VISITED: (state) => {
       state.hasVisited = true
     },
@@ -325,6 +339,9 @@ const store = new Vuex.Store({
   },
 
   getters: {
+    currentImageStatus(state) {
+      return state.status.image
+    },
     headerLeftClick (state) {
       return state.header.leftClicked
     },

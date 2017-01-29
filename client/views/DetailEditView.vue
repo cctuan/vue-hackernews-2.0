@@ -57,7 +57,7 @@ export default {
   },
   data() {
     return {
-      tabIndex: 4,
+      tabIndex: 0,
       tabList: [
         {
           icon: 'art_track',

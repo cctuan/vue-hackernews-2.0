@@ -89,6 +89,10 @@ export default {
       this.$emit('cancel')
     },
     rightHeaderClick (newVal) {
+      if (this.$store.state.route.name !== ROUTES.QUICK_EDIT) {
+        return
+      }
+      this.menuDisplay = !this.menuDisplay
       console.log('rightHeaderClick', newVal)
     }
   },

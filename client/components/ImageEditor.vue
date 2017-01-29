@@ -1,5 +1,5 @@
 <template>
-  <div v-bind:class="classObject" :data-image="url">
+  <div v-bind:class="_classObject" :data-image="url">
     <div class="caption" v-on:click="uploadImage">
       <div class="icon-container">
         <i class="material-icons">photo_camera</i>
@@ -24,23 +24,24 @@ export default {
       type: String
     }
   },
-  data () {
-    return {
-      classObject : {
-        lazy : true,
-        thumb : true
-      }
-    }
-  },
   components: {
   },
   computed: {
+    _classObject(){
+      let result = {
+        lazy : true,
+        thumb : true
+      }
+      if (!!this.url) {
+        result.lazy = false
+      }
+      return result
+    }
   },
 
   beforeMount () {
   },
   mounted() {
-    console.log('test')
     const item = this.$el
     let img = document.createElement('img')
     img.onload = () => {
