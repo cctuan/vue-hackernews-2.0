@@ -1,9 +1,9 @@
 <template>
   <div :class="'mdl-menu__container is-upgraded' + (display ? ' is-visible' : '')"
     :style="containerStyle">
-    <div class="mdl-menu__outline mdl-menu--top-left" :style="outlineStyle"/>
-    <ul class="mdl-menu mdl-menu--top-left mdl-js-menu mdl-js-ripple-effect"
-      data-mdl-for="demo-menu-top-left" :style="ulStyle">
+    <div class="mdl-menu__outline mdl-menu--bottom-right" :style="outlineStyle"/>
+    <ul class="mdl-menu mdl-menu--bottom-right"
+      data-mdl-for="demo-menu-bottom-right" :style="ulStyle">
       <template v-for="action in actions">
         <li class="mdl-menu__item" v-if="action.disabled" disabled>
           {{action.name}}
