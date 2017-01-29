@@ -73,7 +73,8 @@ export default {
         }
       ],
       menuPosition: {
-        top: '0px',
+        position: 'fixed',
+        top: '56px',
         right: '0px'
       },
       menuDisplay: false,
