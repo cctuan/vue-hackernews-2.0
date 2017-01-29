@@ -2,7 +2,7 @@
   <div class="post-view">
     <div class="page-content">
       <div class="card demo-card-header-pic">
-        <div :data-image="post && post.thumb ? post.thumb.url : ''" style=""
+        <div :data-image="post.thumb.current ? post.thumb.current.secure_url : ''" style=""
           valign="bottom" class="thumb-container _lazy"></div>
         <post-basic-information :post="post" />
       </div>

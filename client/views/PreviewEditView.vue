@@ -1,7 +1,7 @@
 <template>
   <div class="preview-content">
     <div class="mdl-card mdl-shadow--2dp preview-img"
-      :style="'background-image:url(' + post.thumb.url + ')'">
+      :style="'background-image:url(' + currentImage + ')'">
     </div>
     <theme-selector :post="post" v-on:change="postUpdate"/>
     <div class="post-form-title">基本資訊</div>
@@ -85,6 +85,10 @@ export default {
     }
   },
   computed: {
+    currentImage(){
+      return this.post.thumb.current ? this.post.thumb.current.secure_url :
+        ''
+    },
     leftHeaderClick() {
       return this.$store.getters.headerLeftClick
     },

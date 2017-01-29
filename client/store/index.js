@@ -26,8 +26,8 @@ const createInitialPost = () => {
     rating: null,
     thumb: {
       theme: null,
-      original: null,
-      url: null
+      original: undefined,
+      current: undefined
     },
     meta: {
       nose: {
@@ -129,7 +129,7 @@ const store = new Vuex.Store({
           if (response.status === 200 && response.data.status === 200) {
             const { result } = response.data
             commit('SET_STATUS', {status: STATUS.IMAGE_UPLOAD_SUCCESS, type: 'image'})
-            return commit('SET_ORIGINAL_URL', result.secure_url)
+            return commit('SET_ORIGINAL_URL', result)
           } else {
             commit('SET_STATUS', {status: STATUS.IMAGE_UPLOAD_FAIL, type: 'image'})
           }
@@ -144,7 +144,7 @@ const store = new Vuex.Store({
         .then(response => {
           if (response.status === 200 && response.data.status === 200) {
             const { result } = response.data
-            return commit('SET_IMAGE_URL', result.secure_url)
+            return commit('SET_IMAGE_URL', result)
           }
         })
     },
@@ -289,13 +289,13 @@ const store = new Vuex.Store({
       state.activeType = type
     },
 
-    SET_ORIGINAL_URL : (state, url) => {
-      state.cachePost.thumb.original = url
-      state.cachePost.thumb.url = url
+    SET_ORIGINAL_URL : (state, data) => {
+      state.cachePost.thumb.original = data
+      state.cachePost.thumb.current = data
     },
 
     SET_IMAGE_URL : (state, url) => {
-      state.cachePost.thumb.url = url
+      state.cachePost.thumb.current = data
     },
 
     SET_POSTS : (state , { list, page, count }) => {

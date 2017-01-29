@@ -1,7 +1,7 @@
 <template>
   <div class="content">
     <linear-progress v-if="isImageUploading" />
-    <image-editor :url="post.thumb ? post.thumb.url : ''" v-on:change="imageChange"/>
+    <image-editor :url="post.thumb.current ? post.thumb.current.secure_url : ''" v-on:change="imageChange"/>
     <div class="rating-field">
       <rating-star uid="quick" :items="rating_map" legend="按一下星星來評分" :value="rating" @change="updateRate"></rating-star>
     </div>
