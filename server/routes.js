@@ -153,6 +153,7 @@ router.post('/post', authCheck, async(function *(req, res) {
     yield post.updateThumb()
     result = yield post.uploadAndSave()
   } catch (e) {
+    console.log(e, 'error')
     res.status(500).json({
       status: 500,
       result: e

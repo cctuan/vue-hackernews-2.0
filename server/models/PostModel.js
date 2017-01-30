@@ -99,6 +99,7 @@ PostSchema.methods = {
   uploadAndSave: function () {
     const err = this.validateSync();
     if (err && err.toString()) {
+      console.log(this, 'uploadAndSave error')
       throw new Error(err.toString());
     }
     return this.save()

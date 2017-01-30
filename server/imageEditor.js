@@ -3,6 +3,7 @@ const cloudinary = require('cloudinary')
 const fs = require('fs')
 const config = require('../config/env')
 const themeTransformer = require('../config/themeTransformer')
+const THEME_CONFIG = require('../config/constants/THEME_CONFIG')
 
 
 cloudinary.config({
@@ -13,12 +14,24 @@ cloudinary.config({
 
 
 
-const uploadTemplateType1 = (config) => {
+const uploadTemplateType = (type, config) => {
 //const uploadTemplateType1 = (originalUrl, imgPublicId, originalPublicId,
 //  title, description, rating) => {
   return new Promise((resolve, reject) => {
-    let transformUrl = themeTransformer.theme1(config.imgPublicId, config.title,
-        config.description, config.rating)
+    let transformUrl = ''
+    switch (type) {
+      case THEME_CONFIG.THEME2: {
+        transformUrl = themeTransformer.theme2(config.imgPublicId, config.title,
+          config.description, config.rating)
+        break
+      }
+      case THEME_CONFIG.THEME1:
+      default: {
+        transformUrl = themeTransformer.theme2(config.imgPublicId, config.title,
+          config.description, config.rating)
+        break
+      }
+    }
     let uploadConfig = {}
     if (config.originalPublicId) {
       uploadConfig.public_id = config.originalPublicId
@@ -48,11 +61,7 @@ const removeImage = (publicId) => {
 }
 
 const updateTheme = (type, config) => {
-  switch (type) {
-    case 1: {
-      return uploadTemplateType1(config)
-    }
-  }
+  return uploadTemplateType(type, config)
 }
 
 const uploadImage = (file, options) => {
