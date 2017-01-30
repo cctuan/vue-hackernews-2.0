@@ -150,6 +150,7 @@ router.post('/post', authCheck, async(function *(req, res) {
   try {
     let post = new PostModel(req.body);
     post.author = req.user
+    yield post.updateThumb()
     result = yield post.uploadAndSave()
   } catch (e) {
     res.status(500).json({
@@ -168,14 +169,16 @@ router.post('/post/:id', authCheck, async(function *(req, res) {
   let result = {}
   try {
     let post = {}
+
     post = yield PostModel.load(req.params.id)
 
     if (post.author.toString() !== req.user._id.toString()) {
       res.redirect('/')
       return
     }
-
-    result = yield PostModel.findByIdAndUpdate(req.body._id, req.body, {'new': true})
+    yield post.update(req.body)
+    yield post.updateThumb()
+    result = yield post.save()
   } catch (e) {
     console.error(e)
     res.status(500).json({

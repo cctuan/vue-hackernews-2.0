@@ -1,39 +1,52 @@
-
-
+/**
+http://res.cloudinary.com/beer/image/upload/
+fl_text_no_trim,h_325,w_600,c_lfill/
+c_fill,l_bg_template_1_fadng9/
+h_20,c_fill,l_3d-golden-star_png_29_go1wlw,g_north_west,w_30,x_504,y_260,c_fill/
+l_text:Roboto_18:5.0,g_north_west,x_540,y_266,co_rgb:FFFFFF/
+l_text:Roboto_27_bold:gewfew,g_north_west,x_27,y_220,co_rgb:FFFFFF/
+l_text:Roboto_21:fewfewf,g_north_west,x_27,y_266,co_rgb:FFFFFF/
+j34wpae81xklnk2uyudc.png
+**/
 const theme1Transformer = function(title, description, rating){
   return [
     {
       flags: "text_no_trim",
-      height: 350,
+      height: 325,
       width: 600,
       crop: "lfill"
     },
     {
-      height: 20,
+      overlay: "bg_template_1_fadng9",
+    },
+    {
+      height: 30,
       overlay: "3d-golden-star_png_29_go1wlw",
+      gravity: "north_west",
       width: 30,
-      x: 240,
-      y: 150,
+      x: 504,
+      y: 260,
       crop: "fill"
     },
     {
-      overlay: 'text:Verdana_30_bold:' + rating + '.0',
-      x: 275,
-      y: 150,
+      overlay: 'text:Roboto_18:' + rating + '.0',
+      x: 540,
+      y: 266,
+      gravity: "north_west",
       color: '#FFFFFF'
     },
     {
-      overlay: 'text:Verdana_20_bold:' + encodeURI(title),
-      gravity: "west",
-      x: 0,
-      y: 100,
+      overlay: 'text:Roboto_27_bold:' + encodeURI(title),
+      gravity: "north_west",
+      x: 27,
+      y: 220,
       color: '#FFFFFF'
     },
     {
-      overlay: 'text:Verdana_20_bold:' + encodeURI(description),
-      gravity: "west",
-      x: 0,
-      y: 130,
+      overlay: 'text:Roboto_21:' + encodeURI(description),
+      gravity: "north_west",
+      x: 27,
+      y: 266,
       color: '#FFFFFF'
     }
   ]

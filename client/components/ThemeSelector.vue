@@ -55,7 +55,7 @@ export default {
   },
   methods: {
     selectTheme(theme) {
-      let themeUrl = themeTransformer.theme1(this.post.thumb.current.public_id + '.png', this.post.name, this.post.description_s, this.post.rating)
+      let themeUrl = themeTransformer.theme1(this.post.thumb.original.public_id + '.png', this.post.name, this.post.description_s, this.post.rating)
       this.$emit('previewChange', {
         url: themeUrl,
         type: theme

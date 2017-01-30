@@ -55,21 +55,13 @@ const PostSchema = mongoose.Schema({
 })
 
 PostSchema.methods = {
-  uploadAndSave: function () {
-    console.log(this, 'PostSchema')
-    const err = this.validateSync();
-    console.log(err, 'err')
-    if (err && err.toString()) {
-      throw new Error(err.toString());
-    }
-
-    console.log(this, 'data')
+  updateThumb: function(){
     if (this.thumb.theme && this.thumb.theme.type) {
       //  originalUrl, imgPublicId, originalPublicId,
       //  title, description, rating
       let config = {
-        originalUrl : this.thumb.current.url,
-        imgPublicId : this.thumb.current.public_id,
+        originalUrl : this.thumb.original.url,
+        imgPublicId : this.thumb.original.public_id,
         title: this.name,
         description: this.description_s,
         rating: this.rating
@@ -80,31 +72,26 @@ PostSchema.methods = {
       return imageEditor.updateTheme(this.thumb.theme.type, config).then(themeObject => {
         if (themeObject.secure_url) {
           this.thumb.current = themeObject
-          return this.save()
+          return themeObject
         } else {
-          return this.save()
+          return null
         }
       }).catch(e => {
         console.log(e)
-        return this.save()
+        return null
       })
     } else {
       console.log('_____THEME TYPE IS NULL_____')
-      return this.save()
+      return null
     }
+  },
 
-    /*
-    if (images && !images.length) return this.save();
-    const imager = new Imager(imagerConfig, 'S3');
-
-    imager.upload(images, function (err, cdnUri, files) {
-      if (err) return cb(err);
-      if (files.length) {
-        self.image = { cdnUri : cdnUri, files : files };
-      }
-      self.save(cb);
-    }, 'article');
-    */
+  uploadAndSave: function () {
+    const err = this.validateSync();
+    if (err && err.toString()) {
+      throw new Error(err.toString());
+    }
+    return this.save()
   },
 }
 

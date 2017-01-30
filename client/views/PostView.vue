@@ -3,7 +3,7 @@
     <div class="page-content">
       <div class="card demo-card-header-pic">
         <div :data-image="post.thumb.current ? post.thumb.current.secure_url : ''" style=""
-          valign="bottom" class="thumb-container _lazy"></div>
+          valign="bottom" :class="_imageClassObject"></div>
         <post-basic-information :post="post" />
       </div>
       <menu-dialog :actions="menuActions" :display="menuDisplay"
@@ -24,15 +24,15 @@ import ROUTES from 'config/constants/ROUTES'
 
 const PathRegex = new RegExp('^/post/[0-9a-fA-F]{24}$', 'i')
 
-const lazyloadImgs = ($el) => {
+const lazyloadImgs = ($el, callback) => {
   $el.querySelectorAll('._lazy').forEach(item => {
     let img = document.createElement('img')
     img.onload = () => {
       item.style.backgroundImage = `url(${img.src})`
-      item.classList.remove('_lazy')
+      callback()
     }
     img.onerror = () => {
-      item.classList.remove('_lazy')
+      callback()
     }
     img.src = item.getAttribute('data-image')
   })
@@ -56,13 +56,20 @@ export default {
       },{
         name: '編輯',
         type: 'edit'
-      },]
+      }],
+      lazy: true
     }
   },
   props: {
     post: {}
   },
   computed: {
+    _imageClassObject() {
+      return {
+        _lazy: this.lazy,
+        'thumb-container': true
+      }
+    },
     leftHeaderClick() {
       return this.$store.getters.headerLeftClick
     },
@@ -71,12 +78,19 @@ export default {
     }
   },
   updated() {
-    lazyloadImgs(this.$el)
+    lazyloadImgs(this.$el, () => {
+      this.lazy = false
+    })
   },
   mounted() {
-    lazyloadImgs(this.$el)
+    lazyloadImgs(this.$el, () => {
+      this.lazy = false
+    })
   },
   watch: {
+    post(newVal, oldVal){
+      this.lazy = true
+    },
     leftHeaderClick (newVal) {
       console.log(this.$store.state.route, 'post-view')
       if (this.$store.state.route.name !== ROUTES.POST_VIEW) {
