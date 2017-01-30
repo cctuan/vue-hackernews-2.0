@@ -43,7 +43,7 @@ const removeImage = (publicId) => {
         return
       }
       resolve(result)
-    }, options)
+    })
   })
 }
 

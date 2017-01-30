@@ -82,6 +82,10 @@ export function fetchPost(id) {
   return axios.get(`/api/post/${id}`)
 }
 
+export function deletePost(id) {
+  return axios.delete(`/api/post/${id}`)
+}
+
 export function uploadImage(image) {
   const data = new FormData()
   data.append('file', image)

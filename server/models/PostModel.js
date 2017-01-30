@@ -55,6 +55,16 @@ const PostSchema = mongoose.Schema({
 })
 
 PostSchema.methods = {
+  removeAllThumb: function(){
+    let promises = []
+    if (this.thumb.current && this.thumb.current.public_id) {
+      promises.push(imageEditor.removeImage(this.thumb.current.public_id))
+    }
+    if (this.thumb.original && this.thumb.original.public_id){
+      promises.push(imageEditor.removeImage(this.thumb.original.public_id))
+    }
+    return Promise.all(promises)
+  },
   updateThumb: function(){
     if (this.thumb.theme && this.thumb.theme.type) {
       //  originalUrl, imgPublicId, originalPublicId,

@@ -165,6 +165,27 @@ router.post('/post', authCheck, async(function *(req, res) {
   })
 }))
 
+router.delete('/post/:id', authCheck, async(function *(req, res) {
+  try {
+    let post = {}
+    post = yield PostModel.load(req.params.id)
+    yield post.removeAllThumb()
+    yield post.remove()
+  } catch (e) {
+    console.log(e)
+    res.status(500).json({
+      status: 500,
+      result: e
+    })
+    return
+  }
+
+  res.status(200).json({
+    status: 200
+  })
+  return
+}))
+
 router.post('/post/:id', authCheck, async(function *(req, res) {
   let result = {}
   try {

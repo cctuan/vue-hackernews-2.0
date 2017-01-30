@@ -1,5 +1,6 @@
 <template>
   <div class="preview-content">
+    <linear-progress v-if="isPostSaving" />
     <div class="mdl-card mdl-shadow--2dp preview-img"
       :style="'background-image:url(' + currentImage + ')'">
     </div>
@@ -41,12 +42,14 @@ import ThemeSelector from 'components/ThemeSelector.vue'
 import VSwitch from 'components/VSwitch.vue'
 import DRINK_TYPE from 'config/constants/DRINK_TYPE'
 import ROUTES from 'config/constants/ROUTES'
+import STATUS from 'config/constants/STATUS.js'
+import LinearProgress from 'components/LinearProgress.vue'
 
 export default {
   name: 'preview-edit-view',
   components: {
     RatingStar, PostBasicInformation, ThemeSelector, MenuDialog,
-    VSwitch
+    VSwitch, LinearProgress
   },
   props: {
     post: {
@@ -94,6 +97,9 @@ export default {
     },
     rightHeaderClick() {
       return this.$store.getters.headerRightClick
+    },
+    isPostSaving() {
+      return this.$store.getters.currentPostStatus === STATUS.POST_SAVING
     }
   },
   watch: {

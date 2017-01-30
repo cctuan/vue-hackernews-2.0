@@ -56,6 +56,9 @@ export default {
       },{
         name: '編輯',
         type: 'edit'
+      },{
+        name: '刪除',
+        type: 'delete'
       }],
       lazy: true
     }
@@ -116,6 +119,12 @@ export default {
         case 'edit': {
           this.$router.push({ path: `/edit/${this.post._id}/detail` })
           break
+        }
+        case 'delete': {
+          this.$store.dispatch('REMOVE_POST', this.post._id).then(() => {
+            this.$router.push({ path: `/` })
+          }).catch(e => {
+          })
         }
       }
     }

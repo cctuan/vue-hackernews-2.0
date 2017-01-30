@@ -10,6 +10,7 @@ import {
   fetchPostList,
   fetchPost,
   savePost,
+  deletePost,
   changeTheme,
   uploadImage,
 } from './api'
@@ -71,7 +72,8 @@ const store = new Vuex.Store({
       overlap: false,
     },
     status: {
-      image: ''
+      image: '',
+      post: ''
     },
     post: createInitialPost(),
     cachePost: createInitialPost(),
@@ -209,14 +211,51 @@ const store = new Vuex.Store({
       })
     },
 
+    REMOVE_POST: ({commit, state, dispatch}, id) => {
+      commit('SET_STATUS', {
+        type: 'post',
+        status: STATUS.POST_DELETING
+      })
+      return deletePost(id)
+        .then(response => {
+          if (response.status === 200 && response.data.status === 200) {
+            commit('SET_STATUS', {
+              type: 'post',
+              status: STATUS.POST_DELETED
+            })
+            return dispatch('FETCH_LIST_POST', {})
+          }
+
+          return commit('SET_STATUS', {
+            type: 'post',
+            status: STATUS.POST_DELETE_FAIL
+          })
+        })
+    },
+
     SAVE_POST: ({commit, state, dispatch}, {}) => {
+      commit('SET_STATUS', {
+        type: 'post',
+        status: STATUS.POST_SAVING
+      })
+      console.log('SAVE_POST')
       return savePost(state.cachePost, state.post._id)
         .then(response => {
           if (response.status === 200 && response.data.status === 200) {
             commit('SET_CACHED_POST', response.data.result)
             commit('SET_POST', response.data.result)
+            commit('SET_STATUS', {
+              type: 'post',
+              status: STATUS.POST_SAVED
+            })
             return dispatch('FETCH_LIST_POST', {})
           }
+          console.log('SAVE_POST response', response.data)
+
+          return commit('SET_STATUS', {
+            type: 'post',
+            status: STATUS.POST_SAVE_FAIL
+          })
         })
     },
 
@@ -262,6 +301,10 @@ const store = new Vuex.Store({
     USER_LOGIN: (state, { user }) => {
       state.user = user
       state.isLogin = true
+    },
+
+    POST_DELETE_SUCCESS: (state) => {
+
     },
 
     CLICK_HEADER_LEFT: (state) => {
@@ -351,6 +394,9 @@ const store = new Vuex.Store({
   getters: {
     currentImageStatus(state) {
       return state.status.image
+    },
+    currentPostStatus(state) {
+      return state.status.post
     },
     headerLeftClick (state) {
       return state.header.leftClicked
