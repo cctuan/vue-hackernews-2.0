@@ -1,6 +1,6 @@
 <template>
   <div class="preview-content">
-    <linear-progress v-if="isPostSaving" />
+    <linear-progress v-if="isLoading" />
     <div class="mdl-card mdl-shadow--2dp preview-img"
       :style="'background-image:url(' + currentImage + ')'">
     </div>
@@ -98,8 +98,9 @@ export default {
     rightHeaderClick() {
       return this.$store.getters.headerRightClick
     },
-    isPostSaving() {
-      return this.$store.getters.currentPostStatus === STATUS.POST_SAVING
+    isLoading() {
+      return this.$store.getters.currentPostStatus === STATUS.POST_SAVING ||
+        this.$store.getters.currentThemeStatus === STATUS.THEME_CHANGING
     }
   },
   watch: {

@@ -73,7 +73,8 @@ const store = new Vuex.Store({
     },
     status: {
       image: '',
-      post: ''
+      post: '',
+      theme: ''
     },
     post: createInitialPost(),
     cachePost: createInitialPost(),
@@ -109,7 +110,16 @@ const store = new Vuex.Store({
     },
 
     SET_PREVIEW_IMAGE: ({commit}, url) => {
-      commit('SET_PREVIEW_IMAGE', url)
+      commit('SET_STATUS', {type: 'theme', status: STATUS.THEME_CHANGING})
+      let img = new Image()
+      img.onload = () => {
+        commit('SET_PREVIEW_IMAGE', url)
+        commit('SET_STATUS', {type: 'theme', status: STATUS.THEME_CHANGED})
+      }
+      img.onerror = () => {
+        commit('SET_STATUS', {type: 'theme', status: STATUS.THEME_CHANGE_FAIL})
+      }
+      img.src = url
     },
 
     SET_SHARING: ({commit, state}, config) => {
@@ -392,6 +402,9 @@ const store = new Vuex.Store({
   },
 
   getters: {
+    currentThemeStatus(state) {
+      return state.status.theme
+    },
     currentImageStatus(state) {
       return state.status.image
     },
