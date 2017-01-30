@@ -114,7 +114,7 @@ export default {
           break
         }
         case 'edit': {
-          this.$router.push({ path: `/edit/${this.post._id}` })
+          this.$router.push({ path: `/edit/${this.post._id}/detail` })
           break
         }
       }

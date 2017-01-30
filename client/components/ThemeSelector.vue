@@ -5,7 +5,7 @@
     </div>
     <span class="reset-button">預設</span>
     <ul class="preview-list">
-      <li :class="'theme-item' + (post.thumb.theme === theme.type ? ' selected' : '')"
+      <li :class="'theme-item' + (post.thumb.theme ? (post.thumb.theme.type === theme.type ? ' selected' : '') : '')"
         v-on:click="selectTheme(theme.type)"
         v-for="theme in theme_selections"
         :style="`background-image:url(${theme.preview})`">
@@ -17,6 +17,7 @@
 </template>
 
 <script>
+import THEME_CONFIG from 'config/constants/THEME_CONFIG'
 import themeTransformer from 'config/themeTransformer'
 export default {
   name: 'theme-selector',
@@ -32,15 +33,15 @@ export default {
       theme_selections: [
         {
           preview: '/public/theme-select.png',
-          type: 1
+          type: THEME_CONFIG.THEME1
         },
         {
           preview: '/public/theme-select.png',
-          type: 2
+          type: THEME_CONFIG.THEME2
         },
         {
           preview: '/public/theme-select.png',
-          type: 3
+          type: THEME_CONFIG.THEME3
         }
       ]
     }
@@ -55,11 +56,25 @@ export default {
   },
   methods: {
     selectTheme(theme) {
-      let themeUrl = themeTransformer.theme1(this.post.thumb.original.public_id + '.png', this.post.name, this.post.description_s, this.post.rating)
-      this.$emit('previewChange', {
-        url: themeUrl,
-        type: theme
-      })
+      let themeUrl = null
+      switch(theme) {
+        case THEME_CONFIG.THEME1: {
+          themeUrl = themeTransformer.theme1(this.post.thumb.original.public_id +
+            '.png', this.post.name, this.post.description_s, this.post.rating)
+          break
+        }
+        case THEME_CONFIG.THEME2: {
+          themeUrl = themeTransformer.theme2(this.post.thumb.original.public_id +
+            '.png', this.post.name, this.post.description_s, this.post.rating)
+          break
+        }
+      }
+      if (themeUrl) {
+        this.$emit('previewChange', {
+          url: themeUrl,
+          type: theme
+        })
+      }
       //this.$emit('change', _post)
     }
   }

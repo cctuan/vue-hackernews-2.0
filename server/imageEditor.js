@@ -34,6 +34,19 @@ const uploadTemplateType1 = (config) => {
   })
 }
 
+const removeImage = (publicId) => {
+  return new Promise((resolve, reject) => {
+    cloudinary.v2.uploader.destroy(publicId,
+      (err, result) => {
+      if (err) {
+        reject(err)
+        return
+      }
+      resolve(result)
+    }, options)
+  })
+}
+
 const updateTheme = (type, config) => {
   switch (type) {
     case 1: {
@@ -44,7 +57,12 @@ const updateTheme = (type, config) => {
 
 const uploadImage = (file, options) => {
   return new Promise((resolve, reject) => {
-    cloudinary.uploader.upload(file, (result) => {
+    cloudinary.v2.uploader.upload(file, themeTransformer.basicSize,
+      (err, result) => {
+      if (err) {
+        reject(err)
+        return
+      }
       resolve(result)
     }, options)
   })
@@ -53,5 +71,6 @@ const uploadImage = (file, options) => {
 
 module.exports = {
   uploadImage: uploadImage,
-  updateTheme: updateTheme
+  updateTheme: updateTheme,
+  removeImage: removeImage
 }
