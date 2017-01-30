@@ -17,7 +17,7 @@
 </template>
 
 <script>
-
+import themeTransformer from 'config/themeTransformer'
 export default {
   name: 'theme-selector',
 
@@ -55,9 +55,12 @@ export default {
   },
   methods: {
     selectTheme(theme) {
-      let _post = Object.create(this.post)
-      _post.thumb.theme = theme
-      this.$emit('change', _post)
+      let themeUrl = themeTransformer.theme1(this.post.thumb.current.public_id + '.png', this.post.name, this.post.description_s, this.post.rating)
+      this.$emit('previewChange', {
+        url: themeUrl,
+        type: theme
+      })
+      //this.$emit('change', _post)
     }
   }
 }

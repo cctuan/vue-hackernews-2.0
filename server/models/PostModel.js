@@ -1,6 +1,6 @@
 
 const mongoose = require('mongoose')
-
+const imageEditor = require('../imageEditor')
 const PostSchema = mongoose.Schema({
   type: {
     type: Number,
@@ -16,7 +16,7 @@ const PostSchema = mongoose.Schema({
     current:  mongoose.Schema.Types.Mixed,
     original:  mongoose.Schema.Types.Mixed,
     theme: {
-      type: Number
+      type: mongoose.Schema.Types.Mixed
     }
   },
   // taste, appearance, nose, other
@@ -56,11 +56,42 @@ const PostSchema = mongoose.Schema({
 
 PostSchema.methods = {
   uploadAndSave: function () {
+    console.log(this, 'PostSchema')
     const err = this.validateSync();
+    console.log(err, 'err')
     if (err && err.toString()) {
       throw new Error(err.toString());
     }
-    return this.save();
+
+    console.log(this, 'data')
+    if (this.thumb.theme && this.thumb.theme.type) {
+      //  originalUrl, imgPublicId, originalPublicId,
+      //  title, description, rating
+      let config = {
+        originalUrl : this.thumb.current.url,
+        imgPublicId : this.thumb.current.public_id,
+        title: this.name,
+        description: this.description_s,
+        rating: this.rating
+      }
+      if (this.thumb.current.public_id !== this.thumb.original.public_id) {
+        config.originalPublicId = this.thumb.current.public_id
+      }
+      return imageEditor.updateTheme(this.thumb.theme.type, config).then(themeObject => {
+        if (themeObject.secure_url) {
+          this.thumb.current = themeObject
+          return this.save()
+        } else {
+          return this.save()
+        }
+      }).catch(e => {
+        console.log(e)
+        return this.save()
+      })
+    } else {
+      console.log('_____THEME TYPE IS NULL_____')
+      return this.save()
+    }
 
     /*
     if (images && !images.length) return this.save();

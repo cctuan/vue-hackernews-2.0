@@ -3,7 +3,8 @@
     <div class="mdl-card mdl-shadow--2dp preview-img"
       :style="'background-image:url(' + currentImage + ')'">
     </div>
-    <theme-selector :post="post" v-on:change="postUpdate"/>
+    <theme-selector :post="post" v-on:change="postUpdate"
+      v-on:previewChange="previewThemeChange"/>
     <div class="post-form-title">基本資訊</div>
     <post-basic-information :post="post" />
     <div class="post-form-title">分享設定</div>
@@ -86,8 +87,7 @@ export default {
   },
   computed: {
     currentImage(){
-      return this.post.thumb.current ? this.post.thumb.current.secure_url :
-        ''
+      return this.$store.getters.currentPreviewImage
     },
     leftHeaderClick() {
       return this.$store.getters.headerLeftClick
@@ -108,12 +108,19 @@ export default {
         return
       }
       this.menuDisplay = !this.menuDisplay
-      console.log('rightHeaderClick', newVal)
     }
   },
   mounted () {
   },
   methods: {
+    previewThemeChange({url, type}) {
+      this.$store.dispatch('SET_PREVIEW_IMAGE', url)
+      let _post = Object.assign({}, this.post)
+      _post.thumb.theme = {
+        type: type
+      }
+      this.$store.dispatch('SET_CACHED_POST', _post)
+    },
     postUpdate(newPost) {
       if (!newPost.createdAt || !newPost.updatedAt) {
         newPost.updatedAt = newPost.createdAt = new Date().toISOString()

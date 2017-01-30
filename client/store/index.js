@@ -61,7 +61,7 @@ const store = new Vuex.Store({
     isAuthorized: false,
     isLogin: false,
     user: {},
-
+    previewImageUrl: null,
     header: {
       rightClicked: false,
       leftClicked: false,
@@ -104,6 +104,10 @@ const store = new Vuex.Store({
     },
     LOGIN: ({ commit }, user) => {
       commit('USER_LOGIN', { user })
+    },
+
+    SET_PREVIEW_IMAGE: ({commit}, url) => {
+      commit('SET_PREVIEW_IMAGE', url)
     },
 
     SET_SHARING: ({commit, state}, config) => {
@@ -289,13 +293,19 @@ const store = new Vuex.Store({
       state.activeType = type
     },
 
+    SET_PREVIEW_IMAGE: (state, url) => {
+      state.previewImageUrl = url
+    },
+
     SET_ORIGINAL_URL : (state, data) => {
       state.cachePost.thumb.original = data
       state.cachePost.thumb.current = data
+      state.previewImageUrl = data.secure_url
     },
 
     SET_IMAGE_URL : (state, url) => {
       state.cachePost.thumb.current = data
+      state.previewImageUrl = data.secure_url
     },
 
     SET_POSTS : (state , { list, page, count }) => {
@@ -378,6 +388,10 @@ const store = new Vuex.Store({
       } else {
         return []
       }
+    },
+
+    currentPreviewImage (state) {
+      return state.previewImageUrl
     },
 
     cachedPost (state) {
