@@ -48,7 +48,11 @@ const routeEditGuard = (to, from, next) => {
   }
 
   if (store.getters.isUserLogin) {
-    next(from)
+    if (!to.params || !to.params.id) {
+      next()
+    } else {
+      next({ path: '/' })
+    }
   } else if (store.getters.isUserVisited) {
     next({ path: '/login' })
   } else {
