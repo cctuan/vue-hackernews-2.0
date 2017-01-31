@@ -17,8 +17,10 @@ export default {
       {charset: 'utf-8'},
       {name: 'viewport', content: 'width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, target-densitydpi=medium-dpi'},
       {property: 'og:site_name', content: '1shot - 一飲'},
+      {'http-equiv': 'X-UA-Compatible', content: 'IE=Edge'},
     ],
     link: [
+      {rel: 'icon', href: '/public/favicon-32x32.png'},
       {rel: 'stylesheet', href: 'https://fonts.googleapis.com/icon?family=Material+Icons'}
     ]
   },
