@@ -21,7 +21,8 @@ export default {
     ],
     link: [
       {rel: 'icon', href: '/public/favicon-32x32.png'},
-      {rel: 'stylesheet', href: 'https://fonts.googleapis.com/icon?family=Material+Icons'}
+    ],
+    style: [
     ]
   },
   computed: {
@@ -33,6 +34,17 @@ export default {
 }
 </script>
 <style lang="css">
+@font-face {
+  font-family: 'Material Icons';
+  font-style: normal;
+  font-weight: 400;
+  src: url(/public/vendor/material-design-icons/iconfont/MaterialIcons-Regular.eot);
+  src: local('Material Icons'),
+       local('MaterialIcons-Regular'),
+       url(/public/vendor/material-design-icons/iconfont/MaterialIcons-Regular.woff2) format('woff2'),
+       url(/public/vendor/material-design-icons/iconfont/MaterialIcons-Regular.woff) format('woff'),
+       url(/public/vendor/material-design-icons/iconfont/MaterialIcons-Regular.ttf) format('truetype');
+}
 html, body, #app {
   height: 100%;
 }
@@ -90,5 +102,28 @@ body {
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.24), 0 0 2px 0 rgba(0, 0, 0, 0.12);
   color: #ffffff;
 }
+.material-icons {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;  /* Preferred icon size */
+  display: inline-block;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
 
+  /* Support for all WebKit browsers. */
+  -webkit-font-smoothing: antialiased;
+  /* Support for Safari and Chrome. */
+  text-rendering: optimizeLegibility;
+
+  /* Support for Firefox. */
+  -moz-osx-font-smoothing: grayscale;
+
+  /* Support for IE. */
+  font-feature-settings: 'liga';
+}
 </style>
