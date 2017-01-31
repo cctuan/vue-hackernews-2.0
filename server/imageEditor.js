@@ -25,7 +25,7 @@ const uploadTemplateType = (type, config) => {
       }
       case THEME_CONFIG.THEME1:
       default: {
-        transformUrl = themeTransformer.theme2(config.imgPublicId, config.title,
+        transformUrl = themeTransformer.theme1(config.imgPublicId, config.title,
           config.description, config.rating)
         break
       }

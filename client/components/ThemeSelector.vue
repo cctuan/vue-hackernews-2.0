@@ -75,7 +75,6 @@ export default {
           type: theme
         })
       }
-      //this.$emit('change', _post)
     }
   }
 }

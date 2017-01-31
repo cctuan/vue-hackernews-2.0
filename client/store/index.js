@@ -175,9 +175,6 @@ const store = new Vuex.Store({
 
     SET_CACHED_POST : ({ commit }, post = {}) => {
       commit('SET_CACHED_POST', post)
-      if (post.thumb.current.secure_url) {
-        commit('SET_PREVIEW_IMAGE', post.thumb.current.secure_url)
-      }
     },
 
     AUTHORIZE_USER : ({ commit }, isAuth) => {
@@ -375,6 +372,9 @@ const store = new Vuex.Store({
 
     SET_CACHED_POST : (state, post) => {
       deepExtend(state.cachePost, post)
+      if (post.thumb.current.secure_url) {
+        state.previewImageUrl = post.thumb.current.secure_url
+      }
     },
 
     SET_POST : (state, post) => {

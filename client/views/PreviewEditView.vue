@@ -48,6 +48,7 @@ import STATUS from 'config/constants/STATUS.js'
 import LinearProgress from 'components/LinearProgress.vue'
 import CancelEditDialog from 'components/CancelEditDialog.vue'
 import ProcessingDialog from 'components/ProcessingDialog.vue'
+import THEME_CONFIG from 'config/constants/THEME_CONFIG'
 
 export default {
   name: 'preview-edit-view',
@@ -68,20 +69,6 @@ export default {
       enable_fb_sharing: true,
       enable_line_sharing: true,
       drink_types: DRINK_TYPE,
-      theme_selections : [
-        {
-          preview: '/public/theme-select.png',
-          type: 1
-        },
-        {
-          preview: '/public/theme-select.png',
-          type: 2
-        },
-        {
-          preview: '/public/theme-select.png',
-          type: 3
-        }
-      ],
       menuPosition: {
         position: 'fixed',
         top: '56px',
