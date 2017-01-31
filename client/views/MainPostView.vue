@@ -35,7 +35,7 @@ export default {
         {property: 'og:image:secure_url', content: this.post.thumb.current.secure_url},
         {property: 'og:image:width', content: '600'},
         {property: 'og:image:height', content: '325'},
-        {property: 'og:image:description', content: this.post.description_s}
+        {property: 'og:description', content: this.post.description_s}
       ],
     }
   },
