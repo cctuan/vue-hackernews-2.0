@@ -195,13 +195,15 @@ const store = new Vuex.Store({
         })
     },
 
-    FETCH_POST: ({commit}, id) => {
+    FETCH_POST: ({commit, dispatch}, id) => {
       return fetchPost(id)
         .then(response => {
           if (response.status === 200 && response.data.status === 200) {
-            commit('SET_AUTH', response.data.result.isAuth)
-            commit('SET_CACHED_POST', response.data.result.post)
-            return commit('SET_POST', response.data.result.post)
+            return dispatch('RESET_POST').then(() => {
+              commit('SET_AUTH', response.data.result.isAuth)
+              commit('SET_CACHED_POST', response.data.result.post)
+              return commit('SET_POST', response.data.result.post)
+            })
           }
           throw new Error('cannot fetch post')
         })
@@ -252,13 +254,15 @@ const store = new Vuex.Store({
       return savePost(state.cachePost, state.post._id)
         .then(response => {
           if (response.status === 200 && response.data.status === 200) {
-            commit('SET_CACHED_POST', response.data.result)
-            commit('SET_POST', response.data.result)
-            commit('SET_STATUS', {
-              type: 'post',
-              status: STATUS.POST_SAVED
+            return dispatch('RESET_POST').then(() => {
+              commit('SET_CACHED_POST', response.data.result)
+              commit('SET_POST', response.data.result)
+              commit('SET_STATUS', {
+                type: 'post',
+                status: STATUS.POST_SAVED
+              })
+              return dispatch('FETCH_LIST_POST', {})
             })
-            return dispatch('FETCH_LIST_POST', {})
           }
 
           return commit('SET_STATUS', {

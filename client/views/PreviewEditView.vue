@@ -4,7 +4,7 @@
     <div class="mdl-card mdl-shadow--2dp preview-img"
       :style="'background-image:url(' + currentImage + ')'">
     </div>
-    <theme-selector :post="post" v-on:change="postUpdate"
+    <theme-selector :post="post"
       v-on:previewChange="previewThemeChange"/>
     <div class="post-form-title">基本資訊</div>
     <post-basic-information :post="post" />
@@ -124,12 +124,6 @@ export default {
         type: type
       }
       this.$store.dispatch('SET_CACHED_POST', _post)
-    },
-    postUpdate(newPost) {
-      if (!newPost.createdAt || !newPost.updatedAt) {
-        newPost.updatedAt = newPost.createdAt = new Date().toISOString()
-      }
-      this.$store.dispatch('SET_CACHED_POST', newPost)
     },
     onSave () {
       if (this.isLoading) {
