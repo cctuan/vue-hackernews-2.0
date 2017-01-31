@@ -264,6 +264,7 @@ section
   margin-top 15px
   .circle
     width 190px
+    max-width 49%
     display inline-block
     position relative
     .chip-clarity,

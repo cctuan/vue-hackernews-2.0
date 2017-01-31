@@ -41,6 +41,21 @@ const routeGuard = (to, from, next) => {
   }
 }
 
+const routeEditGuard = (to, from, next) => {
+  if (to.params && to.params.id && store.getters.isAuthorized) {
+    next()
+    return
+  }
+
+  if (store.getters.isUserLogin) {
+    next(from)
+  } else if (store.getters.isUserVisited) {
+    next({ path: '/login' })
+  } else {
+    next({ path: '/landing' })
+  }
+}
+
 export default new Router({
   mode: 'history',
   scrollBehavior: () => ({ y: 0 }),
@@ -67,6 +82,7 @@ export default new Router({
     {
       path: '/edit/:id?',
       component: EditView,
+      beforeEnter: routeEditGuard,
       children: [
         {
           path: 'preview',

@@ -383,6 +383,9 @@ const store = new Vuex.Store({
 
     SET_POST : (state, post) => {
       state.post = post
+      if (post.author === state.user._id) {
+        state.isAuthorized = true
+      }
     },
 
     RESET_POST : (state) => {

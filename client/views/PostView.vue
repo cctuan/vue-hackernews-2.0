@@ -50,16 +50,6 @@ export default {
         right: '0px'
       },
       menuDisplay: false,
-      menuActions : [{
-        name: '首頁',
-        type: 'home'
-      },{
-        name: '編輯',
-        type: 'edit'
-      },{
-        name: '刪除',
-        type: 'delete'
-      }],
       lazy: true
     }
   },
@@ -67,6 +57,23 @@ export default {
     post: {}
   },
   computed: {
+    menuActions() {
+      let menuActions = [{
+        name: '首頁',
+        type: 'home'
+      }]
+      if (this.$store.getters.isAuthorized) {
+        menuActions.push({
+          name: '編輯',
+          type: 'edit'
+        })
+        menuActions.push({
+          name: '刪除',
+          type: 'delete'
+        })
+      }
+      return menuActions
+    },
     _imageClassObject() {
       return {
         _lazy: this.lazy,
@@ -95,7 +102,6 @@ export default {
       this.lazy = true
     },
     leftHeaderClick (newVal) {
-      console.log(this.$store.state.route, 'post-view')
       if (this.$store.state.route.name !== ROUTES.POST_VIEW) {
         return
       }
