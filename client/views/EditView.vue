@@ -7,26 +7,7 @@
           <router-view :post="post" v-on:change="postUpdate"
             v-on:cancel="showModal=true"/>
         </keep-alive>
-        <modal v-if="showModal" @close="showModal = false">
-          <div slot="body" class="edit-dialog">
-            <div class="headline">
-              取消編輯
-            </div>
-            <div class="body">
-              您的筆記尚未編輯完成，確定要捨棄此份筆記？
-            </div>
-            <div class="btn-container">
-              <div class="continue-btn" @click="showModal=false">
-                繼續編輯
-              </div>
-              <router-link to="/">
-                <div class="cancel-btn">
-                  確定捨棄
-                </div>
-              </router-link>
-            </div>
-          </div>
-        </modal>
+        <cancel-edit-dialog :showModal="showModal" v-on:close="showModal = false"/>
       </div>
     </div>
   </div>
@@ -37,7 +18,7 @@ import {
   isValidMongoId
 } from '../utility'
 import ROUTES from 'config/constants/ROUTES'
-import Modal from 'components/Modal.vue'
+import CancelEditDialog from 'components/CancelEditDialog.vue'
 
 const PathRegex = new RegExp('^/post', 'i')
 
@@ -50,7 +31,7 @@ function fetchItem (store) {
 
 export default {
   name: 'edit-main-view',
-  components: {Modal},
+  components: {CancelEditDialog},
   data() {
     return {
       showModal: false

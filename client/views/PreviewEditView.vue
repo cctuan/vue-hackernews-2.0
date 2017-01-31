@@ -31,6 +31,8 @@
     <menu-dialog :actions="menuActions" :display="menuDisplay"
       :position="menuPosition" v-on:close="menuDisplay=false"
       v-on:select="onMenuClick"/>
+    <processing-dialog :showModal="showProcessingModal" v-on:close="showProcessingModal = false"/>
+    <cancel-edit-dialog :showModal="showCancelEditModal" v-on:close="showCancelEditModal = false"/>
   </div>
 </template>
 
@@ -44,12 +46,14 @@ import DRINK_TYPE from 'config/constants/DRINK_TYPE'
 import ROUTES from 'config/constants/ROUTES'
 import STATUS from 'config/constants/STATUS.js'
 import LinearProgress from 'components/LinearProgress.vue'
+import CancelEditDialog from 'components/CancelEditDialog.vue'
+import ProcessingDialog from 'components/ProcessingDialog.vue'
 
 export default {
   name: 'preview-edit-view',
   components: {
     RatingStar, PostBasicInformation, ThemeSelector, MenuDialog,
-    VSwitch, LinearProgress
+    VSwitch, LinearProgress, CancelEditDialog, ProcessingDialog
   },
   props: {
     post: {
@@ -59,6 +63,8 @@ export default {
   },
   data() {
     return {
+      showCancelEditModal: false,
+      showProcessingModal: false,
       enable_fb_sharing: true,
       enable_line_sharing: true,
       drink_types: DRINK_TYPE,
@@ -121,6 +127,10 @@ export default {
   },
   methods: {
     previewThemeChange({url, type}) {
+      if (this.$store.getters.currentThemeStatus === STATUS.THEME_CHANGING) {
+        this.showProcessingModal = true
+        return
+      }
       this.$store.dispatch('SET_PREVIEW_IMAGE', url)
       let _post = Object.assign({}, this.post)
       _post.thumb.theme = {
@@ -135,16 +145,14 @@ export default {
       this.$store.dispatch('SET_CACHED_POST', newPost)
     },
     onSave () {
+      if (this.isLoading) {
+        this.showProcessingModal = true
+        return
+      }
       this.$store.dispatch('SAVE_POST')
         .then((val) => {
           this.$router.push({ path: `/post/${this.post._id}/view` })
         })
-    },
-    selectTheme(type) {
-      this.$store.dispatch('SELECT_THEME', {
-        url: this.post.thumb.original,
-        type
-      })
     },
     onFacebookTrigger(val){
       this.$store.dispatch('SET_SHARING', {
@@ -159,7 +167,7 @@ export default {
     onMenuClick(action) {
       switch (action.type) {
         case 'home': {
-          this.$router.push({ path: `/` })
+          this.showCancelEditModal = true
           break
         }
       }
@@ -201,4 +209,16 @@ export default {
   height 20px
   padding 6px 16px
   background-color #11161d
+.preview-dialog
+  text-align center
+  .header
+    i
+      font-size 40px
+  .sub-header
+    color black
+    margin-top 15px
+  button
+    width 100%
+    &.detail-edit
+      background-color #7ad0e2
 </style>

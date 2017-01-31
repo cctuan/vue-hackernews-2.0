@@ -105,7 +105,7 @@ export default {
 .theme-item
   position relative
   background-repeat no-repeat
-  background-size cover
+  background-size contain
   background-position center
   margin-right 10px
   width 33%
