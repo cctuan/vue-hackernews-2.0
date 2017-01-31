@@ -20,6 +20,7 @@ module.exports = Object.assign({}, base, {
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
       'process.env.VUE_ENV': '"server"',
       'process.BROWSER': false,
+      'process.URL': JSON.stringify(process.env.URL || 'localhost:8000')
     })
   ]
 })

@@ -37,6 +37,8 @@ export default {
   text-align center
   padding 0 50px
 .start-btn
+  min-height 50px
+  height auto
   width 100%
   background-color #7dd0e0
 </style>

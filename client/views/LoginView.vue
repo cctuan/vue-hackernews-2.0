@@ -30,9 +30,12 @@ export default {
 .login-button-container
   margin-top 30px
   display inline-block
+  width 100%
   button
-    height 50px
-    padding 15px 68px
+    height auto
+    width 100%
+    background-color #3b5998
+    padding 15px 20px
     font-family MicrosoftJhengHei
     font-size 16px
     font-weight bold
@@ -46,7 +49,4 @@ export default {
   height 100%
   text-align center
   padding 0 50px
-.login-fb-btn
-  width 100%
-  background-color #3b5998
 </style>

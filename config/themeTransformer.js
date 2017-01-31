@@ -49,13 +49,17 @@ const theme1Transformer = function(title, description, rating){
       gravity: "north_west",
       x: 27,
       y: 220,
-      color: '#FFFFFF'
+      color: '#FFFFFF',
+      crop: 'crop',
+      width: 250
     },
     {
       overlay: 'text:Roboto_21:' + encodeURI(description),
       gravity: "north_west",
       x: 27,
       y: 266,
+      crop: 'fit',
+      width: 470,
       color: '#FFFFFF'
     }
   ]
@@ -67,7 +71,7 @@ const theme2Transformer = function(title, description, rating){
       flags: "text_no_trim",
       height: basicSize.height,
       width: basicSize.width,
-      crop: "lfill",
+      crop: basicSize.crop,
       background: 'white'
     },
     {
@@ -94,14 +98,18 @@ const theme2Transformer = function(title, description, rating){
       gravity: "north_west",
       x: 255,
       y: 220,
-      color: '#FFFFFF'
+      color: '#FFFFFF',
+      crop: 'crop',
+      width: 345
     },
     {
       overlay: 'text:Roboto_21:' + encodeURI(description),
       gravity: "north_west",
       x: 365,
       y: 266,
-      color: '#FFFFFF'
+      color: '#FFFFFF',
+      crop: 'fit',
+      width: 235
     }
   ]
 }

@@ -58,13 +58,13 @@
         </li>
       </ul>
     </section>
-    <div class="post-form-title">氣味</div>
+    <div class="post-form-title" v-if="!!_nose.length">氣味</div>
     <section class="chip-text-section">
       <div class="chip-text" v-for="noseItem in _nose">
         {{noseItem._label}}
       </div>
     </section>
-    <div class="post-form-title">味覺</div>
+    <div class="post-form-title" v-if="!!_taste.length">味覺</div>
     <section class="chip-text-section">
       <div class="chip-text" v-for="tasteItem in _taste">
         {{tasteItem._label}}

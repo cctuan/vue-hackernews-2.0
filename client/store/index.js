@@ -27,8 +27,8 @@ const createInitialPost = () => {
     rating: null,
     thumb: {
       theme: null,
-      original: undefined,
-      current: undefined
+      original: {},
+      current: {}
     },
     meta: {
       nose: {
@@ -175,6 +175,9 @@ const store = new Vuex.Store({
 
     SET_CACHED_POST : ({ commit }, post = {}) => {
       commit('SET_CACHED_POST', post)
+      if (post.thumb.current.secure_url) {
+        commit('SET_PREVIEW_IMAGE', post.thumb.current.secure_url)
+      }
     },
 
     AUTHORIZE_USER : ({ commit }, isAuth) => {
@@ -203,6 +206,7 @@ const store = new Vuex.Store({
             commit('SET_CACHED_POST', response.data.result.post)
             return commit('SET_POST', response.data.result.post)
           }
+          throw new Error('cannot fetch post')
         })
     },
 
@@ -248,7 +252,6 @@ const store = new Vuex.Store({
         type: 'post',
         status: STATUS.POST_SAVING
       })
-      console.log('SAVE_POST')
       return savePost(state.cachePost, state.post._id)
         .then(response => {
           if (response.status === 200 && response.data.status === 200) {
@@ -260,7 +263,6 @@ const store = new Vuex.Store({
             })
             return dispatch('FETCH_LIST_POST', {})
           }
-          console.log('SAVE_POST response', response.data)
 
           return commit('SET_STATUS', {
             type: 'post',

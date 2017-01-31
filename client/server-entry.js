@@ -20,7 +20,6 @@ export default context => {
   }
   // set router's location
   router.push(context.url)
-  context.meta = meta
   const matchedComponents = router.getMatchedComponents()
 
   // no matched routes
@@ -45,6 +44,7 @@ export default context => {
     // store to pick-up the server-side state without having to duplicate
     // the initial data fetching on the client.
     context.initialState = store.state
+    context.meta = meta
     return app
   })
 }

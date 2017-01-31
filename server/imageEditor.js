@@ -12,8 +12,6 @@ cloudinary.config({
   api_secret: config.CLOUD_API_SECRET,
 })
 
-
-
 const uploadTemplateType = (type, config) => {
 //const uploadTemplateType1 = (originalUrl, imgPublicId, originalPublicId,
 //  title, description, rating) => {

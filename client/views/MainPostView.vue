@@ -24,7 +24,25 @@ function fetchItem (store) {
 export default {
   name: 'main-post-view',
   components: {},
+
+  metaInfo() {
+    return {
+      title: this.post.name,
+      meta: [
+        {property: 'og:url', content: process.URL + '/post/' + this.post._id + '/view'},
+        {property: 'og:title', content: this.post.name},
+        {property: 'og:image', content: this.post.thumb.current.secure_url},
+        {property: 'og:image:secure_url', content: this.post.thumb.current.secure_url},
+        {property: 'og:image:width', content: '600'},
+        {property: 'og:image:height', content: '325'},
+        {property: 'og:image:description', content: this.post.description_s}
+      ],
+    }
+  },
   computed: {
+    test(){
+      return 'test'
+    },
     post () {
       return this.$store.getters.activePost
     },

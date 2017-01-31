@@ -139,7 +139,6 @@ app.get('*', (req, res) => {
     const {
       title, htmlAttrs, bodyAttrs, link, style, script, noscript, meta
     } = context.meta.inject()
-
     res.write(`
       <!doctype html>
       <html data-vue-meta-server-rendered ${htmlAttrs.text()}>
