@@ -125,6 +125,8 @@ export default {
     opacity 0.8
     .checked-icon
       visibility visible
+  &:nth-child(3)
+    pointer-events none
 .clear-fix
   clear both
 </style>
