@@ -63,11 +63,19 @@ export default {
         type: 'home'
       }]
       if (this.$store.getters.isAuthorized) {
+        if (process.BROWSER === true){
+          menuActions.push({
+            name: '分享至LINE',
+            type: 'line-share'
+          },{
+            name: '分享至FB',
+            type: 'fb-share'
+          })
+        }
         menuActions.push({
           name: '編輯',
           type: 'edit'
-        })
-        menuActions.push({
+        },{
           name: '刪除',
           type: 'delete'
         })
@@ -132,6 +140,25 @@ export default {
             this.$router.push({ path: `/` })
           }).catch(e => {
           })
+        }
+        case 'line-share': {
+          window.open(`https://lineit.line.me/share/ui?url=
+            ${location.origin}/post/${this.post._id}/view`)
+        }
+        case 'fb-share': {
+          const url = `${location.origin}/post/${this.post._id}/view`
+          const shareConfig = {
+            app_id: process.FACEBOOK_CLIENTID,
+            href: url,
+            redirect_uri: url
+          }
+          const shareParam = Object.keys(shareConfig).map(key => {
+            return `${key}=${shareConfig[key]}`
+          }).join('&')
+          window.open(encodeURI(`https://www.facebook.com/dialog/share?${decodeURIComponent(shareParam)}`),
+            '_blank', 'toolbar=0,personalbar=0,resizable,scrollbars,status,width=550,height=420,top=' +
+              Math.round((screen.height - 450) / 2) + ',left=' +
+              Math.round((screen.width - 550) / 2))
         }
       }
     }

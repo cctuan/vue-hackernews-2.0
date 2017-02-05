@@ -3,8 +3,8 @@
     <section class="mdl-components__page mdl-grid">
       <div class="post-header">{{post ? post.name : ''}}</div>
       <div class="post-info">
-        <span class="rating-val">{{post.rating}}.0</span>
-        <ul class="rating">
+        <span class="rating-val" v-if="post.rating">{{post.rating}}.0</span>
+        <ul class="rating" v-if="post.rating">
           <li class="material-icons" v-for="(item, index) in [1,2,3,4,5]">
             <label class="material-icons">{{item > post.rating ? 'star_border' : 'star'}}</label>
           </li>

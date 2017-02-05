@@ -17,7 +17,8 @@ const config = Object.assign({}, base, {
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
       'process.env.VUE_ENV': '"client"',
       'process.BROWSER': true,
-      'process.URL': JSON.stringify(process.env.URL || 'localhost:8000')
+      'process.URL': JSON.stringify(process.env.URL || 'localhost:8000'),
+      'process.FACEBOOK_CLIENTID': JSON.stringify(process.env.FACEBOOK_CLIENTID || '')
     }),
     // extract vendor chunks for better caching
     new webpack.optimize.CommonsChunkPlugin({

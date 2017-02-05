@@ -7,6 +7,7 @@ export function host (url) {
 
 export function timeConvert(time) {
   const date = new Date(time)
+  if (!time) return ''
   return date.getFullYear() + '.' +
     (date.getMonth() + 1) + '.' + date.getDate()
 }
