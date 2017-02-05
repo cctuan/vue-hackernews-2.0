@@ -144,6 +144,7 @@ export default {
         case 'line-share': {
           window.open(`https://lineit.line.me/share/ui?url=
             ${location.origin}/post/${this.post._id}/view`)
+          break
         }
         case 'fb-share': {
           const url = `${location.origin}/post/${this.post._id}/view`
@@ -159,6 +160,7 @@ export default {
             '_blank', 'toolbar=0,personalbar=0,resizable,scrollbars,status,width=550,height=420,top=' +
               Math.round((screen.height - 450) / 2) + ',left=' +
               Math.round((screen.width - 550) / 2))
+          break
         }
       }
     }
