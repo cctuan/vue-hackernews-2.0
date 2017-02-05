@@ -15,7 +15,7 @@
             {{typeItem.count}}
           </span>
           <div class="label">
-            {{typeItem.label}}
+            {{typeItem.label_zh}}
           </div>
         </div>
       </div>
@@ -33,7 +33,7 @@
           <div class="circle" :style="'background-color:white'">
           </div>
           <div class="label">
-            {{subItem.label}}
+            {{subItem.label_zh}}
           </div>
         </div>
       </div>
