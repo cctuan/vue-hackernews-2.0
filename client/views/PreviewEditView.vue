@@ -25,8 +25,15 @@
           v-on:change="onLineTrigger"/>
       </li>
     </ul>
-    <div class="btn confirm-send">
-      <button v-on:click="onSave" class="preview-btn mdl-button mdl-js-button mdl-button--raised mdl-button--colored">確認送出</button>
+    <div class="btn-container">
+      <a v-on:click="showCancelEditModal = true">
+        <button class="preview-btn mdl-button mdl-button--raised">取消</button>
+      </a>
+      <a v-on:click="onSave">
+        <button class="preview-btn mdl-button mdl-button--raised">
+          {{bottomRightBtnText}}
+        </button>
+      </a>
     </div>
     <menu-dialog :actions="menuActions" :display="menuDisplay"
       :position="menuPosition" v-on:close="menuDisplay=false"
@@ -79,6 +86,7 @@ export default {
         name: '首頁',
         type: 'home'
       }],
+      bottomRightBtnText: '確認送出'
     }
   },
   computed: {
@@ -202,4 +210,24 @@ export default {
     width 100%
     &.detail-edit
       background-color #7ad0e2
+.btn-container
+  padding 0 16px
+  margin-top 15px
+  margin-bottom 15px
+  a
+    display inline-block
+    width 48%
+    button
+      color white
+      width 100%
+      font-size 16px
+      padding-top 15px
+      padding-bottom 15px
+      height auto
+      line-height normal
+      background-color #303943
+    &:nth-child(2)
+      margin-left 3%
+      button
+        background-color #7ad0e2
 </style>
