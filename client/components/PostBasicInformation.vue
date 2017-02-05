@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="post-basic-info">
     <section class="mdl-components__page mdl-grid">
       <div class="post-header">{{post ? post.name : ''}}</div>
       <div class="post-info">
@@ -212,94 +212,94 @@ export default {
   }
 }
 </script>
-<style lang="stylus" scoped>
-section
-  padding 20px
-  &.chip-text-section
-    padding 7px 20px
-.post-header
-  width 100%
-  font-size 20px
-  margin-top 5px
-  margin-bottom 5px
-.post-info
-  margin-bottom 10px
-  .rating
-    float left
+<style lang="stylus">
+.post-basic-info
+  section
+    padding 20px
+    &.chip-text-section
+      padding 7px 20px
+  .post-header
+    width 100%
+    font-size 20px
+    margin-top 5px
+    margin-bottom 5px
+  .post-info
+    margin-bottom 10px
+    .rating
+      float left
+      margin 0
+      padding 0
+      margin-left 20px
+      li
+        font-size 14px
+      label
+        font-size 14px
+    .rating-val
+      float left
+    .update-time
+      float left
+      margin-left 20px
+      color gba(255, 255, 255, 0.5)
+  .description_s
+    color #fff
+    width 100%
+    margin-bottom 20px
+  .post-intro-list
+    width 100%
+    list-style none
     margin 0
     padding 0
-    margin-left 20px
-    li
-      font-size 14px
-    label
-      font-size 14px
-  .rating-val
-    float left
-  .update-time
-    float left
-    margin-left 20px
-    color gba(255, 255, 255, 0.5)
-.description_s
-  color #fff
-  width 100%
-  margin-bottom 20px
-.post-intro-list
-  width 100%
-  list-style none
-  margin 0
-  padding 0
-  .post-intro-li
-    border-top 1px solid rgba(255, 255, 255, 0.12)
-    width 100%
-    padding 15px 0
-    .title
+    .post-intro-li
+      border-top 1px solid rgba(255, 255, 255, 0.12)
+      width 100%
+      padding 15px 0
+      .title
+        display inline-block
+        text-align left
+        width 10%
+      .value
+        display inline-block
+        text-align right
+        width 90%
+  .appearance-container
+    margin-top 15px
+    .circle
+      width 190px
+      max-width 49%
       display inline-block
-      text-align left
-      width 10%
-    .value
-      display inline-block
-      text-align right
-      width 90%
-.appearance-container
-  margin-top 15px
-  .circle
-    width 190px
-    max-width 49%
-    display inline-block
-    position relative
-    .chip-clarity,
-    .chip-color
-      display inline-block
-      width 40px
-      height 40px
-      border-radius 50%
-    .chip-clarity
-      &:after
-        content ''
-        position absolute
-        top 0
-        left 0
+      position relative
+      .chip-clarity,
+      .chip-color
+        display inline-block
         width 40px
-        height 20px
-        border-radius 40px 40px 0 0
-        background-color white
-    .label
-      display inline-block
-      position absolute
-      line-height 40px
-      margin-left 10px
-
-.post-form-title
-  font-size 14px
-  color rgba(255, 255, 255, 0.5)
-  width 100%
-  height 20px
-  padding 6px 16px
-  background-color #11161d
-.chip-text
-  margin 6px 15px 6px 0
-  display inline-block
-  padding 6px 15px
-  border-radius 30px
-  background-color #303943
+        height 40px
+        border-radius 50%
+      .chip-clarity
+        &:after
+          content ''
+          position absolute
+          top 0
+          left 0
+          width 40px
+          height 20px
+          border-radius 40px 40px 0 0
+          background-color white
+      .label
+        display inline-block
+        position absolute
+        line-height 40px
+        margin-left 10px
+  .post-form-title
+    font-size 14px
+    color rgba(255, 255, 255, 0.5)
+    width 100%
+    height 20px
+    padding 6px 16px
+    background-color #11161d
+  .chip-text
+    margin 6px 15px 6px 0
+    display inline-block
+    padding 6px 15px
+    border-radius 30px
+    background-color #303943
 </style>

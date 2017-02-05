@@ -21,6 +21,7 @@ export default {
     ],
     link: [
       {rel: 'icon', href: '/public/favicon-32x32.png'},
+      {rel: 'stylesheet', href: '/public/vendor/material-design-lite/material.min.css'},
     ],
     style: [
     ]

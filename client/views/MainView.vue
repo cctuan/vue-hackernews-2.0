@@ -123,35 +123,37 @@ export default {
   }
 }
 </script>
+<style lang="stylus">
+.main-view
+  .no-post-section
+    text-align center
+    padding 0 50px
+    .new-edit-btn
+      width 100%
+      background-color #7dd0e0
+    button
+      background-color #7ad0e2
+      margin-top 30px
+  .main-page-icon
+    i
+      font-size 70px
+      margin-top 30%
+  .sub-header
+    margin 30px 0 10px
+  .main-func-button
+    height 50px
+    padding 15px 50px
+    font-family MicrosoftJhengHei
+    font-size 16px
+    font-weight bold
+    font-style normal
+    font-stretch normal
+    line-height normal
+    letter-spacing normal
+    text-align center
+    color #ffffff
+</style>
 <style lang="stylus" scoped>
-.no-post-section
-  text-align center
-  padding 0 50px
-  .new-edit-btn
-    width 100%
-    background-color #7dd0e0
-  button
-    background-color #7ad0e2
-    margin-top 30px
-.main-page-icon
-  i
-    font-size 70px
-    margin-top 30%
-.sub-header
-  margin 30px 0 10px
-
-.main-func-button
-  height 50px
-  padding 15px 50px
-  font-family MicrosoftJhengHei
-  font-size 16px
-  font-weight bold
-  font-style normal
-  font-stretch normal
-  line-height normal
-  letter-spacing normal
-  text-align center
-  color #ffffff
 .edit-dialog
   text-align center
   .header

@@ -10,7 +10,6 @@ import router from './router'
 import { sync } from 'vuex-router-sync'
 import * as filters from './filters'
 import _ from 'lodash'
-
 if (typeof window !== 'undefined') {
   store.replaceState(window.__INITIAL_STATE__)
 }

@@ -167,44 +167,11 @@ export default {
   }
 }
 </script>
-<style lang="stylus" scoped>
-.thumb-container
-  padding-bottom 58%
-  background-repeat no-repeat
-  background-size contain
-  background-position center
-section
-  padding 20px
-.title
-  width 100%
-  margin-top 5px
-.rating
-  float left
-  margin 0
-  padding 0
-  margin-left 20px
-  li
-    font-size 14px
-  label
-    font-size 14px
-.rating-val
-  float left
-.update-time
-  float left
-  margin-left 20px
-  color #4f5256
-.description_s
-  color #cbccce
-  width 100%
-hr
-  height 1px
-  border 0
-  background-color #323538
-.demo-list-item
-  width 100%
-.setting-item
-  border-top 1px solid
-  color #4f5256
-.setting-item-value
-  color #cbccce
+<style lang="stylus">
+.post-view
+  .thumb-container
+    padding-bottom 58%
+    background-repeat no-repeat
+    background-size contain
+    background-position center
 </style>
