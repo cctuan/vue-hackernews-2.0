@@ -1,21 +1,20 @@
 <template>
-  <div :class="'mdl-menu__container is-upgraded' + (display ? ' is-visible' : '')"
-    :style="containerStyle">
-    <div class="mdl-menu__outline mdl-menu--bottom-right" :style="outlineStyle"/>
-    <ul class="mdl-menu mdl-menu--bottom-right"
-      data-mdl-for="demo-menu-bottom-right" :style="ulStyle">
-      <template v-for="action in actions">
-        <li class="mdl-menu__item" v-if="action.disabled" disabled>
-          {{action.name}}
+  <div :class="'menu-dialog ' + (display ? ' is-visible' : '')">
+    <div class="menu-container" :style="outlineStyle">
+      <ul class="menu-list">
+        <template v-for="action in actions">
+          <li class="menu-item" v-if="action.disabled" disabled>
+            {{action.name}}
+          </li>
+          <li class="menu-item" v-else v-on:click="onMenuClick(action)">
+            {{action.name}}
+          </li>
+        </template>
+        <li class="menu-item" v-on:click="close">
+          關閉
         </li>
-        <li class="mdl-menu__item" v-else v-on:click="onMenuClick(action)">
-          {{action.name}}
-        </li>
-      </template>
-      <li class="mdl-menu__item" v-on:click="close">
-        關閉
-      </li>
-    </ul>
+      </ul>
+    </div>
   </div>
 </template>
 
@@ -66,13 +65,6 @@ export default {
       if (!val) {
         return
       }
-      const ul = this.$el.querySelector('ul')
-      const height = ul.getBoundingClientRect().height;
-      const width = ul.getBoundingClientRect().width;
-      this.size = {
-        width: width + 'px',
-        height: height + 'px'
-      }
       this.$el.focus()
     }
   },
@@ -89,7 +81,32 @@ export default {
 </script>
 
 <style lang="stylus">
-.mdl-menu__container
+.menu-dialog
   position fixed
+  right 0
   top 56px
+  width 124px
+  z-index 999
+  display none
+  &.is-visible
+    display block
+  .menu-container
+    .menu-list
+      list-style none
+      position absolute
+      top 0
+      height auto
+      min-width 124px
+      padding 8px 0
+      margin 0
+      padding 0 8px
+      background-color white
+      .menu-item
+        text-align left
+        padding 0px 16px
+        color black
+        cursor pointer
+        line-height 48px
+        &:hover
+          background-color #eee
 </style>

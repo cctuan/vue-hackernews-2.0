@@ -175,7 +175,7 @@ export default {
           })
 
           if (mapValue) {
-            mapValue._label = mapValue.label + this.tastePostLabel
+            mapValue._label = mapValue.label_zh + this.tastePostLabel
             result.push(mapValue)
           }
         })
@@ -202,7 +202,7 @@ export default {
           })
 
           if (mapValue) {
-            mapValue._label = mapValue.label + this.nosePostLabel
+            mapValue._label = mapValue.label_zh + this.nosePostLabel
             result.push(mapValue)
           }
         })
