@@ -20,6 +20,6 @@ module.exports = {
   SWEETNESS : require('./SWEETNESS'),
   TANNIN : require('./TANNIN'),
   TASTE_TYPE : require('./TASTE_TYPE'),
-  ALL_TASTE_TYPE : Object.assign(FLORAL_TYPE, FRUIT_TYPE, GRAIN_TYPE),
+//  ALL_TASTE_TYPE : Object.assign(FLORAL_TYPE, FRUIT_TYPE, GRAIN_TYPE),
   WINE_BODY : require('./WINE_BODY'),
 }

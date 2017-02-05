@@ -1,4 +1,7 @@
 
+if (typeof window !== 'undefined') {
+  window.Object.assign = _.assign
+}
 
 import Vue from 'vue'
 import App from './App.vue'
@@ -6,6 +9,7 @@ import store from './store'
 import router from './router'
 import { sync } from 'vuex-router-sync'
 import * as filters from './filters'
+import _ from 'lodash'
 
 if (typeof window !== 'undefined') {
   store.replaceState(window.__INITIAL_STATE__)

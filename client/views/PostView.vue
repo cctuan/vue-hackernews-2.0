@@ -102,6 +102,7 @@ export default {
       this.lazy = true
     },
     leftHeaderClick (newVal) {
+      console.log(this.$store.state.route, 'post-view')
       if (this.$store.state.route.name !== ROUTES.POST_VIEW) {
         return
       }
