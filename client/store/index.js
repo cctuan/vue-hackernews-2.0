@@ -74,7 +74,8 @@ const store = new Vuex.Store({
     status: {
       image: '',
       post: '',
-      theme: ''
+      theme: '',
+      fetch: ''
     },
     post: createInitialPost(),
     cachePost: createInitialPost(),
@@ -182,29 +183,59 @@ const store = new Vuex.Store({
     },
 
     FETCH_LIST_POST: ({commit, dispatch, state}, {query = {}}) => {
+      if (process.BROWSER) {
+        commit('SET_STATUS', {
+          type: 'fetch',
+          status: STATUS.FETCHING
+        })
+      }
       return fetchPostList(query)
         .then(response => {
           if (response.status === 200 && response.data.status === 200) {
             const {result , options, count} = response.data
+
+            commit('SET_STATUS', {
+              type: 'fetch',
+              status: STATUS.FETCH_SUCCESS
+            })
             return commit('SET_POSTS', {
               list : result,
               page : options.page,
               count : count
+            })
+          } else {
+            return commit('SET_STATUS', {
+              type: 'fetch',
+              status: STATUS.FETCH_FAIL
             })
           }
         })
     },
 
     FETCH_POST: ({commit, dispatch}, id) => {
+      if (process.BROWSER) {
+        commit('SET_STATUS', {
+          type: 'fetch',
+          status: STATUS.FETCHING
+        })
+      }
       return fetchPost(id)
         .then(response => {
           if (response.status === 200 && response.data.status === 200) {
             return dispatch('RESET_POST').then(() => {
               commit('SET_AUTH', response.data.result.isAuth)
               commit('SET_CACHED_POST', response.data.result.post)
+              commit('SET_STATUS', {
+                type: 'fetch',
+                status: STATUS.FETCH_SUCCESS
+              })
               return commit('SET_POST', response.data.result.post)
             })
           }
+          commit('SET_STATUS', {
+            type: 'fetch',
+            status: STATUS.FETCH_FAIL
+          })
           throw new Error('cannot fetch post')
         })
     },
@@ -419,6 +450,9 @@ const store = new Vuex.Store({
     },
     currentPostStatus(state) {
       return state.status.post
+    },
+    currentFetchStatus(state) {
+      return state.status.fetch
     },
     headerLeftClick (state) {
       return state.header.leftClicked

@@ -1,5 +1,6 @@
 <template>
   <div class="main-view">
+    <linear-progress v-show="isLoading" />
     <search-input v-if="hasPost" v-on:change="inputValueChange"></search-input>
     <post-item v-if="hasPost" :post="post" v-for="post in posts"></post-item>
     <div v-if="!hasPost" class="no-post-section">
@@ -40,24 +41,28 @@
 
 <script>
 
+import LinearProgress from 'components/LinearProgress.vue'
 import SearchInput from 'components/SearchInput.vue'
 import Modal from 'components/Modal.vue'
 import PostItem from 'components/PostItem.vue'
 import ROUTES from 'config/constants/ROUTES'
-
+import STATUS from 'config/constants/STATUS.js'
 function fetchItems (store, query = {}) {
   return store.dispatch('FETCH_LIST_POST', query)
 }
 
 export default {
   name: 'main-view',
-  components: { SearchInput, PostItem, Modal },
+  components: { SearchInput, PostItem, Modal, LinearProgress },
   data () {
     return {
       showModal: false
     }
   },
   computed: {
+    isLoading() {
+      return this.$store.getters.currentFetchStatus === STATUS.FETCHING
+    },
     posts () {
       return this.$store.getters.activePosts
     },
@@ -104,6 +109,7 @@ export default {
   },
   methods: {
     inputValueChange(newValue) {
+      if (this.isLoading === STATUS.FETCHING) return
       setTimeout(() => {
         let query = {}
         if (newValue) {

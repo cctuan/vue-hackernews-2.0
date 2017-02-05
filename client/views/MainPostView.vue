@@ -1,5 +1,6 @@
 <template>
   <div class="post-view">
+    <linear-progress v-show="isLoading" />
     <keep-alive>
       <router-view :post="post" />
     </keep-alive>
@@ -7,10 +8,11 @@
 </template>
 
 <script>
+import LinearProgress from 'components/LinearProgress.vue'
 import {
   isValidMongoId
 } from '../utility'
-
+import STATUS from 'config/constants/STATUS.js'
 const PathRegex = new RegExp('^/post', 'i')
 
 function fetchItem (store) {
@@ -23,8 +25,7 @@ function fetchItem (store) {
 
 export default {
   name: 'main-post-view',
-  components: {},
-
+  components: {LinearProgress},
   metaInfo() {
     return {
       title: this.post.name,
@@ -42,6 +43,9 @@ export default {
   computed: {
     test(){
       return 'test'
+    },
+    isLoading(){
+      return this.$store.getters.currentFetchStatus === STATUS.FETCHING
     },
     post () {
       return this.$store.getters.activePost
