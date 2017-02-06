@@ -88,11 +88,11 @@ PostSchema.methods = {
         }
       }).catch(e => {
         console.log(e)
-        return null
+        return Promise.resolve()
       })
     } else {
       console.log('_____THEME TYPE IS NULL_____')
-      return null
+      return Promise.resolve()
     }
   },
 
