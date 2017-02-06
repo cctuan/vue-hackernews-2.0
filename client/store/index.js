@@ -407,7 +407,7 @@ const store = new Vuex.Store({
 
     SET_CACHED_POST : (state, post) => {
       deepExtend(state.cachePost, post)
-      if (post.thumb.current.secure_url) {
+      if (post.thumb && post.thumb.current && post.thumb.current.secure_url) {
         state.previewImageUrl = post.thumb.current.secure_url
       }
     },

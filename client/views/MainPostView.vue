@@ -27,17 +27,21 @@ export default {
   name: 'main-post-view',
   components: {LinearProgress},
   metaInfo() {
-    return {
-      title: this.post.name,
-      meta: [
-        {property: 'og:url', content: process.URL + '/post/' + this.post._id + '/view'},
-        {property: 'og:title', content: this.post.name},
-        {property: 'og:image', content: this.post.thumb.current.secure_url},
+    let meta = [
+      {property: 'og:url', content: process.URL + '/post/' + this.post._id + '/view'},
+      {property: 'og:title', content: this.post.name},
+      {property: 'og:description', content: this.post.description_s}
+    ]
+    if (this.post.thumb && this.post.thumb.current) {
+      meta.push({property: 'og:image', content: this.post.thumb.current.secure_url},
         {property: 'og:image:secure_url', content: this.post.thumb.current.secure_url},
         {property: 'og:image:width', content: '600'},
-        {property: 'og:image:height', content: '325'},
-        {property: 'og:description', content: this.post.description_s}
-      ],
+        {property: 'og:image:height', content: '325'}
+      )
+    }
+    return {
+      title: this.post.name,
+      meta: meta
     }
   },
   computed: {
