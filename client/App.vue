@@ -34,6 +34,7 @@ export default {
 }
 </script>
 <style lang="stylus">
+@import "../public/vendor/material-design-lite/material.min.css"
 @font-face
   font-family 'Material Icons'
   font-style normal
