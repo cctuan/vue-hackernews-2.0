@@ -21,7 +21,6 @@ export default {
     ],
     link: [
       {rel: 'icon', href: '/public/favicon-32x32.png'},
-      {rel: 'stylesheet', href: '/public/vendor/material-design-lite/material.min.css'},
     ],
     style: [
     ]
@@ -34,97 +33,72 @@ export default {
   },
 }
 </script>
-<style lang="css">
-@font-face {
-  font-family: 'Material Icons';
-  font-style: normal;
-  font-weight: 400;
-  src: url(/public/vendor/material-design-icons/iconfont/MaterialIcons-Regular.eot);
-  src: local('Material Icons'),
-       local('MaterialIcons-Regular'),
-       url(/public/vendor/material-design-icons/iconfont/MaterialIcons-Regular.woff2) format('woff2'),
-       url(/public/vendor/material-design-icons/iconfont/MaterialIcons-Regular.woff) format('woff'),
-       url(/public/vendor/material-design-icons/iconfont/MaterialIcons-Regular.ttf) format('truetype');
-}
-html, body, #app {
-  height: 100%;
-}
-body {
-  background-color: #1d242c;
-  color: #cbccce;
-}
-/* Headline */
-.headline {
-  font-size: 20px;
+<style lang="stylus">
+@font-face
+  font-family 'Material Icons'
+  font-style normal
+  font-weight 400
+  src url(/public/vendor/material-design-icons/iconfont/MaterialIcons-Regular.eot)
+  src local('Material Icons'), local('MaterialIcons-Regular'), url(/public/vendor/material-design-icons/iconfont/MaterialIcons-Regular.woff2) format('woff2'), url(/public/vendor/material-design-icons/iconfont/MaterialIcons-Regular.woff) format('woff'), url(/public/vendor/material-design-icons/iconfont/MaterialIcons-Regular.ttf) format('truetype')
 
-}
-/* Subheader */
-.sub-header {
-  font-family: MicrosoftJhengHei;
-  font-size: 18px;
-  font-weight: normal;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: 1.67;
-  letter-spacing: normal;
-  text-align: center;
-  color: #ffffff;
-}
-
-.body {
-  font-family: MicrosoftJhengHei;
-  font-size: 14px;
-  font-weight: normal;
-  font-style: normal;
-  font-stretch: normal;
-  letter-spacing: normal;
-  text-align: center;
-  color: rgba(255, 255, 255, 0.5);
-}
-
-.caption {
-  font-family: MicrosoftJhengHei;
-  font-size: 12px;
-  font-weight: normal;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: normal;
-  letter-spacing: normal;
-  color: rgba(255, 255, 255, 0.5);
-}
-
-.common-color {
-  background-color: #7ad0e2
-}
-
-.button {
-  border-radius: 2px;
-  background-color: #7ad0e2;
-  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.24), 0 0 2px 0 rgba(0, 0, 0, 0.12);
-  color: #ffffff;
-}
-.material-icons {
-  font-family: 'Material Icons';
-  font-weight: normal;
-  font-style: normal;
-  font-size: 24px;  /* Preferred icon size */
-  display: inline-block;
-  line-height: 1;
-  text-transform: none;
-  letter-spacing: normal;
-  word-wrap: normal;
-  white-space: nowrap;
-  direction: ltr;
-
-  /* Support for all WebKit browsers. */
-  -webkit-font-smoothing: antialiased;
-  /* Support for Safari and Chrome. */
-  text-rendering: optimizeLegibility;
-
-  /* Support for Firefox. */
-  -moz-osx-font-smoothing: grayscale;
-
-  /* Support for IE. */
-  font-feature-settings: 'liga';
-}
+html
+body
+#app
+  height 100%
+body
+  background-color #1d242c
+  color #cbccce
+.headline
+  font-size 20px
+.sub-header
+  font-family MicrosoftJhengHei
+  font-size 18px
+  font-weight normal
+  font-style normal
+  font-stretch normal
+  line-height 1.67
+  letter-spacing normal
+  text-align center
+  color #ffffff
+.body
+  font-family MicrosoftJhengHei
+  font-size 14px
+  font-weight normal
+  font-style normal
+  font-stretch normal
+  letter-spacing normal
+  text-align center
+  color rgba(255, 255, 255, 0.5)
+.caption
+  font-family MicrosoftJhengHei
+  font-size 12px
+  font-weight normal
+  font-style normal
+  font-stretch normal
+  line-height normal
+  letter-spacing normal
+  color rgba(255, 255, 255, 0.5)
+.common-color
+  background-color #7ad0e2
+.button
+  border-radius 2px
+  background-color #7ad0e2
+  box-shadow 0 2px 2px 0 rgba(0, 0, 0, 0.24), 0 0 2px 0 rgba(0, 0, 0, 0.12)
+  color #ffffff
+.material-icons
+  font-family 'Material Icons'
+  font-weight normal
+  font-style normal
+  font-size 24px
+  display inline-block
+  line-height 1
+  text-transform none
+  letter-spacing normal
+  word-wrap normal
+  white-space nowrap
+  direction ltr
+  -webkit-font-smoothing antialiased
+  text-rendering optimizeLegibility
+  -moz-osx-font-smoothing grayscale
+  font-feature-settings 'liga'
 </style>
