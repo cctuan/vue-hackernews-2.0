@@ -5,6 +5,17 @@ const HTMLPlugin = require('html-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const SWPrecachePlugin = require('sw-precache-webpack-plugin')
 
+const isExternal = module => {
+  var userRequest = module.userRequest;
+
+  if (typeof userRequest !== 'string') {
+    return false
+  }
+
+  return userRequest.indexOf('/bower_components/') >= 0 ||
+         userRequest.indexOf('/node_modules/') >= 0
+}
+
 const config = Object.assign({}, base, {
   resolve: {
     alias: Object.assign({}, base.resolve.alias, {
@@ -22,7 +33,10 @@ const config = Object.assign({}, base, {
     }),
     // extract vendor chunks for better caching
     new webpack.optimize.CommonsChunkPlugin({
-      name: 'vendor'
+      name: 'vendor',
+      minChunks: function(module) {
+        return isExternal(module);
+      }
     }),
     // generate output HTML
     new HTMLPlugin({

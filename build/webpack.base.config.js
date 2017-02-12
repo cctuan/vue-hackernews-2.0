@@ -4,14 +4,7 @@ const vueConfig = require('./vue-loader.config')
 module.exports = {
   devtool: '#source-map',
   entry: {
-    app: './client/client-entry.js',
-    vendor: [
-      'es6-promise',
-      'vue',
-      'vue-router',
-      'vuex',
-      'vuex-router-sync'
-    ]
+    app: './client/client-entry.js'
   },
   output: {
     path: path.resolve(__dirname, '../dist'),
