@@ -28,6 +28,9 @@ export default {
       {rel: 'icon', href: '/public/favicon-32x32.png'},
     ],
     style: [
+    ],
+    script: [
+      {src: '/public/scripts/polyfill.js', type: 'text/javascript'}
     ]
   },
   computed: {
