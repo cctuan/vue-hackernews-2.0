@@ -56,7 +56,14 @@ export default {
   components: { SearchInput, PostItem, Modal, LinearProgress },
   data () {
     return {
-      showModal: false
+      showModal: false,
+      renderIndex : 5
+    }
+  },
+  props: {
+    scrollEnd: {
+      default: 0,
+      type: Number,
     }
   },
   computed: {
@@ -64,7 +71,7 @@ export default {
       return this.$store.getters.currentFetchStatus === STATUS.FETCHING
     },
     posts () {
-      return this.$store.getters.activePosts
+      return this.$store.getters.activePosts.slice(0, this.renderIndex)
     },
     hasPost() {
       return this.$store.getters.totalPosts > 0
@@ -78,6 +85,9 @@ export default {
   },
   preFetch: fetchItems,
   watch: {
+    scrollEnd(val){
+      this.renderIndex += 5
+    },
     '$route'() {
       this.showModal = false
     },
@@ -95,19 +105,14 @@ export default {
   mounted () {
   },
   updated() {
-    this.$el.querySelectorAll('._lazy').forEach(item => {
-      let img = document.createElement('img')
-      img.onload = () => {
-        item.style.backgroundImage = `url(${img.src})`
-        item.classList.remove('_lazy')
-      }
-      img.onerror = () => {
-        item.classList.remove('_lazy')
-      }
-      img.src = item.getAttribute('data-image')
-    })
   },
   methods: {
+    onScrollEnd(){
+      console.log(this.$store.getters.activePosts.length, ' this.$store.getters.activePosts.length')
+      if (this.renderIndex < this.$store.getters.activePosts.length) {
+        this.renderIndex += 5
+      }
+    },
     inputValueChange(newValue) {
       if (this.isLoading === STATUS.FETCHING) return
       setTimeout(() => {
@@ -125,6 +130,8 @@ export default {
 </script>
 <style lang="stylus">
 .main-view
+  position absolute
+  width 100%
   .no-post-section
     text-align center
     padding 0 50px

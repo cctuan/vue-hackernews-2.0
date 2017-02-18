@@ -1,8 +1,8 @@
 <template>
   <div id="app" class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
     <app-header v-if="shoudShowHeader" />
-    <main class="mdl-layout__content">
-      <router-view class="view"></router-view>
+    <main class="mdl-layout__content" v-infinityScroll="onScrollEnd">
+      <router-view class="view" :scrollEnd="scrollEnd"></router-view>
     </main>
   </div>
 </template>
@@ -12,6 +12,11 @@ import AppHeader from './components/AppHeader.vue'
 export default {
   name: 'app',
   components: { AppHeader },
+  data(){
+    return {
+      scrollEnd: 0
+    }
+  },
   metaInfo: {
     meta: [
       {charset: 'utf-8'},
@@ -31,6 +36,11 @@ export default {
         .some(path => this.$route.path.indexOf(path) !== -1)
     }
   },
+  methods: {
+    onScrollEnd(){
+      this.scrollEnd = Date.now()
+    }
+  }
 }
 </script>
 <style lang="stylus">

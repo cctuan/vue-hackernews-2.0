@@ -7,6 +7,7 @@ import Vue from 'vue'
 import App from './App.vue'
 import store from './store'
 import router from './router'
+import directives from './plugins/directives'
 import { sync } from 'vuex-router-sync'
 import * as filters from './filters'
 import _ from 'lodash'
@@ -17,7 +18,7 @@ if (typeof window !== 'undefined') {
 // sync the router with the vuex store.
 // this registers `store.state.route`
 sync(store, router)
-
+directives.install(Vue)
 // register global utility filters.
 Object.keys(filters).forEach(key => {
   Vue.filter(key, filters[key])
