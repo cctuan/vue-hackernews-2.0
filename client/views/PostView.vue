@@ -2,7 +2,7 @@
   <div class="post-view">
     <div class="page-content">
       <div class="card demo-card-header-pic">
-        <div :data-image="post.thumb.current ? post.thumb.current.secure_url : ''" style=""
+        <div v-lazyimg="post.thumb.current ? post.thumb.current.secure_url : ''" style=""
           valign="bottom" :class="_imageClassObject"></div>
         <post-basic-information :post="post" />
       </div>
@@ -24,19 +24,6 @@ import ROUTES from 'config/constants/ROUTES'
 
 const PathRegex = new RegExp('^/post/[0-9a-fA-F]{24}$', 'i')
 
-const lazyloadImgs = ($el, callback) => {
-  $el.querySelectorAll('._lazy').forEach(item => {
-    let img = document.createElement('img')
-    img.onload = () => {
-      item.style.backgroundImage = `url(${img.src})`
-      callback()
-    }
-    img.onerror = () => {
-      callback()
-    }
-    img.src = item.getAttribute('data-image')
-  })
-}
 
 export default {
   name: 'post-view',
@@ -84,7 +71,6 @@ export default {
     },
     _imageClassObject() {
       return {
-        _lazy: this.lazy,
         'thumb-container': true
       }
     },
@@ -96,14 +82,8 @@ export default {
     }
   },
   updated() {
-    lazyloadImgs(this.$el, () => {
-      this.lazy = false
-    })
   },
   mounted() {
-    lazyloadImgs(this.$el, () => {
-      this.lazy = false
-    })
   },
   watch: {
     post(newVal, oldVal){
@@ -143,7 +123,7 @@ export default {
         }
         case 'line-share': {
           window.open(`https://lineit.line.me/share/ui?url=
-            ${location.origin}/post/${this.post._id}/view`)
+            ${location.origin}/post/${this.post._id}/view/`)
           break
         }
         case 'fb-share': {

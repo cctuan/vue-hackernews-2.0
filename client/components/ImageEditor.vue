@@ -1,5 +1,5 @@
 <template>
-  <div v-bind:class="_classObject" :data-image="url">
+  <div v-bind:class="_classObject" v-lazyimg=="url">
     <div class="caption" v-on:click="uploadImage">
       <div class="icon-container">
         <i class="material-icons">photo_camera</i>
@@ -29,7 +29,6 @@ export default {
   computed: {
     _classObject(){
       let result = {
-        lazy : true,
         thumb : true
       }
       if (!!this.url) {
@@ -42,28 +41,8 @@ export default {
   beforeMount () {
   },
   mounted() {
-    const item = this.$el
-    let img = document.createElement('img')
-    img.onload = () => {
-      item.style.backgroundImage = `url(${img.src})`
-      item.classList.remove('lazy')
-    }
-    img.onerror = () => {
-      item.classList.remove('lazy')
-    }
-    img.src = item.getAttribute('data-image')
   },
   updated() {
-    const item = this.$el
-    let img = document.createElement('img')
-    img.onload = () => {
-      item.style.backgroundImage = `url(${img.src})`
-      item.classList.remove('lazy')
-    }
-    img.onerror = () => {
-      item.classList.remove('lazy')
-    }
-    img.src = item.getAttribute('data-image')
   },
   methods: {
     uploadImage() {
