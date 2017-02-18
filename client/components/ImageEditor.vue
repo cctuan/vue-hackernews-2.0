@@ -1,5 +1,5 @@
 <template>
-  <div v-bind:class="_classObject" v-lazyimg=="url">
+  <div v-bind:class="_classObject" v-lazyimg="url">
     <div class="caption" v-on:click="uploadImage">
       <div class="icon-container">
         <i class="material-icons">photo_camera</i>
