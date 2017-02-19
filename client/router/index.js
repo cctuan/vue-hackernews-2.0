@@ -21,17 +21,17 @@ import EditView from 'views/EditView.vue'
 // lazy load below scripts since they are bug and requires sometimes
 // TODO switch to lazyload ,
 **/
-/**
+
 import DetailEditView from 'views/DetailEditView.vue'
 import PreviewEditView from 'views/PreviewEditView.vue'
 import QuickEditView from 'views/QuickEditView.vue'
-**/
+
 /**
 **/
- const QuickEditView = process.BROWSER ? () => System.import('views/QuickEditView.vue') : require('views/QuickEditView.vue')
- const DetailEditView = process.BROWSER ? () => System.import('views/DetailEditView.vue') : require('views/DetailEditView.vue')
+ // const QuickEditView = process.BROWSER ? () => System.import('views/QuickEditView.vue') : require('views/QuickEditView.vue')
+ // const DetailEditView = process.BROWSER ? () => System.import('views/DetailEditView.vue') : require('views/DetailEditView.vue')
  // const PostView = process.BROWSER ? () => System.import('views/PostView.vue') : require('views/PostView.vue')
- const PreviewEditView = process.BROWSER ? () => System.import('views/PreviewEditView.vue') : require('views/PreviewEditView.vue')
+ // const PreviewEditView = process.BROWSER ? () => System.import('views/PreviewEditView.vue') : require('views/PreviewEditView.vue')
 
 const routeGuard = (to, from, next) => {
   if (store.getters.isUserLogin) {
