@@ -123,7 +123,7 @@ export default {
         }
         case 'line-share': {
           window.open(`https://lineit.line.me/share/ui?url=
-            ${location.origin}/post/${this.post._id}/view/`)
+            ${location.origin}/post/${this.post._id}/view/?openExternalBrowser=1`)
           break
         }
         case 'fb-share': {

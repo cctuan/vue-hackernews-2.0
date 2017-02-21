@@ -1,4 +1,6 @@
 const fs = require('fs')
+const bluebird = require('bluebird')
+const redis = require('redis')
 const path = require('path')
 const mongoose = require('mongoose')
 const express = require('express')
@@ -17,8 +19,13 @@ const pkg = require('./../package.json')
 const router = require('./routes')
 const {
   PORT,
-  MONGO_URL
+  MONGO_URL,
+  REDIS_URL,
 } = require('config/env')
+
+bluebird.promisifyAll(redis.RedisClient.prototype)
+bluebird.promisifyAll(redis.Multi.prototype)
+
 const resolve = file => path.resolve(__dirname, file)
 const isProd = process.env.NODE_ENV === 'production'
 const serverInfo =
@@ -26,6 +33,15 @@ const serverInfo =
   `vue-server-renderer/${require('vue-server-renderer/package.json').version}`
 
 const app = express()
+const redisClient = redis.createClient({
+  url: REDIS_URL
+})
+
+redisClient.on("error", function (err) {
+    console.error("Error " + err);
+})
+
+redisClient.set("george", "iscoming");
 
 require('./passport')(passport)
 
@@ -113,6 +129,14 @@ app.get('/auth/facebook/callback', passport.authenticate('facebook', {
 app.get('/auth/logout', (req, res) => {
   req.logout()
   res.json({})
+})
+
+app.get('/redirect', (req, res) => {
+  redisClient.getAsync("george").then(output => {
+    console.log(output)
+  })
+
+  res.status(200).end()
 })
 
 app.use('/api', router)

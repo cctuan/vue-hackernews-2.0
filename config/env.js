@@ -4,6 +4,7 @@ module.exports = {
   PORT : process.env.PORT || '8000',
 
   MONGO_URL : process.env.MONGO_URL || 'mongodb://localhost:27017/1shot',
+  REDIS_URL : process.env.REDIS_URL || 'http://127.0.0.1:6379',
 
   // facebook
   FACEBOOK_CLIENT_ID : process.env.FACEBOOK_CLIENTID || '1794055487535064',
