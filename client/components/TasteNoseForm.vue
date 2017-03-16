@@ -112,7 +112,7 @@ export default {
     position relative
     cursor pointer
     margin 10px 25px
-    width 60px
+    width 70px
     display inline-block
     .circle
       position relative

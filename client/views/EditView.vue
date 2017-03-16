@@ -1,14 +1,12 @@
 
 <template>
-  <div class="post-view">
-    <div class="edit-view">
-      <div class="view-inner" :name="routeName">
-        <keep-alive>
-          <router-view :post="post" v-on:change="postUpdate"
-            v-on:cancel="showModal=true"/>
-        </keep-alive>
-        <cancel-edit-dialog :showModal="showModal" v-on:close="showModal = false"/>
-      </div>
+  <div class="edit-view">
+    <div class="view-inner" :name="routeName">
+      <keep-alive>
+        <router-view :post="post" v-on:change="postUpdate"
+          v-on:cancel="showModal=true"/>
+      </keep-alive>
+      <cancel-edit-dialog :showModal="showModal" v-on:close="showModal = false"/>
     </div>
   </div>
 </template>
@@ -75,6 +73,10 @@ export default {
 }
 </script>
 <style lang="stylus" scoped>
+.edit-view
+  width 100%
+  height 100%
+  flex none
 .rating-field
   text-align center
 .edit-dialog

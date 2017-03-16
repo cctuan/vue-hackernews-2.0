@@ -1,8 +1,8 @@
 <template>
-  <header class="mdl-layout__header common-color">
+  <header class="common-color">
     <div class="mdl-layout__drawer-button" v-if="!!left"
       v-on:click="onLeftClick">
-      <i class="material-icons back-icon">
+      <i class="material-icons back-icon icon-button">
         {{left}}
       </i>
     </div>
@@ -12,7 +12,7 @@
       </div>
       <div v-on:click="onRightClick" class="mdl-textfield mdl-textfield--expandable
                   mdl-textfield--floating-label mdl-textfield--align-right clickable" v-if="!!right">
-        <i class="material-icons back-icon">
+        <i class="material-icons back-icon icon-button">
           {{right}}
         </i>
       </div>
@@ -53,6 +53,26 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
+header
+  position fixed
+  top 0
+  display flex
+  flex-direction column
+  flex-wrap nowrap
+  justify-content flex-start
+  box-sizing border-box
+  flex-shrink 0
+  width 100%
+  margin 0
+  padding 0
+  border none
+  min-height 64px
+  z-index 3
+  background-color #3f51b5
+  color #fff
+  box-shadow 0 2px 2px 0 rgba(0,0,0,.14), 0 3px 1px -2px rgba(0,0,0,.2), 0 1px 5px 0 rgba(0,0,0,.12)
+  i.icon-button
+    color white
 .clickable
   cursor pointer
 .common-color

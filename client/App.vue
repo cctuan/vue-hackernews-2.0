@@ -1,7 +1,7 @@
 <template>
-  <div id="app" class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+  <div id="app" class="">
     <app-header v-if="shoudShowHeader" />
-    <main class="mdl-layout__content" v-infinityScroll="onScrollEnd">
+    <main :class="containerClass" v-infinityScroll="onScrollEnd">
       <router-view class="view" :scrollEnd="scrollEnd"></router-view>
     </main>
   </div>
@@ -34,6 +34,12 @@ export default {
     ]
   },
   computed: {
+    containerClass() {
+      return {
+        'page-container' : true,
+        'with-header' : this.shoudShowHeader
+      }
+    },
     shoudShowHeader () {
       return ['/ask', '/main', '/posts', '/post', '/edit']
         .some(path => this.$route.path.indexOf(path) !== -1)
@@ -58,12 +64,35 @@ export default {
 html
 body
 #app
+  position absolute
+  width 100%
   height 100%
+  left 0
+  right 0
+main
+  z-index 1
+.page-container
+  display block
+  position absolute
+  min-height 100%
+  height 100%
+  width 100%
+  &.with-header
+    top 64px
 body
   background-color #1d242c
   color #cbccce
-.headline
+.header-text
+  line-height 48px
+  font-size 30px
+.sub-header-text
+  line-height 40px
   font-size 20px
+  padding 15px 0 15px 0
+.body-text
+  line-height 30px
+  font-size 16px
+  padding 5px 0 5px 0
 .sub-header
   font-family MicrosoftJhengHei
   font-size 18px
@@ -95,10 +124,14 @@ body
 .common-color
   background-color #7ad0e2
 .button
+  font-size 16px
   border-radius 2px
   background-color #7ad0e2
   box-shadow 0 2px 2px 0 rgba(0, 0, 0, 0.24), 0 0 2px 0 rgba(0, 0, 0, 0.12)
   color #ffffff
+  outline none
+  cursor pointer
+  border none
 .material-icons
   font-family 'Material Icons'
   font-weight normal
@@ -115,4 +148,19 @@ body
   text-rendering optimizeLegibility
   -moz-osx-font-smoothing grayscale
   font-feature-settings 'liga'
+.link
+  color #7ad0e2
+.page-view
+  display flex
+  -webkit-flex-flow row wrap
+  flex-flow row wrap
+  min-height 100%
+  min-width 100%
+  height auto
+  align-items center
+  justify-content center
+  .wrapper
+    text-align center
+    width 80%
+    flex none
 </style>

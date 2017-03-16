@@ -3,7 +3,7 @@
     <div class="search-input">
       <i class="material-icons search-icon">search</i>
       <input type="search" placeholder="搜尋" v-model="inputValue">
-      <a class="search-clear material-icons" v-on:click="inputValue = null">cancel</a>
+      <a class="search-clear link material-icons" v-on:click="inputValue = null">cancel</a>
     </div>
   </form>
 </template>

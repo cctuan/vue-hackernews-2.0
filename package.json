@@ -4,9 +4,8 @@
   "author": "Evan You <yyx990803@gmail.com>",
   "private": true,
   "scripts": {
-    "local-db": "npm run db & npm run redis",
+    "local-db": "npm run db",
     "db": "mongod --dbpath ./db --port 27017",
-    "redis": "redis-server",
     "postinstall": "bower install",
     "dev-env": "NODE_PATH=./ nodemon server",
     "dev": "npm run local-db & npm run dev-env",
