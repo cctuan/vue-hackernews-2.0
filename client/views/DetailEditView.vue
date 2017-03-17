@@ -186,6 +186,7 @@ export default {
   position fixed
   bottom 0
   width 100%
+  background-color #1d242c
   .btn-container
     flex none
     padding 0 16px

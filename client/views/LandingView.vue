@@ -37,6 +37,8 @@ export default {
   .footer
     position fixed
     bottom 0
+    width 100%
+    text-align center
 .start-btn
   min-height 50px
   height auto
