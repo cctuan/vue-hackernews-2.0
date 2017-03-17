@@ -12,7 +12,7 @@ const {
 module.exports = new FacebookStrategy({
     clientID: FACEBOOK_CLIENT_ID,
     clientSecret: FACEBOOK_SECRET,
-    callbackURL: ROOT_PATH + 'auth/facebook/callback'
+    callbackURL: ROOT_PATH + '/auth/facebook/callback'
   },
   function (accessToken, refreshToken, profile, done) {
     const options = {
