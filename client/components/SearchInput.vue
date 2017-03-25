@@ -1,16 +1,24 @@
 <template>
   <form class="searchbar">
     <div class="search-input">
-      <i class="material-icons search-icon">search</i>
+      <div class="search-icon">
+        <icon name="search" color="white" />
+      </div>
       <input type="search" placeholder="搜尋" v-model="inputValue">
-      <a class="search-clear link material-icons" v-on:click="inputValue = null">cancel</a>
+      <a class="search-clear link" v-on:click="inputValue = null">
+        <icon name="remove" color="white" />
+      </a>
     </div>
   </form>
 </template>
 
 <script>
+import 'vue-awesome/icons/search'
+import 'vue-awesome/icons/remove'
+import Icon from 'vue-awesome/components/Icon.vue'
 export default {
   name: 'search-input',
+  components : {Icon},
   data() {
     return {
       inputValue: null
@@ -46,6 +54,8 @@ export default {
   position absolute
   top 0
   left 0
+  width 40px
+  text-align center
   line-height 32px
 
 .search-input
@@ -57,7 +67,7 @@ export default {
   -ms-flex 0 1 auto
   flex-shrink 1
   input
-    text-indent 25px
+    text-indent 10px
 
 input
   box-sizing border-box
@@ -77,7 +87,7 @@ input
   padding 0
   border-bottom 1px solid #fff
   height 100%
-  padding 0 36px 0 24px
+  padding 0 36px 0 40px
   background-color transparent
   opacity 1
 

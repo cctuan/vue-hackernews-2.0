@@ -10,6 +10,7 @@
       <button @click="$emit('close')" class="detail-edit common-color main-func-button mdl-button mdl-button--raised mdl-button--colored">
         關閉
       </button>
+    </div>
   </modal>
 </template>
 

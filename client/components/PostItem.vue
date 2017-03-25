@@ -1,14 +1,14 @@
 <template>
   <div class="card">
-    <div class="card-inner" v-lazyimg="post.thumb.current ? post.thumb.current.secure_url : null">
+    <div class="card-inner" v-lazyimg="thumb.current ? thumb.current.secure_url : null">
       <div class="card-content">
         <div class="card-content-inner">
-          <div class="headline">{{post.name}}</div>
-          <p class="body">{{post.description_s}}</p>
+          <div class="headline">{{name}}</div>
+          <p class="body">{{description_s}}</p>
           <div class="bottom">
-            <i class="material-icons">star</i>
-            <span class="rating-value">{{post.rating}}.0</span>
-            <router-link :to="`/post/${post._id}/view`">完整筆記</router-link>
+            <icon name="star" color="yellow" />
+            <span class="rating-value">{{rating}}.0</span>
+            <router-link :to="`/post/${_id}/view`">完整筆記</router-link>
           </div>
         </div>
       </div>
@@ -17,11 +17,30 @@
 </template>
 
 <script>
+import 'vue-awesome/icons/star'
+import Icon from 'vue-awesome/components/Icon.vue'
 export default {
   name: 'post-item',
+  components : {Icon},
   props: {
-    post: {
-      default: {},
+    name : {
+      type: String,
+      default : ''
+    },
+    description_s : {
+      type: String,
+      default : ''
+    },
+    rating : {
+      type: Number,
+      default : 0
+    },
+    _id : {
+      type: String,
+      default : '',
+    },
+    thumb: {
+      default : {},
       type: Object
     }
   }
@@ -50,6 +69,11 @@ export default {
   box-sizing border-box
   .card-content-inner
     .headline
+      -webkit-line-clamp 1
+      word-wrap break-word
+      max-height 32px
+      text-align left
+      overflow hidden
       line-height 32px
     .bottom
       i
@@ -67,7 +91,12 @@ export default {
     color yellow
     line-height 20px
   .body
+    -webkit-line-clamp 2
+    word-wrap break-word
+    max-height 56px
+    line-height 20px
     text-align left
+    overflow hidden
 a
   color white
   float right

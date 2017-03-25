@@ -2,7 +2,7 @@
   <div class="main-view">
     <linear-progress v-show="isLoading" />
     <search-input v-if="hasPost" v-on:change="inputValueChange"></search-input>
-    <post-item v-if="hasPost" :post="post" v-for="post in posts"></post-item>
+    <post-item v-if="hasPost" v-bind="post" v-for="post in posts"></post-item>
     <div v-if="!hasPost" class="no-post-section">
       <div class="main-page-icon">
         <i class="material-icons">mood</i>
