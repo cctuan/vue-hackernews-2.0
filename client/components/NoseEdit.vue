@@ -50,25 +50,34 @@ export default {
   },
   methods: {
     onStrongChange(val) {
-      let _post = Object.create(this.post)
-      _post.meta.nose.strong = val
-      this.$emit('change', _post)
+      this.$emit('change', {
+        meta : {
+          nose : {
+            strong : val
+          }
+        }
+      })
     },
     onNoseChange(val) {
-      let _post = Object.create(this.post)
-      if (!_post.meta.nose.type) {
-        _post.meta.nose.type = {}
+      let noseType = JSON.parse(JSON.stringify(this.post.meta.nose.type || []))
+      if (!noseType) {
+        noseType = []
       }
-
-      let currentIndex = _post.meta.nose.type.indexOf(val)
+      let currentIndex = noseType.indexOf(val)
 
       if (currentIndex === -1) {
-        _post.meta.nose.type.push(val)
+        noseType.push(val)
       } else {
-        _post.meta.nose.type.splice(currentIndex, 1)
+        noseType.splice(currentIndex, 1)
       }
 
-      this.$emit('change', _post)
+      this.$emit('change', {
+        meta : {
+          nose : {
+            type : noseType
+          }
+        }
+      })
     },
   }
 }

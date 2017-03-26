@@ -77,41 +77,59 @@ export default {
   },
   methods: {
     onTanninChange(val) {
-      let _post = Object.create(this.post)
-      _post.meta.taste.tannin = val
-      this.$emit('change', _post)
+      this.$emit('change', {
+        meta : {
+          taste : {
+            tannin : val
+          }
+        }
+      })
 
     },
     onWineBodyChange(val) {
-      let _post = Object.create(this.post)
-      _post.meta.taste.wine_body = val
-      this.$emit('change', _post)
+      this.$emit('change', {
+        meta : {
+          taste : {
+            wine_body : val
+          }
+        }
+      })
     },
     onSweetnessChange(val) {
-      let _post = Object.create(this.post)
-      _post.meta.taste.sweetness = val
-      this.$emit('change', _post)
+      this.$emit('change', {
+        meta : {
+          taste : {
+            sweetness : val
+          }
+        }
+      })
     },
     onAcidChange(val) {
-      let _post = Object.create(this.post)
-      _post.meta.taste.acid = val
-      this.$emit('change', _post)
+      this.$emit('change',  {
+        meta : {
+          taste : {
+            acid : val
+          }
+        }
+      })
     },
     onTasteChange(val) {
-      let _post = Object.create(this.post)
-      if (!_post.meta.taste.type) {
-        _post.meta.taste.type = {}
-      }
-
-      let currentIndex = _post.meta.taste.type.indexOf(val)
+      let tasteType = JSON.parse(JSON.stringify(this.post.meta.taste.type || []))
+      let currentIndex = tasteType.indexOf(val)
 
       if (currentIndex === -1) {
-        _post.meta.taste.type.push(val)
+        tasteType.push(val)
       } else {
-        _post.meta.taste.type.splice(currentIndex, 1)
+        tasteType.splice(currentIndex, 1)
       }
 
-      this.$emit('change', _post)
+      this.$emit('change', {
+        meta : {
+          taste : {
+            type : tasteType
+          }
+        }
+      })
     },
   }
 }
