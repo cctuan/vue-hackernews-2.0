@@ -1,18 +1,26 @@
 <template>
-  <fieldset :class="[`starability-${kind}`, 'rating']">
+  <fieldset :class="[`starability-basic`, 'rating']">
     <legend v-if="legend">{{ legend }}</legend>
     <div class="star-container">
       <template v-for="(item, index) in items">
         <input type="radio" :id="uuid(index)" name="rating" :value="item.value" :checked="hasChecked(index + 1)" v-on:change="change(index + 1)">
-        <label class="material-icons" :for="uuid(index)" :title="item.title || ''">{{(selected > index) ? "star" : "star_border"}}</label>
+        <label :for="uuid(index)">
+          <icon :name="(selected > index) ? 'star' : 'star-o'" color="yellow"/>
+        </label>
+        <!--<label class="material-icons" :for="uuid(index)" :title="item.title || ''">{{(selected > index) ? "star" : "star_border"}}</label>-->
       </template>
     </div>
   </fieldset>
 </template>
 
 <script>
+
+import 'vue-awesome/icons/star'
+import 'vue-awesome/icons/star-o'
+import Icon from 'vue-awesome/components/Icon.vue'
 export default {
   name: 'rating-star',
+  components : {Icon},
   props: {
     uid: {
       type: String,
@@ -26,11 +34,6 @@ export default {
       type: Number,
       default: -1
     },
-    kind: {
-      type: String,
-      default: 'basic',
-      validator: (val) => ['basic', 'slot', 'grow', 'growRotate', 'fade', 'checkmark'].indexOf(val) > -1
-    }
   },
   data () {
     return {
