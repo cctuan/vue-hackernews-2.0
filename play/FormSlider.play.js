@@ -10,7 +10,8 @@ play(FormSlider)
   .add('default', {
     template : `
       <div style="background-color:#1d242c">
-        <form-slider v-bind="formConfig" v-model="formConfig.value"/>
+        <form-slider v-bind="formConfig" :value="formConfig.value"
+          v-on:change="onChange"/>
       </div>
       `,
     data() {
@@ -28,7 +29,7 @@ play(FormSlider)
     },
     methods : {
       onChange(val) {
-        // this.formConfig.value = val
+        this.formConfig.value = val
       }
     }
   })

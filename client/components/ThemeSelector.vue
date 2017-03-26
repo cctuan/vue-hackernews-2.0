@@ -5,11 +5,13 @@
     </div>
     <span class="reset-button">預設</span>
     <ul class="preview-list">
-      <li :class="'theme-item' + (post.thumb.theme ? (post.thumb.theme.type === theme.type ? ' selected' : '') : '')"
+      <li :class="'theme-item' + (thumb.theme ? (thumb.theme.type === theme.type ? ' selected' : '') : '')"
         v-on:click="selectTheme(theme.type)"
         v-for="theme in theme_selections"
         :style="`background-image:url(${theme.preview})`">
-        <i class="material-icons checked-icon">done</i>
+        <div class="checked-icon">
+          <icon name="check-circle" color="#7ad0e2" scale="2"/>
+        </div>
       </li>
     </ul>
     <div class="clear-fix"></div>
@@ -17,15 +19,28 @@
 </template>
 
 <script>
+import 'vue-awesome/icons/check-circle'
+import Icon from 'vue-awesome/components/Icon.vue'
 import THEME_CONFIG from 'config/constants/THEME_CONFIG'
 import themeTransformer from 'config/themeTransformer'
 export default {
   name: 'theme-selector',
-
+  components : {Icon},
   props: {
-    post: {
-      default: {},
-      type: Object
+    thumb : {
+      default : {},
+      type : Object
+    },
+    name : {
+      default : '',
+      type : String,
+    },
+    description_s : {
+      default : '',
+      type : String
+    },
+    rating : {
+      type : Number
     }
   },
   data () {
@@ -59,13 +74,13 @@ export default {
       let themeUrl = null
       switch(theme) {
         case THEME_CONFIG.THEME1: {
-          themeUrl = themeTransformer.theme1(this.post.thumb.original.public_id +
-            '.png', this.post.name, this.post.description_s, this.post.rating)
+          themeUrl = themeTransformer.theme1(this.thumb.original.public_id +
+            '.png', this.name, this.description_s, this.rating)
           break
         }
         case THEME_CONFIG.THEME2: {
-          themeUrl = themeTransformer.theme2(this.post.thumb.original.public_id +
-            '.png', this.post.name, this.post.description_s, this.post.rating)
+          themeUrl = themeTransformer.theme2(this.thumb.original.public_id +
+            '.png', this.name, this.description_s, this.rating)
           break
         }
       }
@@ -112,15 +127,13 @@ export default {
   display inline-block
   text-align center
   .checked-icon
-    width 20px
-    height 20px
-    background-color #7ad0e2
-    border-radius 50%
-    color #1d242c
-    font-size 20px
     text-align center
-    margin-top 40px
     visibility hidden
+    width 100%
+    height 100%
+    display flex
+    align-items center
+    justify-content center
   &.selected
     opacity 0.8
     .checked-icon

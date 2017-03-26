@@ -4,7 +4,7 @@
     <div class="mdl-card mdl-shadow--2dp preview-img"
       :style="'background-image:url(' + currentImage + ')'">
     </div>
-    <theme-selector :post="post"
+    <theme-selector v-bind="post"
       v-on:previewChange="previewThemeChange"/>
     <div class="post-form-title">基本資訊</div>
     <post-basic-information :post="post" />

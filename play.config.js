@@ -1,3 +1,4 @@
+const path = require('path')
 
 module.exports = {
   entry: {
@@ -6,6 +7,17 @@ module.exports = {
   },
   dist: 'dist-play',
   port: 5000,
+
+  webpack : {
+    resolve: {
+      alias: {
+        'public': path.resolve(__dirname, './public'),
+        'config': path.resolve(__dirname, './config'),
+        'components': path.resolve(__dirname, './client/components'),
+        'views': path.resolve(__dirname, './client/views'),
+      }
+    },
+  },
   // compile Vue template
   templateCompiler: true,
   hmrEntry: ['preview'],
