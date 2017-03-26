@@ -24,7 +24,8 @@ export default {
   computed: {
     classObject () {
       return {
-        on: !!this.checked
+        on: !!this.checked,
+        disabled : !!this.disabled
       }
     }
   },
@@ -44,6 +45,8 @@ export default {
 
 <style lang="stylus" scoped>
 .switcher
+  &.disabled
+    pointer-events none
   position relative
   display inline-block
   color #7ad0e2

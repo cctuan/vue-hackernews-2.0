@@ -7,7 +7,6 @@
         <label :for="uuid(index)">
           <icon :name="(selected > index) ? 'star' : 'star-o'" color="yellow"/>
         </label>
-        <!--<label class="material-icons" :for="uuid(index)" :title="item.title || ''">{{(selected > index) ? "star" : "star_border"}}</label>-->
       </template>
     </div>
   </fieldset>
