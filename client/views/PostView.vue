@@ -4,7 +4,7 @@
       <div class="card demo-card-header-pic">
         <div v-lazyimg="post.thumb.current ? post.thumb.current.secure_url : ''" style=""
           valign="bottom" :class="_imageClassObject"></div>
-        <post-basic-information :post="post" />
+        <post-basic-information v-bind="post" />
       </div>
       <menu-dialog :actions="menuActions" :display="menuDisplay"
         :position="menuPosition" v-on:close="menuDisplay=false"

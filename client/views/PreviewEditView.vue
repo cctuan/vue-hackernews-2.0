@@ -7,7 +7,7 @@
     <theme-selector v-bind="post"
       v-on:previewChange="previewThemeChange"/>
     <div class="post-form-title">基本資訊</div>
-    <post-basic-information :post="post" />
+    <post-basic-information v-bind="post" />
     <div class="post-form-title">分享設定</div>
     <ul class="mdl-list">
       <li class="mdl-list__item">

@@ -1,56 +1,58 @@
 <template>
   <div class="post-basic-info">
     <section class="mdl-components__page mdl-grid">
-      <div class="post-header">{{post ? post.name : ''}}</div>
+      <div class="post-header">{{name}}</div>
       <div class="post-info">
-        <span class="rating-val" v-if="post.rating">{{post.rating}}.0</span>
-        <ul class="rating" v-if="post.rating">
-          <li class="material-icons" v-for="(item, index) in [1,2,3,4,5]">
-            <label class="material-icons">{{item > post.rating ? 'star_border' : 'star'}}</label>
+        <span class="rating-val" v-if="rating">{{rating}}.0</span>
+        <ul class="rating" v-if="rating">
+          <li v-for="(item, index) in [1,2,3,4,5]" class="label">
+            <label>
+              <icon :name="(item > rating) ? 'star-o' : 'star'" color="yellow"/>
+            </label>
           </li>
         </ul>
-        <span class="update-time">{{post.updatedAt | timeConvert}}</span>
+        <span class="update-time">{{updatedAt | timeConvert}}</span>
       </div>
-      <div class="description_s">{{post ? post.description_s : ''}}</div>
+      <div class="description_s">{{description_s}}</div>
       <ul class="post-intro-list">
         <li class="post-intro-li"
-          v-if="post.meta && post.meta.other && post.meta.other.year">
+          v-if="meta && meta.other && meta.other.year">
           <span class="title">
             年份
           </span>
            <span class="value">
-             {{post.meta.other.year}}
+             {{meta.other.year}}
            </span>
         </li>
         <li class="post-intro-li"
-          v-if="post.meta && post.meta.other && post.meta.other.matury">
+          v-if="meta && meta.other && meta.other.matury">
           <span class="title">
             成熟度
           </span>
            <span class="value">
-             {{post.meta.other.matury}}
+             {{meta.other.matury}}
            </span>
         </li>
         <li class="post-intro-li"
-          v-if="post.meta && post.meta.other && post.meta.other.price">
+          v-if="meta && meta.other && meta.other.price">
           <span class="title">
             價格
           </span>
           <span class="value">
-           {{post.meta.other.price}}
+           {{meta.other.price}}
           </span>
         </li>
         <li class="post-intro-li"
-          v-if="post.meta && post.meta.other && post.meta.other.price">
+          v-if="meta && meta.other && meta.other.price">
           <span class="title">
             外觀
           </span>
           <div class="appearance-container" v-if="_hasAppearance">
-            <div class="clarity-container circle" v-if="post.meta.clarity">
+            <div class="clarity-container circle" v-if="meta.clarity">
               <div class="chip-clarity" :style="'background-color:' + _clarity.color"></div>
               <div class="label">{{_clarity.label}}</div>
             </div>
-            <div class="color-container circle" v-if="post.meta.color">
+            <div class="color-container circle" v-if="meta.color">
               <div class="chip-color" :style="'background-color:' + _color.color"></div>
               <div class="label">{{_color.label}}</div>
             </div>
@@ -58,22 +60,30 @@
         </li>
       </ul>
     </section>
-    <div class="post-form-title" v-if="!!_nose.length">氣味</div>
-    <section class="chip-text-section">
-      <div class="chip-text" v-for="noseItem in _nose">
-        {{noseItem._label}}
-      </div>
-    </section>
-    <div class="post-form-title" v-if="!!_taste.length">味覺</div>
-    <section class="chip-text-section">
-      <div class="chip-text" v-for="tasteItem in _taste">
-        {{tasteItem._label}}
-      </div>
-    </section>
+    <template v-if="meta && meta.nose">
+      <div class="post-form-title" v-if="!!_nose.length">氣味</div>
+      <section class="chip-text-section">
+        <div class="chip-text" v-for="noseItem in _nose">
+          {{noseItem._label}}
+        </div>
+      </section>
+    </template>
+    <template v-if="meta && meta.taste">
+      <div class="post-form-title" v-if="!!_taste.length">味覺</div>
+      <section class="chip-text-section">
+        <div class="chip-text" v-for="tasteItem in _taste">
+          {{tasteItem._label}}
+        </div>
+      </section>
+    </template>
   </div>
 </template>
 
 <script>
+
+import 'vue-awesome/icons/star'
+import 'vue-awesome/icons/star-o'
+import Icon from 'vue-awesome/components/Icon.vue'
 import COLORS from 'config/constants/COLOR'
 import CLARITIES from 'config/constants/CLARITY'
 import NOSES from 'config/constants/NOSES'
@@ -82,11 +92,11 @@ import TASTES from 'config/constants/TASTE_TYPE'
 import WINE_BODYS from 'config/constants/WINE_BODY'
 import TANNINS from 'config/constants/TANNIN'
 import SWEETNESS from 'config/constants/SWEETNESS'
-import STRONGS from 'config/constants/STRONGS'
 import ACIDS from 'config/constants/ACID'
 export default {
   name: 'post-basic-information',
   components: {
+    Icon
   },
   data () {
     return {
@@ -109,65 +119,78 @@ export default {
     }
   },
   props: {
-    post: {
-      default: {},
-      type: Object
-    }
+    name : {
+      type : String,
+      default : ''
+    },
+    updatedAt : {
+      type : Number,
+    },
+    rating : {
+      type : [Number, String],
+    },
+    description_s : {
+      type : String,
+      default : ''
+    },
+    meta : {
+      type : Object,
+    },
   },
   computed: {
     _hasAppearance() {
-      return this.post.meta.color || this.post.meta.clarity
+      return this.meta.color || this.meta.clarity
     },
     _color() {
       return this.colors.find(color => {
-        return color.val === this.post.meta.color
+        return color.val === this.meta.color
       })
     },
     _clarity() {
       return this.clarities.find(clarity => {
-        return clarity.val === this.post.meta.clarity
+        return clarity.val === this.meta.clarity
       })
     },
     _taste() {
       let result = []
-      if (this.post.meta.taste.acid) {
+      if (this.meta.taste.acid) {
         const acidItem = this.acids.find(acid => {
-          return acid.val === this.post.meta.taste.acid
+          return acid.val === this.meta.taste.acid
         })
         if (acidItem){
           acidItem._label = this.acidLabel + acidItem.label
           result.push(acidItem)
         }
       }
-      if (this.post.meta.taste.sweetness) {
+      if (this.meta.taste.sweetness) {
         const sweetItem = this.sweetnesses.find(sweet => {
-          return sweet.val === this.post.meta.taste.sweetness
+          return sweet.val === this.meta.taste.sweetness
         })
         if (sweetItem){
           sweetItem._label = this.sweetnessLabel + sweetItem.label
           result.push(sweetItem)
         }
       }
-      if (this.post.meta.taste.tannin) {
+      if (this.meta.taste.tannin) {
         const tanninItem = this.tannins.find(tannin => {
-          return tannin.val === this.post.meta.taste.tannin
+          return tannin.val === this.meta.taste.tannin
         })
         if (tanninItem){
           tanninItem._label = this.tanninLabel + tanninItem.label
           result.push(tanninItem)
         }
       }
-      if (this.post.meta.taste.wine_body) {
+      if (this.meta.taste.wine_body) {
         const wineBodyItem = this.wineBodys.find(wineBody => {
-          return wineBody.val === this.post.meta.taste.wine_body
+          return wineBody.val === this.meta.taste.wine_body
         })
         if (wineBodyItem){
           wineBodyItem._label = this.wineBodyLabel + wineBodyItem.label
           result.push(wineBodyItem)
         }
       }
-      if (this.post.meta.taste.type && this.post.meta.taste.type.length) {
-        this.post.meta.taste.type.forEach(type => {
+      if (this.meta.taste.type && this.meta.taste.type.length) {
+        this.meta.taste.type.forEach(type => {
           let mapValue = this.tastes.find(taste => {
             return taste.types.find(subType => {
               return subType.val === type
@@ -184,17 +207,17 @@ export default {
     },
     _nose() {
       let result = []
-      if (this.post.meta.nose.strong) {
+      if (this.meta.nose.strong) {
         const strongItem = this.strongs.find(strong => {
-          return strong.val === this.post.meta.nose.strong
+          return strong.val === this.meta.nose.strong
         })
         if (strongItem){
           strongItem._label = this.strongLabel + strongItem.label
           result.push(strongItem)
         }
       }
-      if (this.post.meta.nose.type && this.post.meta.nose.type.length) {
-        this.post.meta.nose.type.forEach(type => {
+      if (this.meta.nose.type && this.meta.nose.type.length) {
+        this.meta.nose.type.forEach(type => {
           let mapValue = this.noses.find(nose => {
             return nose.types.find(subType => {
               return subType.val === type
@@ -214,6 +237,7 @@ export default {
 </script>
 <style lang="stylus">
 .post-basic-info
+  color #cbccce
   section
     padding 20px
     &.chip-text-section
@@ -223,6 +247,12 @@ export default {
     font-size 20px
     margin-top 5px
     margin-bottom 5px
+    -webkit-line-clamp 1
+    word-wrap break-word
+    max-height 32px
+    text-align left
+    overflow hidden
+    line-height 32px
   .post-info
     margin-bottom 10px
     .rating
@@ -231,6 +261,7 @@ export default {
       padding 0
       margin-left 20px
       li
+        display inline-block
         font-size 14px
       label
         font-size 14px
@@ -244,6 +275,12 @@ export default {
     color #fff
     width 100%
     margin-bottom 20px
+    -webkit-line-clamp 2
+    word-wrap break-word
+    max-height 56px
+    line-height 20px
+    text-align left
+    overflow hidden
   .post-intro-list
     width 100%
     list-style none
@@ -256,7 +293,7 @@ export default {
       .title
         display inline-block
         text-align left
-        width 10%
+        width 9%
       .value
         display inline-block
         text-align right
