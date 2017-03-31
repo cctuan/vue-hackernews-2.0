@@ -6,3 +6,4 @@ public/vendor
 .idea
 *.iml
 db
+yarn-error.log

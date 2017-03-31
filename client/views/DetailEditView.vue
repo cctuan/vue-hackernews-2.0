@@ -172,6 +172,10 @@ export default {
     onClickNextStep() {
       if (this.tabIndex !== 4) {
         this.tabIndex++
+        this.$store.dispatch('SET_HEADER', {
+          center: this.tabList[this.tabIndex].label,
+          left: 'arrow_back',
+        })
       } else {
         this.$router.push({ path: `/edit/preview` })
       }
