@@ -111,7 +111,7 @@ export default {
   .circle-container
     position relative
     cursor pointer
-    margin 10px 25px
+    margin 10px 15px
     width 70px
     display inline-block
     .circle

@@ -27,7 +27,9 @@ export default {
 }
 </script>
 <style lang="stylus" scoped>
-.warn-msg
-  float right
-  color red
+.edit-title
+  color white
+  .warn-msg
+    float right
+    color red
 </style>

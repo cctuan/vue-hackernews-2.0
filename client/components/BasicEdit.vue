@@ -14,7 +14,7 @@
           <div class="chip-item" v-for="drink_type in drink_types">
             <div :class="'type-item mdl-button mdl-js-button ' + (post.type === drink_type.val ? 'selected' : '')"
               v-on:click="selectDrinkType(drink_type.val)">
-              {{drink_type['en']}}
+              {{drink_type['zh']}}
             </div>
           </div>
         </div>

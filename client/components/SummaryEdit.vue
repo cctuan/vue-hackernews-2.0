@@ -2,19 +2,16 @@
   <div class="content">
     <div class="content-inner">
       <div class="edit-section">
-        <div class="edit-title">
-          年份
-        </div>
+        <edit-title title="年份"/>
         <div class="mdl-textfield">
-          <input class="mdl-textfield__input" placeholder="請輸入年份"
-            v-model="post.meta.other.year" id="year-input">
+          <input class="text-input" placeholder="請輸入年份"
+            v-model="post.meta.other.year" id="year-input" type="number"
+            maxlength="4">
           <label class="mdl-textfield__label" for="year-input"></label>
         </div>
       </div>
       <div class="edit-section">
-        <div class="edit-title">
-          成熟度
-        </div>
+        <edit-title title="成熟度"/>
         <div class="chip-list">
           <div class="chip-item" v-for="matury_type in matury_types">
             <div :class="'type-item mdl-button mdl-js-button ' +
@@ -27,22 +24,18 @@
         <div class="clear-both"></div>
       </div>
       <div class="edit-section">
-        <div class="edit-title">
-          價格
-        </div>
+        <edit-title title="價格"/>
         <div class="mdl-textfield">
-          <input class="mdl-textfield__input" placeholder="請輸入價格"
-            v-model="post.meta.other.price" id="price-input">
+          <input class="text-input" placeholder="請輸入價格"
+            v-model="post.meta.other.price" id="price-input" type="number">
           <label class="mdl-textfield__label" for="price-input"></label>
         </div>
       </div>
       <div class="edit-section">
-        <div class="edit-title">
-          詳細評論
-        </div>
+        <edit-title title="詳細評論"/>
         <div class="mdl-textfield">
-          <textarea class="mdl-textfield__input"  placeholder="請輸入２０字以內短評"
-            v-model="post.meta.other.description" id="description" />
+          <textarea class="text-input"  placeholder="請輸入600字以內短評"
+            v-model="post.meta.other.description" id="description" maxlength="600" />
           <label class="mdl-textfield__label" for="description"></label>
         </div>
       </div>
@@ -54,9 +47,11 @@
 import {
   mergeDeep
 } from './../utility'
+import EditTitle from './EditTitle.vue'
 export default {
   name: 'summary-edit',
   components: {
+    EditTitle
   },
   props: {
     post: {

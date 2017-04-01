@@ -2,22 +2,22 @@
 module.exports = [
   {
     'en' : 'Beer',
-    'zh' : '',
+    'zh' : '啤酒',
     val : 1
   },
   {
     'en' : 'Wine',
-    'zh' : '',
+    'zh' : '清酒',
     val : 2
   },
   {
     'en' : 'Red Wine',
-    'zh' : '',
+    'zh' : '紅酒',
     val: 3
   },
   {
     'en' : 'Whisky',
-    'zh' : '',
+    'zh' : '威士忌',
     val: 4
   }
 ]
