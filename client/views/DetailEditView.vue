@@ -4,7 +4,7 @@
       <keep-alive>
         <basic-edit v-if="tabIndex == 0" :post="post" v-on:change="postChange"
           v-on:imageChange="imageChange" :imageUploading="imageUploading"
-          :warn="warn" />
+          :warnMsg="warnMsg" />
         <appearance-edit v-if="tabIndex == 1" :post="post" v-on:change="postChange" />
         <nose-edit v-if="tabIndex == 2" :post="post" v-on:change="postChange" />
         <taste-edit v-if="tabIndex == 3" :post="post" v-on:change="postChange" />
@@ -69,7 +69,7 @@ export default {
   data() {
     return {
       tabIndex: 0,
-      warn : {},
+      warnMsg : {},
       tabList: [
         {
           icon: 'art_track',
@@ -201,14 +201,14 @@ export default {
         } else {
           window.alert('您還有未完成的欄位喔')
           this.tabList.some((tab, index) => {
-            if (tab.warn_list.some(warn => {
-              return verifiedResult.type[warn]
+            if (tab.warn_list.some(warnItem => {
+              return verifiedResult.type[warnItem]
             })) {
               this.switchTab(index)
               return true
             }
           })
-          this.warn = verifiedResult.type
+          this.warnMsg = verifiedResult.type
 
         }
       }

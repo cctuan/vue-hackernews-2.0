@@ -2,7 +2,7 @@
   <div>
     <basic-edit :post="post" v-on:change="postChange"
       v-on:imageChange="imageChange" :imageUploading="imageUploading"
-      :warn="warn"/>
+      :warnMsg="warnMsg"/>
     <div class="btn-container">
       <a v-on:click="$emit('cancel')">
         <button class="preview-btn mdl-button mdl-js-button">取消</button>
@@ -38,7 +38,7 @@ export default {
   },
   data() {
     return {
-      warn : {},
+      warnMsg : {},
       drink_types: DRINK_TYPE,
       rating_map: [
         {
@@ -112,7 +112,7 @@ export default {
       if (verifiedResult.result) {
         this.$router.push(this.previewPath)
       } else {
-        this.warn = verifiedResult.type
+        this.warnMsg = verifiedResult.type
       }
     },
     imageChange(file) {

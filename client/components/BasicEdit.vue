@@ -61,7 +61,7 @@ export default {
       default : false,
       type : Boolean
     },
-    warn: {
+    warnMsg: {
       default : {},
       type : Object
     }
@@ -99,19 +99,19 @@ export default {
     },
 
     warn_title(){
-      return this.warn[types.MISSING_NAME] ?
+      return this.warnMsg[types.MISSING_NAME] ?
         '不可空白' : ''
     },
     warn_rating(){
-      return this.warn[types.MISSING_RATING] ?
+      return this.warnMsg[types.MISSING_RATING] ?
         '請評分' : ''
     },
     warn_description_s(){
-      return this.warn[types.MISSING_DES_S] ?
+      return this.warnMsg[types.MISSING_DES_S] ?
         '不可空白' : ''
     },
     warn_type(){
-      return this.warn[types.MISSING_TYPE] ?
+      return this.warnMsg[types.MISSING_TYPE] ?
         '請選擇' : ''
     },
   },

@@ -33,14 +33,14 @@ play(BasicEdit)
   .add('default', {
     template : `
       <div style="background-color:#1d242c">
-        <basic-edit :post="post" :warn="warn"/>
+        <basic-edit :post="post" :warnMsg="warnMsg"/>
         <button @click="onShowWarningMsg">Verify</button>
         <button @click="warn = {}">Hide</button>
       </div>
       `,
     data() {
       return {
-        warn: {},
+        warnMsg: {},
         post : {
           name : 'drink',
           updatedAt : Date.now(),
@@ -55,7 +55,7 @@ play(BasicEdit)
     },
     methods : {
       onShowWarningMsg(){
-        this.warn = {
+        this.warnMsg = {
           [types.MISSING_RATING] : true,
           [types.MISSING_NAME] : true,
           [types.MISSING_DES_S] : true,
