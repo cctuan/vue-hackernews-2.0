@@ -2,15 +2,15 @@
   <div class="content">
     <div class="content-inner">
       <form-slider :value="_wineBody" min="1" max="3" step="1"
-        v-on:change="onWineBodyChange" :values="wineBodys" title="Body"/>
+        v-on:change="onWineBodyChange" :values="wineBodys" title="酒體"/>
       <form-slider :value="_tannin" min="1" max="3" step="1"
-        v-on:change="onTanninChange" :values="tannins" title="Tannin"/>
+        v-on:change="onTanninChange" :values="tannins" title="丹寧"/>
       <form-slider :value="_sweetness" min="1" max="3" step="1"
-        v-on:change="onSweetnessChange" :values="sweetnesses" title="Sweetness"/>
+        v-on:change="onSweetnessChange" :values="sweetnesses" title="甜度"/>
       <form-slider :value="_acid" min="1" max="3" step="1"
-        v-on:change="onAcidChange" :values="acids" title="Acid"/>
-      <taste-nose-form title="taste type"
-        detailTitle="detail taste type" :values="tastes"
+        v-on:change="onAcidChange" :values="acids" title="酸度"/>
+      <taste-nose-form title="味覺類別"
+        detailTitle="味覺細項" :values="tastes"
         :val="_currentTasteType" v-on:change="onTasteChange" />
     </div>
   </div>
@@ -68,6 +68,7 @@ export default {
       return this.post.meta.taste.sweetness || 1
     },
     _currentTasteType() {
+      console.log(this.post.meta.taste.type)
       return this.post.meta.taste.type || []
     }
   },

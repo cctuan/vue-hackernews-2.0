@@ -193,14 +193,14 @@ export default {
         this.meta.taste.type.forEach(type => {
           let mapValue = this.tastes.find(taste => {
             return taste.types.find(subType => {
-              return subType.val === type
+              if (subType.val === type) {
+                result.push({
+                  '_label' : subType.label_zh + this.tastePostLabel
+                })
+                return true
+              }
             })
           })
-
-          if (mapValue) {
-            mapValue._label = mapValue.label_zh + this.tastePostLabel
-            result.push(mapValue)
-          }
         })
       }
       return result
@@ -220,14 +220,14 @@ export default {
         this.meta.nose.type.forEach(type => {
           let mapValue = this.noses.find(nose => {
             return nose.types.find(subType => {
-              return subType.val === type
+              if (subType.val === type) {
+                result.push({
+                  '_label' : subType.label_zh + this.nosePostLabel
+                })
+                return true
+              }
             })
           })
-
-          if (mapValue) {
-            mapValue._label = mapValue.label_zh + this.nosePostLabel
-            result.push(mapValue)
-          }
         })
       }
       return result
@@ -293,11 +293,11 @@ export default {
       .title
         display inline-block
         text-align left
-        width 9%
+        width 15%
       .value
         display inline-block
         text-align right
-        width 90%
+        width 84%
   .appearance-container
     margin-top 15px
     .circle

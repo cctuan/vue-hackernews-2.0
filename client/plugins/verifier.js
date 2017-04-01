@@ -12,8 +12,8 @@ export const quickPostVerify = (post) => {
     type : {},
   }
   if (!post.thumb.original.secure_url) {
-    verifiedResult.result = false
-    verifiedResult.type[types.MISSING_PHOTO] = true
+    // verifiedResult.result = false
+    // verifiedResult.type[types.MISSING_PHOTO] = true
   }
   if (!post.rating) {
     verifiedResult.result = false

@@ -3,8 +3,8 @@
     <div class="content-inner">
       <form-slider :value="_strong" min="1" max="3" step="1"
         v-on:change="onStrongChange" :values="strongs" title="強度"/>
-      <taste-nose-form title="smell type"
-        detailTitle="detail smell type" :values="noses"
+      <taste-nose-form title="嗅覺類別"
+        detailTitle="嗅覺細項" :values="noses"
         :val="_currentNose" v-on:change="onNoseChange" />
     </div>
   </div>
