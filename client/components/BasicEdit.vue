@@ -1,15 +1,15 @@
 <template>
   <div class="content">
-    <linear-progress v-if="isImageUploading" />
+    <linear-progress v-if="imageUploading" />
     <image-editor :url="post.thumb.original ? post.thumb.original.secure_url : ''" v-on:change="imageChange"/>
     <div class="rating-field">
-      <rating-star uid="quick" :items="rating_map" legend="按一下星星來評分" :value="rating" @change="updateRate"></rating-star>
+      <span class="rating-warning" v-if="warn_rating">{{warn_rating}}</span>
+      <rating-star uid="quick" :items="rating_map" legend="按一下星星來評分"
+        :value="rating" @change="updateRate"></rating-star>
     </div>
     <div class="content-inner">
       <div class="edit-section">
-        <div class="edit-title">
-          酒種
-        </div>
+        <edit-title title="酒種" :warnMsg="warn_type"/>
         <div class="chip-list">
           <div class="chip-item" v-for="drink_type in drink_types">
             <div :class="'type-item mdl-button mdl-js-button ' + (post.type === drink_type.val ? 'selected' : '')"
@@ -21,20 +21,16 @@
         <div class="clear-both"></div>
       </div>
       <div class="edit-section">
-        <div class="edit-title">
-          品名
-        </div>
+        <edit-title title="品名" :warnMsg="warn_title"/>
         <div class="mdl-textfield">
           <input class="mdl-textfield__input" placeholder="請輸入酒款名稱"
-            v-model="post.name" id="brand-name">
+            v-model="post.name" id="brand-name" maxlength="20">
           <label class="mdl-textfield__label" for="brand-name"></label>
         </div>
-        <div class="edit-title">
-          短評
-        </div>
+        <edit-title title="短評" :warnMsg="warn_description_s"/>
         <div class="mdl-textfield">
-          <textarea class="mdl-textfield__input"  placeholder="請輸入２０字以內短評"
-            v-model="post.description_s" id="description_s" />
+          <textarea class="mdl-textfield__input"  placeholder="請輸入4０字以內短評"
+            v-model="post.description_s" id="description_s" maxlength="40"/>
           <label class="mdl-textfield__label" for="description_s"></label>
         </div>
       </div>
@@ -44,24 +40,31 @@
 
 <script>
 import LinearProgress from './LinearProgress.vue'
+import EditTitle from './EditTitle.vue'
 import RatingStar from './RatingStar.vue'
 import ImageEditor from './ImageEditor.vue'
 import DRINK_TYPE from 'config/constants/DRINK_TYPE'
 import STATUS from 'config/constants/STATUS.js'
+import * as types from 'config/constants/MISSING_FORM_TYPE'
 
-import {
-  DRINK_TYPE
-} from '../../config/constants'
 export default {
   name: 'basic-edit',
   components: {
-    LinearProgress, RatingStar, ImageEditor
+    LinearProgress, RatingStar, ImageEditor, EditTitle
   },
   props: {
     post: {
       default: {},
       type: Object
     },
+    imageUploading : {
+      default : false,
+      type : Boolean
+    },
+    warn: {
+      default : {},
+      type : Object
+    }
   },
   data() {
     return {
@@ -91,11 +94,25 @@ export default {
     }
   },
   computed: {
-    isImageUploading(){
-      return this.$store.getters.currentImageStatus === STATUS.IMAGE_UPLOADING
-    },
     rating() {
       return this.post.rating || 0
+    },
+
+    warn_title(){
+      return this.warn[types.MISSING_NAME] ?
+        '不可空白' : ''
+    },
+    warn_rating(){
+      return this.warn[types.MISSING_RATING] ?
+        '請評分' : ''
+    },
+    warn_description_s(){
+      return this.warn[types.MISSING_DES_S] ?
+        '不可空白' : ''
+    },
+    warn_type(){
+      return this.warn[types.MISSING_TYPE] ?
+        '請選擇' : ''
     },
   },
   mounted () {
@@ -118,17 +135,21 @@ export default {
 <style lang="stylus" scoped>
 .rating-field
   text-align center
+  .rating-warning
+    color red
 .content-inner
   padding 0 16px
 .edit-section
   border-top 1px solid rgba(255, 255, 255, 0.12)
   .edit-title
+    color white
     font-size 14px
     padding 15px 0
   .clear-both
     clear both
     margin-bottom 15px
   .mdl-textfield__input
+    color grey
     border-bottom-color rgba(255, 255, 255, 0.12)
 .chip-item
   float left

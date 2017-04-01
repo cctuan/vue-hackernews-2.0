@@ -5,6 +5,7 @@ import directives from './../client/plugins/directives'
 import * as filters from './../client/filters'
 
 import "material-design-lite/material.min.css"
+import "public/styles/main.css"
 Vue.use(VueRouter)
 
 Object.keys(filters).forEach(key => {

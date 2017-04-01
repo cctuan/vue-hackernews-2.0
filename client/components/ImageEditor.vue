@@ -2,7 +2,7 @@
   <div v-bind:class="_classObject" v-lazyimg="url">
     <div class="caption" v-on:click="uploadImage">
       <div class="icon-container">
-        <i class="material-icons">photo_camera</i>
+        <icon name="camera" color="white" scale="2"/>
       </div>
       <div class="sub-header">拍下美酒照片</div>
       <input id="myFileInput" type="file"
@@ -15,6 +15,8 @@
 </template>
 
 <script>
+import 'vue-awesome/icons/camera'
+import Icon from 'vue-awesome/components/Icon.vue'
 
 export default {
   name: 'image-editor',
@@ -25,6 +27,7 @@ export default {
     }
   },
   components: {
+    Icon
   },
   computed: {
     _classObject(){

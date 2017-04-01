@@ -15,6 +15,7 @@ module.exports = {
         'config': path.resolve(__dirname, './config'),
         'components': path.resolve(__dirname, './client/components'),
         'views': path.resolve(__dirname, './client/views'),
+        'client' : path.resolve(__dirname, './client'),
       }
     },
   },

@@ -124,7 +124,7 @@ export default {
       default : ''
     },
     updatedAt : {
-      type : Number,
+      type : [Number, String],
     },
     rating : {
       type : [Number, String],

@@ -2,7 +2,9 @@
   <div class="detail-view">
     <div class="edit-wrap">
       <keep-alive>
-        <basic-edit v-if="tabIndex == 0" :post="post" v-on:change="postChange" v-on:imageChange="imageChange" />
+        <basic-edit v-if="tabIndex == 0" :post="post" v-on:change="postChange"
+          v-on:imageChange="imageChange" :imageUploading="imageUploading"
+          :warn="warn" />
         <appearance-edit v-if="tabIndex == 1" :post="post" v-on:change="postChange" />
         <nose-edit v-if="tabIndex == 2" :post="post" v-on:change="postChange" />
         <taste-edit v-if="tabIndex == 3" :post="post" v-on:change="postChange" />
@@ -40,6 +42,8 @@ import AppearanceEdit from 'components/AppearanceEdit.vue'
 import NoseEdit from 'components/NoseEdit.vue'
 import TasteEdit from 'components/TasteEdit.vue'
 import SummaryEdit from 'components/SummaryEdit.vue'
+import STATUS from 'config/constants/STATUS.js'
+import * as types from 'config/constants/MISSING_FORM_TYPE'
 
 import deepExtend from 'deep-extend'
 
@@ -47,6 +51,9 @@ import {
   DRINK_TYPE
 } from '../../config/constants'
 import ROUTES from '../../config/constants/ROUTES'
+import {
+  quickPostVerify
+} from './../plugins/verifier'
 
 export default {
   name: 'detail-edit-view',
@@ -62,22 +69,34 @@ export default {
   data() {
     return {
       tabIndex: 0,
+      warn : {},
       tabList: [
         {
           icon: 'art_track',
-          label: '短評'
+          label: '短評',
+          warn_list : [
+            types.MISSING_PHOTO,
+            types.MISSING_RATING,
+            types.MISSING_NAME,
+            types.MISSING_DES_S,
+            types.MISSING_TYPE
+          ]
         },{
           icon: 'local_bar',
-          label: '外觀'
+          label: '外觀',
+          warn_list: []
         },{
           icon: 'local_florist',
-          label: '氣味'
+          label: '氣味',
+          warn_list: []
         },{
           icon: 'opacity',
-          label: '味覺'
+          label: '味覺',
+          warn_list: []
         },{
           icon: 'assignment_turned_in',
-          label: '總結'
+          label: '總結',
+          warn_list: []
         }
       ],
       drink_types: DRINK_TYPE,
@@ -106,6 +125,9 @@ export default {
     }
   },
   computed: {
+    imageUploading(){
+      return this.$store.getters.currentImageStatus === STATUS.IMAGE_UPLOADING
+    },
     previewPath() {
       if (this.post._id) {
         return {
@@ -171,13 +193,24 @@ export default {
     },
     onClickNextStep() {
       if (this.tabIndex !== 4) {
-        this.tabIndex++
-        this.$store.dispatch('SET_HEADER', {
-          center: this.tabList[this.tabIndex].label,
-          left: 'arrow_back',
-        })
+        this.switchTab(++this.tabIndex)
       } else {
-        this.$router.push({ path: `/edit/preview` })
+        const verifiedResult = quickPostVerify(this.post)
+        if (verifiedResult.result) {
+          this.$router.push({ path: `/edit/preview` })
+        } else {
+          window.alert('您還有未完成的欄位喔')
+          this.tabList.some((tab, index) => {
+            if (tab.warn_list.some(warn => {
+              return verifiedResult.type[warn]
+            })) {
+              this.switchTab(index)
+              return true
+            }
+          })
+          this.warn = verifiedResult.type
+
+        }
       }
     }
   }
