@@ -6,7 +6,7 @@
         <div class="mdl-textfield">
           <input class="text-input" placeholder="請輸入年份"
             v-model="post.meta.other.year" id="year-input" type="number"
-            maxlength="4">
+            maxlength="4" pattern="[0-9]*" inputmode="numeric">
           <label class="mdl-textfield__label" for="year-input"></label>
         </div>
       </div>
@@ -27,7 +27,8 @@
         <edit-title title="價格"/>
         <div class="mdl-textfield">
           <input class="text-input" placeholder="請輸入價格"
-            v-model="post.meta.other.price" id="price-input" type="number">
+            v-model="post.meta.other.price" id="price-input" type="number"
+            pattern="[0-9]*" inputmode="numeric">
           <label class="mdl-textfield__label" for="price-input"></label>
         </div>
       </div>
