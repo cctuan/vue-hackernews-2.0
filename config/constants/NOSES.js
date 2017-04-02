@@ -1,4 +1,4 @@
 
+const genType = require('./genCommonNoseTasteType')
 
-
-module.exports = require('./TASTE_TYPE')
+module.exports = genType()

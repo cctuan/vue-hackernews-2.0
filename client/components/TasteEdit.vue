@@ -68,7 +68,6 @@ export default {
       return this.post.meta.taste.sweetness || 1
     },
     _currentTasteType() {
-      console.log(this.post.meta.taste.type)
       return this.post.meta.taste.type || []
     }
   },
@@ -123,7 +122,6 @@ export default {
       } else {
         tasteType.splice(currentIndex, 1)
       }
-
       this.$emit('change', {
         meta : {
           taste : {

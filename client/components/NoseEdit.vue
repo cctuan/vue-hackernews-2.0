@@ -60,9 +60,6 @@ export default {
     },
     onNoseChange(val) {
       let noseType = JSON.parse(JSON.stringify(this.post.meta.nose.type || []))
-      if (!noseType) {
-        noseType = []
-      }
       let currentIndex = noseType.indexOf(val)
 
       if (currentIndex === -1) {

@@ -1,15 +1,13 @@
 <template>
   <div class="detail-view">
     <div class="edit-wrap">
-      <keep-alive>
-        <basic-edit v-if="tabIndex == 0" :post="post" v-on:change="postChange"
-          v-on:imageChange="imageChange" :imageUploading="imageUploading"
-          :warnMsg="warnMsg" />
-        <appearance-edit v-if="tabIndex == 1" :post="post" v-on:change="postChange" />
-        <nose-edit v-if="tabIndex == 2" :post="post" v-on:change="postChange" />
-        <taste-edit v-if="tabIndex == 3" :post="post" v-on:change="postChange" />
-        <summary-edit v-if="tabIndex == 4" :post="post" v-on:change="postChange" />
-      </keep-alive>
+      <basic-edit v-show="tabIndex == 0" :post="post" v-on:change="postChange"
+        v-on:imageChange="imageChange" :imageUploading="imageUploading"
+        :warnMsg="warnMsg" />
+      <appearance-edit v-show="tabIndex == 1" :post="post" v-on:change="postChange" />
+      <nose-edit v-show="tabIndex == 2" :post="post" v-on:change="postChange" />
+      <taste-edit v-show="tabIndex == 3" :post="post" v-on:change="postChange" />
+      <summary-edit v-show="tabIndex == 4" :post="post" v-on:change="postChange" />
     </div>
     <div class="tool-container">
       <div class="btn-container">
@@ -182,7 +180,7 @@ export default {
       **/
     },
     postChange(val) {
-      this.$emit('change', deepExtend(this.post, val))
+      this.$emit('change', val)
     },
     switchTab(val) {
       this.$store.dispatch('SET_HEADER', {
