@@ -9,7 +9,7 @@
           (index === selectedIndex ? 'selected' : '')"
           v-for="(typeItem, index ) in _values"
           v-on:click="onClickType(typeItem, index)">
-          <div class="circle" :style="'background-color:white'">
+          <div class="circle" v-lazyimg="typeItem.url">
           </div>
           <span v-show="typeItem.count" class="circle-badge">
             {{typeItem.count}}
@@ -30,7 +30,7 @@
           (val.indexOf(subItem.val) !== -1 ? 'selected' : '')"
           v-for="(subItem, index) in selectedItem.types"
           v-on:click="onClickSubType(subItem, index)">
-          <div class="circle" :style="'background-color:white'">
+          <div class="circle" v-lazyimg="subItem.url">
           </div>
           <div class="label">
             {{subItem.label_zh}}
@@ -116,10 +116,14 @@ export default {
     display inline-block
     .circle
       position relative
+      margin-left 3px
       width 60px
       height 60px
       border-radius 50%
-      background-color #b388ff
+      background-repeat no-repeat
+      background-position center center
+      background-size cover
+      background-color white
     .label
       margin-top 15px
       text-align center

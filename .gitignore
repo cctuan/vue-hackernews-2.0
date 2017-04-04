@@ -7,3 +7,4 @@ public/vendor
 *.iml
 db
 yarn-error.log
+_data

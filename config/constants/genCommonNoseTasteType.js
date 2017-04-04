@@ -2,89 +2,107 @@ module.exports = function() {
   return [
     {
       "label_zh":"水果",
+      "url": "/public/tastes/lemon.png",
       "types":[
         {
           "label_zh":"檸檬",
+          "url":"/public/tastes/lemon.png",
           "val":1,
           "label_en":"Lemon"
         },
         {
           "label_zh":"柑橘",
+          "url":"/public/tastes/orange.png",
           "val":2,
           "label_en":"Orange"
         },
         {
           "label_zh":"萊姆",
+          "url":"/public/tastes/lime.png",
           "val":3,
           "label_en":"Lime"
         },
         {
           "label_zh":"葡萄柚",
+          "url":"/public/tastes/fruit.png",
           "val":4,
           "label_en":"Grapefruit"
         },
         {
           "label_zh":"葡萄",
+          "url":"/public/tastes/grapes.png",
           "val":5,
           "label_en":"Grapes"
         },
         {
           "label_zh":"藍莓",
+          "url":"/public/tastes/blackberries.png",
           "val":6,
           "label_en":"Blackberries"
         },
         {
           "label_zh":"蘋果",
+          "url":"/public/tastes/apple.png",
           "val":7,
           "label_en":"Apple"
         },
         {
           "label_zh":"青蘋果",
+          "url":"/public/tastes/green.png",
           "val":8,
           "label_en":"Greenapple"
         },
         {
           "label_zh":"梨子",
+          "url":"/public/tastes/pear.png",
           "val":9,
           "label_en":"Pear"
         },
         {
           "label_zh":"櫻桃",
+          "url":"/public/tastes/cherry.png",
           "val":10,
           "label_en":"Cherry"
         },
         {
           "label_zh":"李子",
+          "url":"/public/tastes/plum.png",
           "val":11,
           "label_en":"Plum"
         },
         {
           "label_zh":"椰子",
+          "url":"/public/tastes/coconut.png",
           "val":12,
           "label_en":"Coconut"
         },
         {
           "label_zh":"桃子",
+          "url":"/public/tastes/peach.png",
           "val":13,
           "label_en":"Peach"
         },
         {
           "label_zh":"奇異果",
+          "url":"/public/tastes/kiwifruit.png",
           "val":14,
           "label_en":"Kiwi"
         },
         {
           "label_zh":"鳳梨",
+          "url":"/public/tastes/pineapple.png",
           "val":15,
           "label_en":"Pineapple"
         },
         {
           "label_zh":"香蕉",
+          "url":"/public/tastes/bananas.png",
           "val":16,
           "label_en":"Banana"
         },
         {
           "label_zh":"西瓜",
+          "url":"/public/tastes/melon.png",
           "val":17,
           "label_en":"Watermelon"
         },
@@ -95,21 +113,25 @@ module.exports = function() {
         },
         {
           "label_zh":"蜜餞",
+          "url":"/public/tastes/date.png",
           "val":19,
           "label_en":"Date"
         },
         {
           "label_zh":"無花果",
+          "url":"/public/tastes/figs.png",
           "val":20,
           "label_en":"Fig"
         },
         {
           "label_zh":"葡萄乾",
+          "url":"/public/tastes/raisins.png",
           "val":21,
           "label_en":"Raisin"
         },
         {
           "label_zh":"橄欖",
+          "url":"/public/tastes/olives.png",
           "val":22,
           "label_en":"Olive"
         }
@@ -118,6 +140,7 @@ module.exports = function() {
     },
     {
       "label_zh":"穀物堅果",
+      "url": "/public/tastes/nuts.png",
       "types":[
         {
           "label_zh":"麥芽",
@@ -126,31 +149,37 @@ module.exports = function() {
         },
         {
           "label_zh":"大麥",
+          "url":"/public/tastes/barley.png",
           "val":24,
           "label_en":"Barley"
         },
         {
           "label_zh":"小麥",
+          "url":"/public/tastes/wheat.png",
           "val":25,
           "label_en":"Wheat"
         },
         {
           "label_zh":"堅果",
+          "url":"/public/tastes/nuts.png",
           "val":26,
           "label_en":"Nuts"
         },
         {
           "label_zh":"榛果",
+          "url":"/public/tastes/hazelnuts.png",
           "val":27,
           "label_en":"Hazelnut"
         },
         {
           "label_zh":"杏仁",
+          "url":"/public/tastes/almonds.png",
           "val":28,
           "label_en":"Almond"
         },
         {
           "label_zh":"植物油",
+          "url":"/public/tastes/vegeoil.png",
           "val":29,
           "label_en":"Vegeoil"
         }
@@ -159,44 +188,53 @@ module.exports = function() {
     },
     {
       "label_zh":"花草類",
+      "url": "/public/tastes/red-rose.png",
       "types":[
         {
           "label_zh":"香草",
+          "url":"/public/tastes/vanilla.png",
           "val":30,
           "label_en":"Vanilla"
         },
         {
           "label_zh":"藥草味",
+          "url":"/public/tastes/herb.png",
           "val":31,
           "label_en":"Herb"
         },
         {
           "label_zh":"青草",
+          "url":"/public/tastes/grass.png",
           "val":32,
           "label_en":"Grass"
         },
         {
           "label_zh":"乾草",
+          "url":"/public/tastes/hay.png",
           "val":33,
           "label_en":"Hay"
         },
         {
           "label_zh":"玫瑰",
+          "url":"/public/tastes/red-rose.png",
           "val":34,
           "label_en":"Rose"
         },
         {
           "label_zh":"紫羅蘭",
+          "url":"/public/tastes/violet.png",
           "val":35,
           "label_en":"Violet"
         },
         {
           "label_zh":"茶葉",
+          "url":"/public/tastes/tea.png",
           "val":36,
           "label_en":"Tea"
         },
         {
           "label_zh":"薄荷",
+          "url":"/public/tastes/mint.png",
           "val":37,
           "label_en":"Mint"
         }
@@ -205,6 +243,7 @@ module.exports = function() {
     },
     {
       "label_zh":"辛香料",
+      "url" : "/public/tastes/chili-pepper.png",
       "types":[
         {
           "label_zh":"胡椒",
@@ -213,26 +252,31 @@ module.exports = function() {
         },
         {
           "label_zh":"辣椒",
+          "url":"/public/tastes/chili-pepper.png",
           "val":39,
           "label_en":"Chili"
         },
         {
           "label_zh":"肉桂",
+          "url":"/public/tastes/cinnamon.png",
           "val":40,
           "label_en":"Cinnamon"
         },
         {
           "label_zh":"丁香",
+          "url":"/public/tastes/clove.png",
           "val":41,
           "label_en":"Cloves"
         },
         {
           "label_zh":"薑",
+          "url":"/public/tastes/ginger.png",
           "val":42,
           "label_en":"Ginger"
         },
         {
           "label_zh":"肉豆蔻",
+          "url":"/public/tastes/nutmeg.png",
           "val":43,
           "label_en":"Nutmeg"
         }
@@ -241,9 +285,11 @@ module.exports = function() {
     },
     {
       "label_zh":"甜味",
+      "url": "/public/tastes/caramel.png",
       "types":[
         {
           "label_zh":"焦糖",
+          "url":"/public/tastes/caramel.png",
           "val":44,
           "label_en":"Caramel"
         },
@@ -254,21 +300,25 @@ module.exports = function() {
         },
         {
           "label_zh":"牛奶巧克力",
+          "url":"/public/tastes/milk.png",
           "val":46,
           "label_en":"MilkChocolate"
         },
         {
           "label_zh":"黑巧克力",
+          "url":"/public/tastes/dark.png",
           "val":47,
           "label_en":"DarkChocolate"
         },
         {
           "label_zh":"蜂蜜",
+          "url":"/public/tastes/honey.png",
           "val":48,
           "label_en":"Honey"
         },
         {
           "label_zh":"奶油",
+          "url":"/public/tastes/butter.png",
           "val":49,
           "label_en":"Butter"
         }
@@ -277,34 +327,41 @@ module.exports = function() {
     },
     {
       "label_zh":"桶味",
+      "url": "/public/tastes/oak.png",
       "types":[
         {
           "label_zh":"木桶",
+          "url":"/public/tastes/oak.png",
           "val":50,
           "label_en":"Oak"
         },
         {
           "label_zh":"雪莉桶",
+          "url":"/public/tastes/sherry.png",
           "val":51,
           "label_en":"Sherry"
         },
         {
           "label_zh":"木頭",
+          "url":"/public/tastes/wood.png",
           "val":52,
           "label_en":"Wood"
         },
         {
           "label_zh":"皮革",
+          "url":"/public/tastes/leather.png",
           "val":53,
           "label_en":"Leather"
         },
         {
           "label_zh":"咖啡",
+          "url":"/public/tastes/coffee-beans.png",
           "val":54,
           "label_en":"Coffee"
         },
         {
           "label_zh":"菸草",
+          "url":"/public/tastes/tabacco.png",
           "val":55,
           "label_en":"Tabacco"
         }

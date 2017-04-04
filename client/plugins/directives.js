@@ -15,19 +15,27 @@ const onScroll = (el, binding, evt) => {
   }
 }
 
+const setImage = (el, src) => {
+	switch(el.tagName) {
+		case 'IMAGE': {
+			el.src = src
+			break
+		}
+		default: {
+			el.style.backgroundImage = `url(${src})`
+			break
+		}
+	}
+}
+
 const lazyloadImg = (el, src) => {
+	if (!src) {
+		setImage(el, '')
+		return
+	}
   let img = new Image()
   img.onload = () => {
-    switch(el.tagName) {
-      case 'IMAGE': {
-        el.src = src
-        break
-      }
-      default: {
-        el.style.backgroundImage = `url(${src})`
-        break
-      }
-    }
+    setImage(el, src)
   }
   img.src = src
 }
