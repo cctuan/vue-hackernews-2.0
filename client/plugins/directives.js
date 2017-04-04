@@ -29,8 +29,8 @@ const setImage = (el, src) => {
 }
 
 const lazyloadImg = (el, src) => {
+	setImage(el, '')
 	if (!src) {
-		setImage(el, '')
 		return
 	}
   let img = new Image()
