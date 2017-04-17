@@ -1,8 +1,8 @@
 machine:
   environment:
     PROJECT_NAME: shot-163919
-    CLUSTER_NAME: front-1shot
-    CLOUDSDK_COMPUTE_ZONE: us-central1-b
+    CLUSTER_NAME: oneshot-front
+    CLOUDSDK_COMPUTE_ZONE: us-central1-a
   services:
     - docker
 
