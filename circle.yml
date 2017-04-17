@@ -1,6 +1,6 @@
 machine:
   environment:
-    PROJECT_NAME: shot-163919
+    PROJECT_NAME: testbot-164808
     CLUSTER_NAME: oneshot
     CLOUDSDK_COMPUTE_ZONE: us-central1-a
   services:
