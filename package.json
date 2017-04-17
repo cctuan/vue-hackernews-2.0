@@ -7,7 +7,7 @@
     "prestart": "npm run build",
     "local-db": "npm run db",
     "db": "mongod --dbpath ./db --port 27017",
-    "postinstall": "node ./node_modules/bower/bin/bower install",
+    "postinstall": "bower install",
     "dev-env": "NODE_PATH=./ nodemon server",
     "dev": "npm run local-db & npm run dev-env",
     "heroku-postbuild": "npm run build",
