@@ -2,9 +2,7 @@
   <header class="common-color">
     <div class="mdl-layout__drawer-button" v-if="!!left"
       v-on:click="onLeftClick">
-      <i class="material-icons back-icon icon-button">
-        {{left}}
-      </i>
+      <icon :name="left" scale="1.5"/>
     </div>
     <div class="mdl-layout__header-row">
       <div class="mdl-layout-spacer">
@@ -12,28 +10,30 @@
       </div>
       <div v-on:click="onRightClick" class="mdl-textfield mdl-textfield--expandable
                   mdl-textfield--floating-label mdl-textfield--align-right clickable" v-if="!!right">
-        <i class="material-icons back-icon icon-button">
-          {{right}}
-        </i>
+        <icon :name="right" scale="1.5"/>
       </div>
     </div>
   </header>
 </template>
 
 <script>
-
+import 'vue-awesome/icons/warning'
+import Icon from 'vue-awesome/components/Icon.vue'
 export default {
   name: 'app-header',
+  components : {Icon},
   computed: {
     title() {
       return this.$store.getters.activeHeaderTitle
     },
 
-    left() {
+    left() {//bars
+    console.log(this.$store.getters.activeHeaderLeft, 'this.$store.getters.activeHeaderLeft')
       return this.$store.getters.activeHeaderLeft
     },
 
-    right() {
+    right() {//pencil
+    console.log(this.$store.getters.activeHeaderRight, 'this.$store.getters.activeHeaderLeft')
       return this.$store.getters.activeHeaderRight
     },
 

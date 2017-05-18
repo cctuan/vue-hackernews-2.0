@@ -11,6 +11,12 @@ import ROUTES from 'config/constants/ROUTES'
 Vue.use(Router)
 Vue.use(Meta)
 
+import {
+  BACK_ICON,
+  PENCIL_ICON,
+  HOME_ICON,
+  BARS_ICON
+} from 'config/iconKeys'
 import LandingView from 'views/LandingView.vue'
 import LoginView from 'views/LoginView.vue'
 import MainView from 'views/MainView.vue'
@@ -77,8 +83,8 @@ export default new Router({
           beforeEnter(to, from, next) {
             store.dispatch('SET_HEADER', {
               center: '',
-              left: 'arrow_back',
-              right: 'menu',
+              left: BACK_ICON,
+              right: BARS_ICON,
             })
             next()
           },
@@ -97,7 +103,7 @@ export default new Router({
           beforeEnter(to, from, next) {
             store.dispatch('SET_HEADER', {
               center: '筆記預覽',
-              left: 'arrow_back',
+              left: BACK_ICON,
               right: 'more_vert',
             })
             next()
@@ -111,7 +117,7 @@ export default new Router({
             console.log('__ROUTES.DETAIL_EDIT', to)
             store.dispatch('SET_HEADER', {
               center: '新增筆記',
-              left: 'arrow_back',
+              left: BACK_ICON,
             })
             next()
           },
@@ -123,7 +129,7 @@ export default new Router({
           beforeEnter(to, from, next) {
             store.dispatch('SET_HEADER', {
               center: '新增筆記',
-              left: 'arrow_back',
+              left: BACK_ICON,
             })
             next()
           },
@@ -142,8 +148,8 @@ export default new Router({
         if (store.getters.isUserLogin) {
           store.dispatch('SET_HEADER', {
             center: '我的品酒筆記',
-            left: 'menu',
-            right: 'create'
+            left: BARS_ICON,
+            right: PENCIL_ICON
           })
           next()
         } else if (store.getters.isUserVisited) {
@@ -173,7 +179,7 @@ export default new Router({
         } else {
           store.dispatch('SET_HEADER', {
             center: '註冊',
-            left: 'arrow_back'
+            left: BACK_ICON
           })
           next()
         }

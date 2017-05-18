@@ -42,7 +42,9 @@ import TasteEdit from 'components/TasteEdit.vue'
 import SummaryEdit from 'components/SummaryEdit.vue'
 import STATUS from 'config/constants/STATUS.js'
 import * as types from 'config/constants/MISSING_FORM_TYPE'
-
+import {
+  BACK_ICON,
+} from 'config/iconKeys'
 import deepExtend from 'deep-extend'
 
 import {
@@ -185,7 +187,7 @@ export default {
     switchTab(val) {
       this.$store.dispatch('SET_HEADER', {
         center: this.tabList[val].label,
-        left: 'arrow_back',
+        left: BACK_ICON,
       })
       this.tabIndex = val
     },

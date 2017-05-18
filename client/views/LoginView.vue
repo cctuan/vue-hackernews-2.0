@@ -1,9 +1,9 @@
 <template>
   <div class="login-view page-view">
     <div class="wrapper">
-      <div class="login-icon">
-        <i class="material-icons">card_giftcard</i>
-      </div>
+      <label class="login-icon">
+        <icon name="home" scale="4"/>
+      </label>
       <div class="sub-header-text">初次登入需綁定FB帳號</div>
       <p class="body-text">使用本服務前，請先登入您的Facebook帳號以利一飲提供優質的使用情境與服務</p>
       <a class="login-button-container" href="/auth/facebook">
@@ -16,8 +16,12 @@
 </template>
 
 <script>
+
+import 'vue-awesome/icons/home'
+import Icon from 'vue-awesome/components/Icon.vue'
 export default {
   name: 'login-view',
+  components : {Icon},
   computed: {
   },
 }
@@ -25,8 +29,6 @@ export default {
 <style lang="stylus" scoped>
 .login-icon
   text-align center
-  i
-    font-size 70px
 .sub-header
   margin 30px 0 10px
 .login-button-container

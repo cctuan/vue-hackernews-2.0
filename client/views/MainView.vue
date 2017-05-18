@@ -5,7 +5,7 @@
     <post-item v-if="hasPost" v-bind="post" v-for="post in posts"></post-item>
     <div v-if="!hasPost" class="no-post-section">
       <div class="main-page-icon">
-        <i class="material-icons">mood</i>
+        <icon name="smile-o" scale="4"/>
       </div>
       <div class="sub-header">目前還沒有任何筆記喔</div>
       <p class="body">立即撰寫品酒筆記，記錄並分享您每日品酒的細節與點滴</p>
@@ -16,7 +16,7 @@
     <modal v-if="showModal" @close="showModal = false">
       <div slot="body" class="edit-dialog">
         <div class="header">
-          <i class="material-icons">border_color</i>
+          <icon name="pencil-square-o" scale="4"/>
         </div>
         <div class="sub-header">
           選擇適合您的筆記方式
@@ -47,13 +47,17 @@ import Modal from 'components/Modal.vue'
 import PostItem from 'components/PostItem.vue'
 import ROUTES from 'config/constants/ROUTES'
 import STATUS from 'config/constants/STATUS.js'
+
+import 'vue-awesome/icons/pencil-square-o'
+import 'vue-awesome/icons/smile-o'
+import Icon from 'vue-awesome/components/Icon.vue'
 function fetchItems (store, query = {}) {
   return store.dispatch('FETCH_LIST_POST', query)
 }
 
 export default {
   name: 'main-view',
-  components: { SearchInput, PostItem, Modal, LinearProgress },
+  components: { SearchInput, PostItem, Modal, LinearProgress, Icon },
   data () {
     return {
       showModal: false,

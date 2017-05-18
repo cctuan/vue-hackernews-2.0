@@ -54,13 +54,6 @@ export default {
 </script>
 <style lang="stylus">
 @import "../public/vendor/material-design-lite/material.min.css"
-@font-face
-  font-family 'Material Icons'
-  font-style normal
-  font-weight 400
-  src url(/public/vendor/material-design-icons/iconfont/MaterialIcons-Regular.eot)
-  src local('Material Icons'), local('MaterialIcons-Regular'), url(/public/vendor/material-design-icons/iconfont/MaterialIcons-Regular.woff2) format('woff2'), url(/public/vendor/material-design-icons/iconfont/MaterialIcons-Regular.woff) format('woff'), url(/public/vendor/material-design-icons/iconfont/MaterialIcons-Regular.ttf) format('truetype')
-
 html
 body
 #app
