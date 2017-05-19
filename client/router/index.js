@@ -148,7 +148,6 @@ export default new Router({
         if (store.getters.isUserLogin) {
           store.dispatch('SET_HEADER', {
             center: '我的品酒筆記',
-            left: BARS_ICON,
             right: PENCIL_ICON
           })
           next()
