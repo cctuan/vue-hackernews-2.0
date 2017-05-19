@@ -25,7 +25,7 @@
           <div :class="'tab' +
             (index <= tabIndex ? (index === tabIndex ? ' selected' : ' in-selected') : '')"
             v-for="(tab, index) in tabList" @click="switchTab(index)">
-            <i class="material-icons">{{tab.icon}}</i>
+            <icon :name="tab.icon" scale="1.5" color="white"/>
             <div class="action">{{tab.label}}</div>
           </div>
         </div>
@@ -44,9 +44,15 @@ import STATUS from 'config/constants/STATUS.js'
 import * as types from 'config/constants/MISSING_FORM_TYPE'
 import {
   BACK_ICON,
+  NEWS_ICON,
+  GLASS_ICON,
+  SMELL_ICON,
+  TASTE_ICON,
+  SUMMARY_ICON
 } from 'config/iconKeys'
 import deepExtend from 'deep-extend'
 
+import Icon from 'vue-awesome/components/Icon.vue'
 import {
   DRINK_TYPE
 } from '../../config/constants'
@@ -58,7 +64,7 @@ import {
 export default {
   name: 'detail-edit-view',
   components: {
-    BasicEdit, AppearanceEdit, NoseEdit, TasteEdit, SummaryEdit
+    BasicEdit, AppearanceEdit, NoseEdit, TasteEdit, SummaryEdit, Icon
   },
   props: {
     post: {
@@ -72,7 +78,7 @@ export default {
       warnMsg : {},
       tabList: [
         {
-          icon: 'art_track',
+          icon: NEWS_ICON,
           label: '短評',
           warn_list : [
             types.MISSING_PHOTO,
@@ -82,19 +88,19 @@ export default {
             types.MISSING_TYPE
           ]
         },{
-          icon: 'local_bar',
+          icon: GLASS_ICON,
           label: '外觀',
           warn_list: []
         },{
-          icon: 'local_florist',
+          icon: SMELL_ICON,
           label: '氣味',
           warn_list: []
         },{
-          icon: 'opacity',
+          icon: TASTE_ICON,
           label: '味覺',
           warn_list: []
         },{
-          icon: 'assignment_turned_in',
+          icon: SUMMARY_ICON,
           label: '總結',
           warn_list: []
         }

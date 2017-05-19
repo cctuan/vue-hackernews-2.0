@@ -2,7 +2,7 @@
   <header class="common-color">
     <div class="mdl-layout__drawer-button" v-if="!!left"
       v-on:click="onLeftClick">
-      <icon :name="left" scale="1.5"/>
+      <icon :name="left" scale="1.5" color="white"/>
     </div>
     <div class="mdl-layout__header-row">
       <div class="mdl-layout-spacer">
@@ -10,7 +10,7 @@
       </div>
       <div v-on:click="onRightClick" class="mdl-textfield mdl-textfield--expandable
                   mdl-textfield--floating-label mdl-textfield--align-right clickable" v-if="!!right">
-        <icon :name="right" scale="1.5"/>
+        <icon :name="right" scale="1.5" color="white"/>
       </div>
     </div>
   </header>

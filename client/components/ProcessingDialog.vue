@@ -2,7 +2,7 @@
   <modal v-if="showModal" @click="$emit('close')">
     <div slot="body" class="preview-dialog">
       <div class="header">
-        <icon :name="warning" color="yellow"/>
+        <icon :name="WARNING_ICON" color="yellow"/>
       </div>
       <div class="sub-header">
         請稍等一下,系統仍在處理中
@@ -16,14 +16,22 @@
 
 <script>
 
-import 'vue-awesome/icons/warning'
+import {
+  WARNING_ICON
+} from 'config/iconKeys'
 import Icon from 'vue-awesome/components/Icon.vue'
+
 import Modal from 'components/Modal.vue'
 
 export default {
   name: 'processing-dialog',
   components: {
     Modal, Icon
+  },
+  data(){
+    return {
+      WARNING_ICON : WARNING_ICON
+    }
   },
   props: {
     showModal: {

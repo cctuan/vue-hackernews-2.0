@@ -104,7 +104,7 @@ export default new Router({
             store.dispatch('SET_HEADER', {
               center: '筆記預覽',
               left: BACK_ICON,
-              right: 'more_vert',
+              right: HOME_ICON,
             })
             next()
           },
