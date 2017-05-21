@@ -157,15 +157,13 @@ app.post('/webhook', (req, res) => {
   const isMessageValidated = LINEClient.requestValidator(
     // read the X-Line-Signature from headers
     req.headers['x-line-signature'], 
-    req.body // raw body from request
+    JSON.stringify(req.body) // raw body from request
   )
   res.status(200).end('')
   if (!isMessageValidated){
-    console.error(req.headers, 'req.headers')
-    console.error('invalid message')
     console.error('X-Line-Signature', req.headers['x-line-signature'])
     console.error(req.body, 'req.body')
-    //return
+    return
   }
   let receives = LINEClient.bodyParser(req.body);
   receives.forEach(function(receive) {
