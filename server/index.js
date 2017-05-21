@@ -156,7 +156,7 @@ app.use('/api', router)
 app.post('/webhook', (req, res) => {
   const isMessageValidated = LINEClient.requestValidator(
     // read the X-Line-Signature from headers
-    req.headers['X-Line-Signature'], 
+    req.headers['x-line-signature'], 
     req.body // raw body from request
   )
   res.status(200).end('')
