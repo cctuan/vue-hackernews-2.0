@@ -161,8 +161,9 @@ app.post('/webhook', (req, res) => {
   )
   res.status(200).end('')
   if (!isMessageValidated){
+    console.error(req.headers, 'req.headers')
     console.error('invalid message')
-    console.error('X-Line-Signature', req.headers['X-Line-Signature'])
+    console.error('X-Line-Signature', req.headers['x-line-signature'])
     console.error(req.body, 'req.body')
     //return
   }
