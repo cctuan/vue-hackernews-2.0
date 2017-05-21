@@ -17,6 +17,7 @@ const serialize = require('serialize-javascript')
 const passport = require('passport')
 const pkg = require('./../package.json')
 const router = require('./routes')
+
 const {
   PORT,
   MONGO_URL,
@@ -30,7 +31,7 @@ const LINEConfig = {
   channelSecret: CHANNEL_SECRET,
 }
 
-const LINEClient = new LineBotSDK.Client(LINEConfig)
+const LINEClient = new LineBotSDK.client(LINEConfig)
 
 // bluebird.promisifyAll(redis.RedisClient.prototype)
 // bluebird.promisifyAll(redis.Multi.prototype)
@@ -173,6 +174,7 @@ app.post('/webhook', (req, res) => {
             // text type message
             break;
           }
+        }
       }
     }
   })
