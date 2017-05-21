@@ -35,7 +35,7 @@ play(BasicEdit)
       <div style="background-color:#1d242c">
         <basic-edit :post="post" :warnMsg="warnMsg"/>
         <button @click="onShowWarningMsg">Verify</button>
-        <button @click="warn = {}">Hide</button>
+        <button @click="() => {}">Hide</button>
       </div>
       `,
     data() {

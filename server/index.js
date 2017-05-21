@@ -9,6 +9,7 @@ const cookieSession = require('cookie-session')
 const bodyParser = require('body-parser')
 const session = require('express-session')
 const mongoStore = require('connect-mongo')(session)
+const line = require('@line/bot-sdk')
 
 const favicon = require('serve-favicon')
 const compression = require('compression')
@@ -20,7 +21,16 @@ const {
   PORT,
   MONGO_URL,
   REDIS_URL,
+  CHANNEL_SECRET,
+  CHANNEL_ACCESS_TOKEN
 } = require('config/env')
+
+const LINEConfig = {
+  channelAccessToken: CHANNEL_ACCESS_TOKEN,
+  channelSecret: CHANNEL_SECRET,
+}
+
+const LINEClient = new line.Client(LINEConfig)
 
 // bluebird.promisifyAll(redis.RedisClient.prototype)
 // bluebird.promisifyAll(redis.Multi.prototype)
@@ -141,6 +151,29 @@ app.get('/redirect', (req, res) => {
 })
 **/
 app.use('/api', router)
+
+app.post('/webhook', line.middleware(LINEConfig), (req, res) => {
+  res.status(200).end('')
+  Promise
+    .all(req.body.events.map(handleLINEMessage))
+    .then((result) => {
+      console.info(result)
+    })
+});
+
+const LINE_LOGIN_MESSAGE = '登入' 
+
+const handleLINEMessage = (event) => {
+  if (event.type !== 'message' || event.message.type !== 'text') {
+    return Promise.resolve(null);
+  }
+  if (event.message.text === LINE_LOGIN_MESSAGE) {
+    
+  }
+
+  // use reply API
+  return client.replyMessage(event.replyToken,  { type: 'text', text: event.message.text })
+}
 
 app.get('*', (req, res) => {
   if (!renderer) {
