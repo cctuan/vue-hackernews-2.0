@@ -154,8 +154,6 @@ app.get('/redirect', (req, res) => {
 app.use('/api', router)
 
 app.post('/webhook', (req, res) => {
-  console.log(req.headers['X-Line-Signature'], 'X-Line-Signature')
-  console.log(req.body, 'req.body')
   const isMessageValidated = LINEClient.requestValidator(
     // read the X-Line-Signature from headers
     req.headers['X-Line-Signature'], 
@@ -164,7 +162,7 @@ app.post('/webhook', (req, res) => {
   res.status(200).end('')
   if (!isMessageValidated){
     console.error('invalid message')
-    return
+    //return
   }
   let receives = LINEClient.receiveRequest(req.body);
   receives.forEach(function(receive) {
