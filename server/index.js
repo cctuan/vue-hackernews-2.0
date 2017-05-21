@@ -154,6 +154,8 @@ app.get('/redirect', (req, res) => {
 app.use('/api', router)
 
 app.post('/webhook', (req, res) => {
+  console.log(req.headers['X-Line-Signature'], 'X-Line-Signature')
+  console.log(req.body, 'req.body')
   const isMessageValidated = LINEClient.requestValidator(
     // read the X-Line-Signature from headers
     req.headers['X-Line-Signature'], 
