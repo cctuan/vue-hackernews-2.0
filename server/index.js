@@ -9,8 +9,8 @@ const cookieSession = require('cookie-session')
 const bodyParser = require('body-parser')
 const session = require('express-session')
 const mongoStore = require('connect-mongo')(session)
-const line = require('@line/bot-sdk')
 
+const LineBotSDK = require('line-bot-sdk-nodejs')
 const favicon = require('serve-favicon')
 const compression = require('compression')
 const serialize = require('serialize-javascript')
@@ -30,7 +30,7 @@ const LINEConfig = {
   channelSecret: CHANNEL_SECRET,
 }
 
-const LINEClient = new line.Client(LINEConfig)
+const LINEClient = new LineBotSDK.Client(LINEConfig)
 
 // bluebird.promisifyAll(redis.RedisClient.prototype)
 // bluebird.promisifyAll(redis.Multi.prototype)
@@ -152,13 +152,30 @@ app.get('/redirect', (req, res) => {
 **/
 app.use('/api', router)
 
-app.post('/webhook', line.middleware(LINEConfig), (req, res) => {
+app.post('/webhook', (req, res) => {
+  const isMessageValidated = LINEClient.requestValidator(
+    // read the X-Line-Signature from headers
+    req.headers['X-Line-Signature'], 
+    req.body // raw body from request
+  )
   res.status(200).end('')
-  Promise
-    .all(req.body.events.map(handleLINEMessage))
-    .then((result) => {
-      console.info(result)
-    })
+  if (!isMessageValidated){
+    console.error('invalid message')
+    return
+  }
+  let receives = LINEClient.receiveRequest(req.body);
+  receives.forEach(function(receive) {
+    switch (receive.type) {
+      case LineBotSDK.EVENT_TYPES.MESSAGE: {
+        switch (receive.message.type) {
+          case LineBotSDK.CONTENT_TYPES.TEXT: {
+            LINEClient.to({userId: receive.message.source.userId}).message('text').send();
+            // text type message
+            break;
+          }
+      }
+    }
+  })
 });
 
 const LINE_LOGIN_MESSAGE = '登入' 
