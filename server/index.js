@@ -170,7 +170,7 @@ app.post('/webhook', (req, res) => {
       case LineBotSDK.EVENT_TYPES.MESSAGE: {
         switch (receive.message.type) {
           case LineBotSDK.CONTENT_TYPES.TEXT: {
-            LINEClient.to({userId: receive.message.source.userId}).message('text').send();
+            LINEClient.to({userId : receive.source.userId}).message('text').send();
             // text type message
             break;
           }
