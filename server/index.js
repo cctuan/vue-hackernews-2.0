@@ -164,7 +164,7 @@ app.post('/webhook', (req, res) => {
     console.error('invalid message')
     //return
   }
-  let receives = LINEClient.receiveRequest(req.body);
+  let receives = LINEClient.bodyParser(req.body);
   receives.forEach(function(receive) {
     switch (receive.type) {
       case LineBotSDK.EVENT_TYPES.MESSAGE: {
