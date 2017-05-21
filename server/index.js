@@ -161,8 +161,6 @@ app.post('/webhook', (req, res) => {
   )
   res.status(200).end('')
   if (!isMessageValidated){
-    console.error('X-Line-Signature', req.headers['x-line-signature'])
-    console.error(req.body, 'req.body')
     return
   }
   let receives = LINEClient.bodyParser(req.body);
@@ -172,7 +170,6 @@ app.post('/webhook', (req, res) => {
         switch (receive.message.type) {
           case LineBotSDK.CONTENT_TYPES.TEXT: {
             LINEClient.to({userId : receive.source.userId}).message('text').send();
-            // text type message
             break;
           }
         }
