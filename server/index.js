@@ -172,7 +172,7 @@ const handleLINEMessage = (event) => {
   }
 
   // use reply API
-  return client.replyMessage(event.replyToken,  { type: 'text', text: event.message.text })
+  return LINEClient.replyMessage(event.replyToken,  { type: 'text', text: event.message.text })
 }
 
 app.get('*', (req, res) => {
