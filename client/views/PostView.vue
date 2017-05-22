@@ -15,7 +15,9 @@
 import {
   isFBWebView
 } from '../plugins/userAgent'
-import bowser from 'bowser'
+import UAParser from 'ua-parser-js';
+
+const UA = UAParser.getResult()
 
 import MenuDialog from 'components/MenuDialog.vue'
 import PostBasicInformation from 'components/PostBasicInformation.vue'
@@ -69,7 +71,7 @@ export default {
           name: '刪除',
           type: 'delete'
         })
-      } else if (bowser.mobile){
+      } else if (UA.device.type === 'mobile'){
         menuActions.push({
           name: '登入',
           type: 'login'
