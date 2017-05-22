@@ -32,7 +32,8 @@ const UserSchema = new Schema({
   twitter: {},
   github: {},
   google: {},
-  linkedin: {}
+  linkedin: {},
+  line: {}
 });
 
 const validatePresenceOf = value => value && value.length;
@@ -58,6 +59,7 @@ UserSchema
 
 // the below 5 validations only apply if you are signing up traditionally
 
+/** 
 UserSchema.path('name').validate(function (name) {
   if (this.skipValidation()) return true;
   return name.length;
@@ -72,24 +74,22 @@ UserSchema.path('email').validate(function (email, fn) {
   const User = mongoose.model('User');
   if (this.skipValidation()) fn(true);
 
-  // Check only when it is a new user or when email field is modified
   if (this.isNew || this.isModified('email')) {
     User.find({ email: email }).exec(function (err, users) {
       fn(!err && users.length === 0);
     });
   } else fn(true);
 }, 'Email already exists');
-
 UserSchema.path('username').validate(function (username) {
   if (this.skipValidation()) return true;
   return username.length;
 }, 'Username cannot be blank');
-
 UserSchema.path('hashed_password').validate(function (hashed_password) {
   if (this.skipValidation()) return true;
   return hashed_password.length && this._password.length;
 }, 'Password cannot be blank');
 
+*/
 
 /**
  * Pre-save hook

@@ -11,6 +11,7 @@ const bodyParser = require('body-parser')
 const session = require('express-session')
 const mongoStore = require('connect-mongo')(session)
 const uuidV4 = require('uuid/v4')
+const { wrap: async } = require('co')
 
 const LineBotSDK = require('line-bot-sdk-nodejs')
 const favicon = require('serve-favicon')
@@ -20,12 +21,15 @@ const passport = require('passport')
 const pkg = require('./../package.json')
 const router = require('./routes')
 
+const UserModel = require('./models/UserModel')
+
 const {
   PORT,
   MONGO_URL,
   REDIS_URL,
   CHANNEL_SECRET,
-  CHANNEL_ACCESS_TOKEN
+  CHANNEL_ACCESS_TOKEN,
+  ROOT_PATH
 } = require('config/env')
 
 const LINEConfig = {
@@ -143,18 +147,69 @@ app.get('/auth/logout', (req, res) => {
   req.logout()
   res.json({})
 })
-/**
-app.get('/redirect', (req, res) => {
-  redisClient.getAsync("george").then(output => {
-    console.log(output)
-  })
 
-  res.status(200).end()
-})
-**/
+app.get('/redirect', async(function *(req, res) {
+  const secret = req.query.secret
+  if (req.isAuthenticated()) {
+    // need to bind userId to this account
+    try {
+      if (secret) {
+        const userId = yield redisClient.getAsync(req.query.secret)
+        if (!userId) {
+          throw Error('cannot find userId')
+        }
+        redisClient.del(req.query.secret)
+        const user = req.user
+        if (user.line && user.line.userId === userId) {
+          console.info('User already has line user Id')
+        } else {
+          user.line = {
+            userId : userId
+          }
+          // console.log(user , 'user is ')
+          // console.log(userId, 'userId')
+          yield user.save()
+        }
+      } else {
+        console.error('secret is not defined')
+      }
+      res.redirect('/');
+    } catch (e) {
+      console.error(e)
+      res.redirect('/');
+    }
+  } else {
+    try {
+      if (req.query.secret){
+        const userId = yield redisClient.getAsync(req.query.secret)
+        if (!userId){
+          throw Error('cannot find userId')
+        }
+        redisClient.del(req.query.secret)
+        const newUser = UserModel({
+          line : {
+            userId : userId
+          }
+        });
+        let result = yield newUser.uploadAndSave()
+        req.login(result, err => {
+          if (err) {
+            throw err
+          }
+          res.redirect('/');
+        })
+      }
+    } catch(e){
+      console.error(e)
+      res.redirect('/');
+    }
+  }
+}))
+
 app.use('/api', router)
 
 const LINE_LOGIN_MESSAGE = '登入' 
+const REDIS_EXPIRE_TIME = 60 * 5
 
 app.post('/webhook', (req, res) => {
   const isMessageValidated = LINEClient.requestValidator(
@@ -173,11 +228,15 @@ app.post('/webhook', (req, res) => {
         switch (receive.message.type) {
           case LineBotSDK.CONTENT_TYPES.TEXT: {
             if (receive.message.text === LINE_LOGIN_MESSAGE) {
-              const hashId = uuidV4(receive.source.userId, 'UID')
-              LINEClient.to({userId : receive.source.userId}).message(hashId).send();
+              const userId = receive.source.userId
+              const hashId = uuidV4(userId + '' + Date.now(), 'UID')
+
+              redisClient.set(hashId, userId, 'EX', REDIS_EXPIRE_TIME)
+              LINEClient.to({userId : userId})
+                .message(path.join(ROOT_PATH, 'redirect') + '?secret=' + hashId)
+                .send();
               return
             }
-            LINEClient.to({userId : receive.source.userId}).message('test').send();
             break;
           }
         }
