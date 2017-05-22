@@ -186,7 +186,7 @@ app.get('/redirect', async(function *(req, res) {
           throw Error('cannot find userId')
         }
         redisClient.del(req.query.secret)
-        const newUser = UserModel({
+        const newUser = new UserModel({
           line : {
             userId : userId
           }
