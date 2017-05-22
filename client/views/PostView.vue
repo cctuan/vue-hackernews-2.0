@@ -118,7 +118,7 @@ export default {
         case 'login': {
           location.href="https://line.me/R/ti/p/%401shot"
           break
-        },
+        }
         case 'home': {
           this.$router.push({ path: `/` })
           break
