@@ -10,6 +10,7 @@ const cookieSession = require('cookie-session')
 const bodyParser = require('body-parser')
 const session = require('express-session')
 const mongoStore = require('connect-mongo')(session)
+const uuidV5 = require('uuid/v5')
 
 const LineBotSDK = require('line-bot-sdk-nodejs')
 const favicon = require('serve-favicon')
@@ -169,6 +170,7 @@ app.post('/webhook', (req, res) => {
       case LineBotSDK.EVENT_TYPES.MESSAGE: {
         switch (receive.message.type) {
           case LineBotSDK.CONTENT_TYPES.TEXT: {
+
             LINEClient.to({userId : receive.source.userId}).message('text').send();
             break;
           }
@@ -186,7 +188,9 @@ const handleLINEMessage = (event) => {
   }
   if (event.message.text === LINE_LOGIN_MESSAGE) {
     // use reply API
-    return LINEClient.replyMessage(event.replyToken,  { type: 'text', text: 'receive correct message' })
+    const hashId = uuidV5(event.source.userId, 'UID')
+
+    return LINEClient.replyMessage(event.replyToken,  { type: 'text', text: hashId })
   }
 
   // use reply API
