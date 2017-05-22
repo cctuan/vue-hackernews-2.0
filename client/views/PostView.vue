@@ -1,19 +1,22 @@
 <template>
-  <div class="post-view">
-    <div class="page-content">
-      <div class="card demo-card-header-pic">
-        <div v-lazyimg="post.thumb.current ? post.thumb.current.secure_url : ''" style=""
-          valign="bottom" :class="_imageClassObject"></div>
-        <post-basic-information v-bind="post" />
-      </div>
-      <menu-dialog :actions="menuActions" :display="menuDisplay"
-        :position="menuPosition" v-on:close="menuDisplay=false"
-        v-on:select="onMenuClick"/>
-    </div>
-  </div>
+	<div class="post-view">
+		<div class="page-content">
+			<div class="card demo-card-header-pic">
+				<div v-lazyimg="post.thumb.current ? post.thumb.current.secure_url : ''" style="" valign="bottom" :class="_imageClassObject"></div>
+				<post-basic-information v-bind="post" />
+			</div>
+			<menu-dialog :actions="menuActions" :display="menuDisplay" :position="menuPosition" v-on:close="menuDisplay=false" v-on:select="onMenuClick"
+			/>
+		</div>
+	</div>
 </template>
 
 <script>
+import {
+  isFBWebView
+} from '../plugins/userAgent'
+import bowser from 'bowser'
+
 import MenuDialog from 'components/MenuDialog.vue'
 import PostBasicInformation from 'components/PostBasicInformation.vue'
 import {
@@ -66,6 +69,11 @@ export default {
           name: '刪除',
           type: 'delete'
         })
+      } else if (bowser.mobile){
+        menuActions.push({
+          name: '登入',
+          type: 'login'
+        })
       }
       return menuActions
     },
@@ -107,6 +115,10 @@ export default {
   methods: {
     onMenuClick(action) {
       switch (action.type) {
+        case 'login': {
+          location.href="https://line.me/R/ti/p/%401shot"
+          break
+        },
         case 'home': {
           this.$router.push({ path: `/` })
           break
@@ -148,10 +160,5 @@ export default {
 }
 </script>
 <style lang="stylus">
-.post-view
-  .thumb-container
-    padding-bottom 58%
-    background-repeat no-repeat
-    background-size contain
-    background-position center
+	.post-view .thumb-container padding-bottom 58% background-repeat no-repeat background-size contain background-position center
 </style>

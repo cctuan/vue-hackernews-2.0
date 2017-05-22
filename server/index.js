@@ -233,7 +233,7 @@ app.post('/webhook', (req, res) => {
 
               redisClient.set(hashId, userId, 'EX', REDIS_EXPIRE_TIME)
               LINEClient.to({userId : userId})
-                .message(ROOT_PATH + '/redirect' + '?secret=' + hashId)
+                .message(ROOT_PATH + '/redirect' + '?secret=' + hashId + '&openExternalBrowser=1')
                 .send();
               return
             }
